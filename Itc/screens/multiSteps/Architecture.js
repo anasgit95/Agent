@@ -11,41 +11,61 @@
  import Head from '../components/Head'
  import InputView from '../components/InputView';
  // import DropDownPicker from 'react-native-dropdown-picker';
- import DropDownPicker from 'react-native-dropdown-picker';
+//  import DropDownPicker from 'react-native-dropdown-picker';
  import NextStep from '../components/NextSteps'
  import { Dimensions } from 'react-native';
- import { RadioButton,Checkbox } from 'react-native-paper';
- 
+ import { RadioButton } from 'react-native-paper';
+ import { AsyncStorage } from 'react-native';
+import { useEffect } from 'react';
  const Architecture: () => Node = ({ setActiveSteps }) => {
      const windowHeight = Dimensions.get('window').height;
-     const [checked, setChecked] = React.useState('first');
- 
-     const [open, setOpen] = useState(false);
-     const [openTechnique, setOpenTechnique] = useState(false);
- 
-     const [value, setValue] = useState(null);
-     const [valueTechnique, setValueTechnique] = useState(null);
+     const [surfacehabtable, setSurfaceHabtable] = useState();
+     const [lvlNumber, setLvlNumber] = useState();
+     const [platFondLvl, setPlatFondLvl] = React.useState("Comble non aménagés");
+     const [plancherBas, setPlancherBas] = React.useState("Sur terre plein");
+
+     
  
      const [items, setItems] = useState([
-         { label: 'Améliorer le confort thermique', value: 'MI' },
-         { label: 'Embellir le logement', value: 'Ap' },
-         { label: 'Faire des économies', value: 'Lc' },
-         { label: 'Augmenter la valeur du bien immobilier', value: 'T' },
-         { label: 'Adapter le logement ', value: 'Ts' },
-         { label: "Réduire l'empreinte environnementale ", value: 'Tsa' },
-         { label: "Résoudre une panne /une dégradation ", value: 'Tdqsdqs' },
- 
-     ]);
-     const [technique, setItemsTechnique] = useState([
-         { label: 'oui je sais ce que je veux', value: 'MI' },
-         { label: "oui j'ai une idée mais je suis ouvert à d'autre propositions", value: 'Ap' },
-         { label: "seulement en partie ", value: 'Lc' },
-         { label: 'Non', value: 'T' },
- 
- 
-     ]);
+        { label: 'Maison individuelle', value: 'MI' },
+        { label: 'Appartement', value: 'Ap' },
+        { label: 'Logement collectif', value: 'Lc' },
+        { label: 'Teritiare', value: 'T' },
+
+
+
+    ]);
+     
      const [date, setDate] = useState(new Date());
  
+
+
+     async function fetchData() {
+        try {
+            const value = JSON.parse(await AsyncStorage.getItem('Architecture'));
+            
+            if (value !== null) {
+                 setLvlNumber(value.lvlNumber)
+                setSurfaceHabtable(value.surfacehabtable)
+                setPlatFondLvl(value.platFondLvl)
+                setPlancherBas(value.plancherBas)
+               
+            }
+        } catch (error) {
+            console.log(error)
+            // Error retrieving data
+        }
+        // ...
+    }
+    useEffect(() => {
+
+        fetchData();
+
+
+
+
+    }, []);
+
      const onChange = (event, selectedDate) => {
          const currentDate = selectedDate || date;
          setDate(currentDate);
@@ -85,36 +105,40 @@
                          <TextInput
                              style={styles.inputText}
                              placeholder="Surface habtable"
+                             keyboardType="numeric"
+                             value={surfacehabtable}
                              placeholderTextColor="#003f5c"
-                             onChangeText={text => console.log(text)} />
+                             onChangeText={setSurfaceHabtable} />
                      </InputView>
                      <InputView>
                          <TextInput
                              style={styles.inputText}
                              placeholder="Nombre de niveaux"
+                             keyboardType="numeric"
+                             value={lvlNumber}
                              placeholderTextColor="#003f5c"
-                             onChangeText={text => console.log(text)} />
+                             onChangeText={setLvlNumber} />
                      </InputView>
                      <Text style={{ paddingTop: 10, fontWeight: "bold" }}>Niveau du plafond ?</Text>
  
-                     <RadioButton.Group onValueChange={newValue => setChecked(newValue)} value={checked}>
+                     <RadioButton.Group onValueChange={setPlatFondLvl} value={platFondLvl}>
  
                      <View style={{display:"flex", flexDirection: "row", justifyContent: "space-around", width: "100%", marginTop: 10 }}>
  
                              <View style={{ flexDirection: "row",flex:1 }}>
-                                 <RadioButton value="first" />
+                                 <RadioButton value="Comble non aménagés" />
                                  <Text style={{ paddingTop: 10 }}>Comble non aménagés</Text>
  
                              </View>
                              <View style={{ flexDirection: "row",flex:1.3}}>
-                                 <RadioButton value="second" />
+                                 <RadioButton value="Comble aménagés" />
                                  <Text style={{ paddingTop: 10 }}>Comble aménagés</Text>
  
  
  
                              </View>
                              <View style={{ flexDirection: "row",flex:0.6 }}>
-                                 <RadioButton value="second" />
+                                 <RadioButton value="Toiture terrasse" />
                                  <Text style={{ paddingTop: 10 }}>Toiture terrasse</Text>
  
  
@@ -134,17 +158,17 @@
  
                      <Text style={{ paddingTop: 10, fontWeight: "bold" }}>Nature du plancher bas ?</Text>
  
- <RadioButton.Group onValueChange={newValue => setChecked(newValue)} value={checked}>
+ <RadioButton.Group onValueChange={setPlancherBas} value={plancherBas}>
 
  <View style={{display:"flex", flexDirection: "row", justifyContent: "space-around", width: "100%", marginTop: 10 }}>
 
          <View style={{ flexDirection: "row",flex:1 }}>
-             <RadioButton value="first" />
+             <RadioButton value="Sur terre plein" />
              <Text style={{ paddingTop: 10 }}>Sur terre plein </Text>
 
          </View>
          <View style={{ flexDirection: "row",flex:1.3}}>
-             <RadioButton value="second" />
+             <RadioButton value="Sur vide sanitaires" />
              <Text style={{ paddingTop: 10 }}>Sur vide sanitaires</Text>
 
 
@@ -189,7 +213,35 @@
                  </View>
              </ScrollView>
  
-             <NextStep onPress={() => setActiveSteps(3)} />
+             <NextStep  onPress={async () => {
+
+
+let gener = {
+    surfacehabtable,
+    lvlNumber,
+    platFondLvl,
+    plancherBas,
+     
+
+}
+try {
+    await AsyncStorage.setItem(
+        'Architecture',
+        JSON.stringify(gener)
+    );
+    await AsyncStorage.setItem(
+        'activeStep',
+        JSON.stringify(3)
+    );
+} catch (error) {
+    console.log("error", error)
+    // Error saving data
+}
+
+setActiveSteps(3)
+
+
+}}  />
  
          </View>
      );

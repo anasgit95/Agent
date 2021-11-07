@@ -12,11 +12,35 @@ import Generaliter from './Generalite';
 import Context from './Context'
 import Architecture  from './Architecture';
 import Repartion from './RepartitionMur/index'
+import { AsyncStorage } from 'react-native';
+import { useEffect } from 'react';
 const App: () => Node = () => {
  
     const [activeStep, setActiveSteps] = useState(0);
-   console.log(activeStep)
-  return (
+    async function fetchData() {
+      try {
+          const value = JSON.parse(await AsyncStorage.getItem('activeStep'));
+          
+          if (value !== null) {
+            setActiveSteps(value)
+             
+          }
+      } catch (error) {
+          console.log(error)
+          // Error retrieving data
+      }
+      // ...
+  }
+  useEffect(() => {
+
+      fetchData();
+
+
+
+
+  }, []);
+
+   return (
    <View> 
        {activeStep===0? 
     <Generaliter setActiveSteps={setActiveSteps}/>

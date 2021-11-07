@@ -15,17 +15,27 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import NextStep from '../components/NextSteps'
 import { Dimensions } from 'react-native';
 import { RadioButton } from 'react-native-paper';
+import { AsyncStorage } from 'react-native';
+import { useEffect } from 'react';
+DropDownPicker.setMode("BADGE");
 
-const Context: () => Node = ({ setActiveSteps }) => {
+ const Context: () => Node = ({ setActiveSteps }) => {
     const windowHeight = Dimensions.get('window').height;
-    const [checked, setChecked] = React.useState('first');
+    const windowWidth = Dimensions.get('window').width;
 
+    const [occupation, setOccupation] = React.useState('Oui');
+    const [logement, setLogement] = React.useState('Depuis plus de 2ans');
+    const [confortHiver, setConfortHiver] = React.useState('Mauvais');
+    const [confortEte, setConforEte] = React.useState('Mauvais');
+    const [confortAccoutique, setConfortAccoustique] = React.useState('Mauvais');
+    const [profond, setProfond] = React.useState('< 20593');
+    const [certificatEco, setCertificatEco] = React.useState('Oui');
+    const [extensionBatimant, setExtensionBattimant] = React.useState('Oui');
+    const [priority, setPriority] = useState(null);
+    const [valueTechnique, setValueTechnique] = useState(null);
+    const [solution, setSolutions] = useState();
     const [open, setOpen] = useState(false);
     const [openTechnique, setOpenTechnique] = useState(false);
-
-    const [value, setValue] = useState(null);
-    const [valueTechnique, setValueTechnique] = useState(null);
-
     const [items, setItems] = useState([
         { label: 'Améliorer le confort thermique', value: 'MI' },
         { label: 'Embellir le logement', value: 'Ap' },
@@ -50,14 +60,42 @@ const Context: () => Node = ({ setActiveSteps }) => {
         const currentDate = selectedDate || date;
         setDate(currentDate);
     };
+    async function fetchData() {
+        try {
+            const value = JSON.parse(await AsyncStorage.getItem('Context'));
+            if (value !== null) {
+                setOccupation(value.occupation)
+                setLogement(value.logement)
+                setConforEte(value.confortEte)
+                setConfortAccoustique(value.confortAccoutique)
+                setProfond(value.profond)
+                setCertificatEco(value.certificatEco)
+                setExtensionBattimant(value.extensionBatimant)
+                setPriority(value.priority)
+                setValueTechnique(value.valueTechnique)
+                setSolutions(value.solution)
+            }
+        } catch (error) {
+            console.log(error)
+            // Error retrieving data
+        }
+        // ...
+    }
+    useEffect(() => {
 
+        fetchData();
+
+
+
+
+    }, []);
 
     return (
         <View style={{
             alignItems: 'center',
             minHeight: windowHeight,
             position: "relative",
-            paddingBottom:40
+            paddingBottom: 40
         }}>
             <Head title={"CONTEXTE"} />
             <ScrollView
@@ -71,13 +109,13 @@ const Context: () => Node = ({ setActiveSteps }) => {
                 }}>
 
 
-                <View
-                    style={{
-
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        width: "83%"
-                    }}>
+<View
+                     style={{
+ 
+                         alignItems: 'center',
+                         justifyContent: 'center',
+                         width: "88%"
+                     }}>
 
 
 
@@ -92,30 +130,31 @@ const Context: () => Node = ({ setActiveSteps }) => {
                             listMode="SCROLLVIEW"
                             scrollViewProps={{
                                 nestedScrollEnabled: true,
+                                zIndex: 5000
                             }}
-                            style={{ borderColor: "transparent", zIndex: 50000 }}
+                            style={{ marginTop: 10, borderColor: "#006593" }}
                             placeholder="Priorités du client"
                             open={open}
                             multiple={true}
-                            value={value}
+                            value={priority}
                             items={items}
                             setOpen={setOpen}
-                            setValue={setValue}
-                            setItems={setItems}
+                            setValue={setPriority}
+                            setItems={priority}
                         />
                     </View>
                     <View style={{
-                        width: "80%",
-
-
+ 
+width:"80%"
 
                     }}>
                         <DropDownPicker
+ 
                             listMode="SCROLLVIEW"
                             scrollViewProps={{
                                 nestedScrollEnabled: true,
                             }}
-                            style={{ borderColor: "transparent", zIndex: 50000 }}
+                            style={{ marginTop: 10, borderColor: "#006593", zIndex: 1 }}
                             placeholder="Solutions technique"
                             open={openTechnique}
                             multiple={true}
@@ -131,20 +170,21 @@ const Context: () => Node = ({ setActiveSteps }) => {
                             style={styles.inputText}
                             placeholder="Décrire la solution"
                             placeholderTextColor="#003f5c"
-                            onChangeText={text => console.log(text)} />
+                            value={solution}
+                            onChangeText={setSolutions} />
                     </InputView>
                     <Text style={{ paddingTop: 10, fontWeight: "bold" }}>Occupation de logement ?</Text>
 
-                    <RadioButton.Group onValueChange={newValue => setChecked(newValue)} value={checked}>
+                    <RadioButton.Group onValueChange={setLogement} value={logement}>
 
-                    <View style={{display:"flex", flexDirection: "row", justifyContent: "flex-start", width: "100%", marginLeft: "10%", marginTop: 10 }}>
+                        <View style={{ display: "flex", flexDirection: "row", justifyContent: "flex-start", width: "100%", marginLeft: "10%", marginTop: 10 }}>
 
-                            <View style={{ flexDirection: "row",flex:1 }}>
-                                <RadioButton value="first" />
+                            <View style={{ flexDirection: "row", flex: 1 }}>
+                                <RadioButton value="Depuis plus de 2ans" />
                                 <Text style={{ paddingTop: 10 }}>Depuis plus de 2ans</Text>
 
                             </View>
-                            <View style={{ flexDirection: "row",flex:1 }}>
+                            <View style={{ flexDirection: "row", flex: 1 }}>
                                 <RadioButton value="second" />
                                 <Text style={{ paddingTop: 10 }}>Depuis moins de 2ans</Text>
 
@@ -156,24 +196,24 @@ const Context: () => Node = ({ setActiveSteps }) => {
 
                     <Text style={{ paddingTop: 10, fontWeight: "bold" }}>Logement occupé pendant les travaux?</Text>
 
-                    <RadioButton.Group onValueChange={newValue => setChecked(newValue)} value={checked}>
+                    <RadioButton.Group onValueChange={newValue => setOccupation(newValue)} value={occupation}>
 
-                        <View style={{display:"flex", flexDirection: "row", justifyContent: "flex-start", width: "100%", marginLeft: "10%", marginTop: 10 }}>
+                        <View style={{ display: "flex", flexDirection: "row", justifyContent: "flex-start", width: "100%", marginLeft: "10%", marginTop: 10 }}>
 
-                            <View style={{ flexDirection: "row" ,flex:1}}>
-                                <RadioButton value="first" />
+                            <View style={{ flexDirection: "row", flex: 1 }}>
+                                <RadioButton value="Oui" />
                                 <Text style={{ paddingTop: 10 }}>Oui</Text>
 
                             </View>
-                            <View style={{ flexDirection: "row" ,flex:1}}>
-                                <RadioButton value="second" />
+                            <View style={{ flexDirection: "row", flex: 1 }}>
+                                <RadioButton value="Non" />
                                 <Text style={{ paddingTop: 10 }}>Non</Text>
 
 
 
                             </View>
-                            <View style={{ flexDirection: "row" ,flex:1}}>
-                                <RadioButton value="second" />
+                            <View style={{ flexDirection: "row", flex: 1 }}>
+                                <RadioButton value="Ne sais pas" />
                                 <Text style={{ paddingTop: 10 }}>Ne sais pas</Text>
 
 
@@ -183,25 +223,24 @@ const Context: () => Node = ({ setActiveSteps }) => {
                     </RadioButton.Group>
 
                     <Text style={{ paddingTop: 10, fontWeight: "bold" }}>Niveaux de confort ?</Text>
+                    <RadioButton.Group onValueChange={newValue => setConfortHiver(newValue)} value={confortHiver}>
 
-                    <RadioButton.Group onValueChange={newValue => setChecked(newValue)} value={checked}>
+                        <View style={{ display: "flex", flexDirection: "row", justifyContent: "flex-start", width: "100%", marginLeft: "10%", marginTop: 10 }}>
+                            <Text style={{ paddingTop: 10, fontWeight: "bold", flex: 2 }}>Hiver :</Text>
 
-                        <View style={{ display:"flex",flexDirection: "row", justifyContent: "flex-start", width: "100%", marginLeft: "10%", marginTop: 10 }}>
-                            <Text style={{ paddingTop: 10, fontWeight: "bold",flex:2}}>Hiver :</Text>
-
-                            <View style={{ flexDirection: "row",flex:2 }}>
+                            <View style={{ flexDirection: "row", flex: 2 }}>
                                 <Text style={{ paddingTop: 10 }}>Mauvais</Text>
-                                <RadioButton value="first" />
+                                <RadioButton value="Mauvais" />
                             </View>
-                            <View style={{ flexDirection: "row",flex:2 }}>
+                            <View style={{ flexDirection: "row", flex: 2 }}>
                                 <Text style={{ paddingTop: 10 }}>Correct</Text>
-                                <RadioButton value="second" />
+                                <RadioButton value="Correct" />
 
 
                             </View>
-                            <View style={{ flexDirection: "row",flex:2 }}>
+                            <View style={{ flexDirection: "row", flex: 2 }}>
                                 <Text style={{ paddingTop: 10 }}>Bon</Text>
-                                <RadioButton value="second" />
+                                <RadioButton value="Bon" />
 
 
                             </View>
@@ -213,26 +252,24 @@ const Context: () => Node = ({ setActiveSteps }) => {
 
 
 
+                    <RadioButton.Group onValueChange={newValue => setConforEte(newValue)} value={confortEte}>
 
+                        <View style={{ display: "flex", flexDirection: "row", justifyContent: "flex-start", width: "100%", marginLeft: "10%", marginTop: 10 }}>
+                            <Text style={{ paddingTop: 10, fontWeight: "bold", flex: 2 }}>Eté :</Text>
 
-                    <RadioButton.Group onValueChange={newValue => setChecked(newValue)} value={checked}>
-
-                    <View style={{ display:"flex",flexDirection: "row", justifyContent: "flex-start", width: "100%", marginLeft: "10%", marginTop: 10 }}>
-                            <Text style={{ paddingTop: 10, fontWeight: "bold",flex:2 }}>Eté :</Text>
-
-                            <View style={{ flexDirection: "row",flex:2 }}>
+                            <View style={{ flexDirection: "row", flex: 2 }}>
                                 <Text style={{ paddingTop: 10 }}>Mauvais</Text>
-                                <RadioButton value="first" />
+                                <RadioButton value="Mauvais" />
                             </View>
-                            <View style={{ flexDirection: "row",flex:2 }}>
+                            <View style={{ flexDirection: "row", flex: 2 }}>
                                 <Text style={{ paddingTop: 10 }}>Correct</Text>
-                                <RadioButton value="second" />
+                                <RadioButton value="Correct" />
 
 
                             </View>
-                            <View style={{ flexDirection: "row",flex:2 }}>
+                            <View style={{ flexDirection: "row", flex: 2 }}>
                                 <Text style={{ paddingTop: 10 }}>Bon</Text>
-                                <RadioButton value="second" />
+                                <RadioButton value="Bon" />
 
 
                             </View>
@@ -243,24 +280,24 @@ const Context: () => Node = ({ setActiveSteps }) => {
                     </RadioButton.Group>
 
 
-                    <RadioButton.Group onValueChange={newValue => setChecked(newValue)} value={checked}>
+                    <RadioButton.Group onValueChange={newValue => setConfortAccoustique(newValue)} value={confortAccoutique}>
 
-                    <View style={{ display:"flex",flexDirection: "row", justifyContent: "flex-start", width: "100%", marginLeft: "10%", marginTop: 10 }}>
-                            <Text style={{ paddingTop: 10, fontWeight: "bold",flex:2 }}>Accoustique :</Text>
+                        <View style={{ display: "flex", flexDirection: "row", justifyContent: "flex-start", width: "100%", marginLeft: "10%", marginTop: 10 }}>
+                            <Text style={{ paddingTop: 10, fontWeight: "bold", flex: 2 }}>Accoustique :</Text>
 
-                            <View style={{ flexDirection: "row",flex:2 }}>
+                            <View style={{ flexDirection: "row", flex: 2 }}>
                                 <Text style={{ paddingTop: 10 }}>Mauvais</Text>
-                                <RadioButton value="first" />
+                                <RadioButton value="Mauvais" />
                             </View>
-                            <View style={{ flexDirection: "row",flex:2 }}>
+                            <View style={{ flexDirection: "row", flex: 2 }}>
                                 <Text style={{ paddingTop: 10 }}>Correct</Text>
-                                <RadioButton value="second" />
+                                <RadioButton value="Correct" />
 
 
                             </View>
-                            <View style={{ flexDirection: "row",flex:2 }}>
+                            <View style={{ flexDirection: "row", flex: 2 }}>
                                 <Text style={{ paddingTop: 10 }}>Bon</Text>
-                                <RadioButton value="second" />
+                                <RadioButton value="Bon" />
 
 
                             </View>
@@ -276,80 +313,82 @@ const Context: () => Node = ({ setActiveSteps }) => {
 
                     <Text style={{ paddingTop: 10, fontWeight: "bold" }}>Profond de ressource ?</Text>
 
-<RadioButton.Group onValueChange={newValue => setChecked(newValue)} value={checked}>
+                    <RadioButton.Group onValueChange={newValue => setProfond(newValue)} value={profond}>
 
-    <View style={{ flexDirection: "row", justifyContent: "flex-start", width: "100%", marginLeft: "10%", marginTop: 10 }}>
- 
-    <View style={{ flexDirection: "row",flex:1 }}>
-            <RadioButton value="first" />
-            <Text style={{ paddingTop: 10 }}>{"< 20593"}</Text>
+                        <View style={{ flexDirection: "row", justifyContent: "flex-start", width: "100%", marginLeft: "10%", marginTop: 10 }}>
 
-        </View>
-        <View style={{ flexDirection: "row",flex:1 }}>
-            <RadioButton value="second" />
-            <Text style={{ paddingTop: 10 }}>entre 42381 et 51597</Text>
+                            <View style={{ flexDirection: "row", flex: 1 }}>
+                                <RadioButton value="< 20593" />
+                                <Text style={{ paddingTop: 10 }}>{"< 20593"}</Text>
 
-
-        </View>
-       
-    </View>
+                            </View>
+                            <View style={{ flexDirection: "row", flex: 1 }}>
+                                <RadioButton value="entre 42381 et 51597" />
+                                <Text style={{ paddingTop: 10 }}>entre 42381 et 51597</Text>
 
 
-    <View style={{ flexDirection: "row", justifyContent: "flex-start", width: "100%", marginLeft: "10%", marginTop: 10,display:"flex" }}>
- 
-        <View style={{ flexDirection: "row",flex:1 }}>
-            <RadioButton value="third" />
-            <Text style={{ paddingTop: 10 }}>{"entre 30225 et 36792"}</Text>
+                            </View>
 
-        </View>
-        <View style={{ flexDirection: "row",flex:1 }}>
-            <RadioButton value="four" />
-
-            <Text style={{ paddingTop: 10 }}>entre 48488 et 59026</Text>
-
-        </View>
-       
-    </View> 
-    <View style={{ flexDirection: "row", justifyContent: "flex-start", width: "100%", marginLeft: "10%", marginTop: 10 }}>
- 
-    <View style={{ flexDirection: "row",flex:1 }}>
-     <RadioButton value="five" />
-     <Text style={{ paddingTop: 10 }}>{"Entre 36792 et 44124 "}</Text>
-
- </View>
- <View style={{ flexDirection: "row",flex:1 }}>
-     <RadioButton value="second" />
-     <Text style={{ paddingTop: 10 }}>Préciser</Text>
+                        </View>
 
 
- </View>
+                        <View style={{ flexDirection: "row", justifyContent: "flex-start", width: "100%", marginLeft: "10%", marginTop: 10, display: "flex" }}>
 
-</View> 
+                            <View style={{ flexDirection: "row", flex: 1 }}>
+                                <RadioButton value="entre 30225 et 36792" />
+                                <Text style={{ paddingTop: 10 }}>{"entre 30225 et 36792"}</Text>
 
-</RadioButton.Group>
+                            </View>
+                            <View style={{ flexDirection: "row", flex: 1 }}>
+                                <RadioButton value="entre 48488 et 59026" />
+
+                                <Text style={{ paddingTop: 10 }}>entre 48488 et 59026</Text>
+
+                            </View>
+
+                        </View>
+                        <View style={{ flexDirection: "row", justifyContent: "flex-start", width: "100%", marginLeft: "10%", marginTop: 10 }}>
+
+                            <View style={{ flexDirection: "row", flex: 1 }}>
+                                <RadioButton value="Entre 36792 et 44124" />
+                                <Text style={{ paddingTop: 10 }}>{"Entre 36792 et 44124"}</Text>
+
+                            </View>
+                            <View style={{ flexDirection: "row", flex: 1 }}>
+                                <RadioButton value="Préciser" />
+                                <Text style={{ paddingTop: 10 }}>Préciser</Text>
+
+
+                            </View>
+
+                        </View>
+
+                    </RadioButton.Group>
 
 
 
 
-<Text style={{ paddingTop: 10, fontWeight: "bold" }}>*/ Photo copie dernier d'imposition ?</Text>
-<Text style={{ paddingTop: 10, fontWeight: "bold" }}>Projet béneficiant des certificates d'économies d'énergie  ?</Text>
+                    <Text style={{ paddingTop: 10, fontWeight: "bold" }}>*/ Photo copie dernier d'imposition ?</Text>
+                    <Text style={{ paddingTop: 10, fontWeight: "bold" }}>Projet béneficiant des certificates d'économies d'énergie  ?</Text>
 
 
-                    <RadioButton.Group onValueChange={newValue => setChecked(newValue)} value={checked}>
+                    <RadioButton.Group
+                        onValueChange={setCertificatEco} value={certificatEco}
+                    >
 
                         <View style={{ flexDirection: "row", justifyContent: "space-around", width: "100%", marginLeft: "10%", marginTop: 10 }}>
- 
+
                             <View style={{ flexDirection: "row" }}>
                                 <Text style={{ paddingTop: 10 }}>Oui </Text>
-                                <RadioButton value="first" />
+                                <RadioButton value="Oui" />
                             </View>
                             <View style={{ flexDirection: "row" }}>
                                 <Text style={{ paddingTop: 10 }}>Non</Text>
-                                <RadioButton value="second" />
+                                <RadioButton value="Non" />
 
 
                             </View>
-                            
+
                         </View>
 
 
@@ -367,28 +406,30 @@ const Context: () => Node = ({ setActiveSteps }) => {
                     <Text style={{ paddingTop: 10, fontWeight: "bold" }}>Extension Effectué au batimant   ?</Text>
 
 
-<RadioButton.Group onValueChange={newValue => setChecked(newValue)} value={checked}>
+                    <RadioButton.Group
+                        onValueChange={setExtensionBattimant} value={extensionBatimant}
+                    >
 
-    <View style={{ flexDirection: "row", justifyContent: "space-around", width: "100%", marginLeft: "10%", marginTop: 10 }}>
+                        <View style={{ flexDirection: "row", justifyContent: "space-around", width: "100%", marginLeft: "10%", marginTop: 10 }}>
 
-        <View style={{ flexDirection: "row" }}>
-            <Text style={{ paddingTop: 10 }}>Oui </Text>
-            <RadioButton value="first" />
-        </View>
-        <View style={{ flexDirection: "row" }}>
-            <Text style={{ paddingTop: 10 }}>Non</Text>
-            <RadioButton value="second" />
+                            <View style={{ flexDirection: "row" }}>
+                                <Text style={{ paddingTop: 10 }}>Oui </Text>
+                                <RadioButton value="Oui" />
+                            </View>
+                            <View style={{ flexDirection: "row" }}>
+                                <Text style={{ paddingTop: 10 }}>Non</Text>
+                                <RadioButton value="Non" />
 
 
-        </View>
-        
-    </View>
+                            </View>
 
-    
+                        </View>
 
-</RadioButton.Group>
 
-<InputView>
+
+                    </RadioButton.Group>
+
+                    <InputView>
                         <TextInput
                             style={styles.inputText}
                             placeholder="Date d'extension"
@@ -399,7 +440,45 @@ const Context: () => Node = ({ setActiveSteps }) => {
                 </View>
             </ScrollView>
 
-            <NextStep onPress={() => setActiveSteps(2)} />
+            <NextStep onPress={async () => {
+
+
+                let gener = {
+                    occupation,
+                    logement,
+                    confortHiver,
+                    confortAccoutique,
+                    confortEte,
+                    profond,
+                    certificatEco,
+                    priority,
+                    extensionBatimant,
+                    valueTechnique,
+                    solution,
+
+
+
+
+
+                }
+                try {
+                    await AsyncStorage.setItem(
+                        'Context',
+                        JSON.stringify(gener)
+                    );
+                    await AsyncStorage.setItem(
+                        'activeStep',
+                        JSON.stringify(2)
+                    );
+                } catch (error) {
+                    console.log("error", error)
+                    // Error saving data
+                }
+
+                setActiveSteps(2)
+
+
+            }} />
 
         </View>
     );

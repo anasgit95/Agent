@@ -8,52 +8,31 @@
 
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native';
-import Head from '../../components/Head'
-import InputView from '../../components/InputView';
+ import InputView from '../../components/InputView';
 // import DropDownPicker from 'react-native-dropdown-picker';
-import DropDownPicker from 'react-native-dropdown-picker';
-import NextStep from '../../components/NextSteps'
+ import NextStep from '../../components/NextSteps'
 import { Dimensions } from 'react-native';
-import { RadioButton, Checkbox } from 'react-native-paper';
-import AntDesign from 'react-native-vector-icons/AntDesign'
-
+ import AntDesign from 'react-native-vector-icons/AntDesign'
+import AddRepartition from './AddRepartition';
 const RepartitionMur: () => Node = ({ setActiveSteps }) => {
     const windowHeight = Dimensions.get('window').height;
     const windowWidth = Dimensions.get('window').width;
 
-    const [checked, setChecked] = React.useState('first');
+ 
+   
 
-    const [open, setOpen] = useState(false);
-    const [openTechnique, setOpenTechnique] = useState(false);
+     const [mur, setMur] = useState([]);
 
-    const [value, setValue] = useState(null);
-    const [mur, setMur] = useState([]);
-
-    const [items, setItems] = useState([
-        { label: 'Améliorer le confort thermique', value: 'MI' },
-        { label: 'Embellir le logement', value: 'Ap' },
-        { label: 'Faire des économies', value: 'Lc' },
-        { label: 'Augmenter la valeur du bien immobilier', value: 'T' },
-        { label: 'Adapter le logement ', value: 'Ts' },
-        { label: "Réduire l'empreinte environnementale ", value: 'Tsa' },
-        { label: "Résoudre une panne /une dégradation ", value: 'Tdqsdqs' },
-
-    ]);
-    const [technique, setItemsTechnique] = useState([
-        { label: 'oui je sais ce que je veux', value: 'MI' },
-        { label: "oui j'ai une idée mais je suis ouvert à d'autre propositions", value: 'Ap' },
-        { label: "seulement en partie ", value: 'Lc' },
-        { label: 'Non', value: 'T' },
-
-
-    ]);
-    const [date, setDate] = useState(new Date());
-    const [add, setAdd] = useState(false);
+  
+     const [add, setAdd] = useState(false);
 
 
 
 
     return (
+        add?
+        <AddRepartition setAdd={setAdd} mur={mur} setMur={setMur}/>
+        :
         <View style={{
             alignItems: 'center',
             minHeight: windowHeight,
