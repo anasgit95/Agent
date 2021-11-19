@@ -12,32 +12,39 @@ import InputView from '../../components/InputView';
 // import DropDownPicker from 'react-native-dropdown-picker';
 import NextStep from '../../components/NextSteps'
 import { Dimensions } from 'react-native';
-import AntDesign from 'react-native-vector-icons/AntDesign'
-import AddRepartition from './AddRepartition';
-import { AsyncStorage } from 'react-native';
+ import { AsyncStorage } from 'react-native';
 import { useEffect } from 'react';
-import EditRepartition from './EditRepartition';
-const RepartitionMur: () => Node = ({ setActiveSteps }) => {
+import EditPorte from './EditPorte';
+import Head from '../../components/Head';
+const OuvrantType: () => Node = ({ setActiveSteps }) => {
     const windowHeight = Dimensions.get('window').height;
     const windowWidth = Dimensions.get('window').width;
 
 
 
 
-    const [mur, setMur] = useState([]);
+    const [mur, setMur] = useState([
+        { Type: "P1", id: 1 },
+        { Type: "P2", id: 2 },
+ 
+    ]);
     const [edit, setEdit] = useState(false);
     const [murToEdit, setMurToEdit] = useState();
     const [index, setIndex] = useState();
 
 
-    const [add, setAdd] = useState(false);
-
+ 
     async function fetchData() {
         try {
-            const value = JSON.parse(await AsyncStorage.getItem('Repartition'));
-            if (value !== null) {
+            const value = JSON.parse(await AsyncStorage.getItem('Porte'));
+            if (value !== null && value.length > 0) {
+                console.log(value)
                 setMur(value)
             }
+            else  await AsyncStorage.setItem(
+                'Ouvrant',
+                JSON.stringify(mur)
+            );
         } catch (error) {
             console.log(error)
             // Error retrieving data
@@ -52,62 +59,46 @@ const RepartitionMur: () => Node = ({ setActiveSteps }) => {
 
 
     }, []);
-    useEffect(() => {
+    // useEffect(() => {
 
 
-        getMur()
+    //     getMur()
 
 
-    }, [mur]);
-    async function getMur() {
-        try {
-            await AsyncStorage.setItem(
-                'Repartition',
-                JSON.stringify(mur)
-            );
+    // }, [mur]);
+    // async function getMur() {
+    //     try {
+    //         await AsyncStorage.setItem(
+    //             'Ouvrant',
+    //             JSON.stringify(mur)
+    //         );
 
-        } catch (error) {
-            console.log("error", error)
-            // Error saving data
-        }
-    }
+    //     } catch (error) {
+    //         console.log("error", error)
+    //         // Error saving data
+    //     }
+    // }
     return (
-        add ?
-            <AddRepartition setAdd={setAdd}   setMur={setMur} />
-            :edit?
-            <EditRepartition 
-            index={index}
-            murs={mur}
-            setEdit={setEdit} 
-            mur={murToEdit} 
-            setMur={setMur} 
-            
+
+        edit ?
+            <EditPorte
+                index={index}
+                murs={mur}
+                setEdit={setEdit}
+                mur={murToEdit}
+                setMur={setMur}
+
             />
 
-            :<View style={{
+            : <View style={{
                 alignItems: 'center',
                 minHeight: windowHeight,
                 minWidth: windowWidth,
                 position: "relative",
                 paddingBottom: 40
             }}>
-                <View style={{ backgroundColor: "rgb(0,101,147)", textAlign: "center", justifyContent: "center", width: "100%", height: 80, display: "flex", position: "relative" }}>
-                    <Text style={{ textAlign: "center", fontWeight: "bold", fontSize: 20, color: "white" }}>
-                        Répartition mur
-                    </Text>
-                    <TouchableOpacity style={{ position: "absolute", right: 20 }} onPress={() => setAdd(true)}>
+            <Head title={"Porte"}  setActiveSteps={setActiveSteps}/>
 
-                        <AntDesign name="plus" color="white" size={30} />
-
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                    onPress={() => setActiveSteps(prev=>prev-1)}
-                    style={{ position: "absolute", left: 20, bottom: 20 }}>
-
-                    <AntDesign name="arrowleft" color="white" size={30} />
-
-                </TouchableOpacity>
-                </View>
 
 
                 <ScrollView
@@ -131,50 +122,43 @@ const RepartitionMur: () => Node = ({ setActiveSteps }) => {
                         }}>
 
 
-                        {mur.map((item,index) =>
-                        <TouchableOpacity style={{width:"100%",marginLeft:"20%"}} onPress={
+                        {mur.map((item, index) =>
+                            <TouchableOpacity key={index} style={{ width: "100%", marginLeft: "20%" }} onPress={
 
-                            ()=>{
-                                setIndex(index)
-                                setMurToEdit(item)
-                                setEdit(true)
-                            }
-                        }> 
-                            <InputView>
-                                <Text key={item.nomDeMur} style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 5 }}> {item.nomDeMur}</Text>
-                            </InputView>
+                                () => {
+                                    setIndex(index)
+                                    setMurToEdit(item)
+                                    setEdit(true)
+                                }
+                            }>
+                                <InputView>
+                                    <Text key={item.nomDeMur} style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 5 }}> {item.Type}</Text>
+                                </InputView>
                             </TouchableOpacity>
                         )}
-
-
-
-
-
-
 
 
 
                     </View>
                 </ScrollView>
 
-<NextStep onPress={async () => {
- 
-    try {
-  
-        await AsyncStorage.setItem(
-            'activeStep',
-            JSON.stringify(4)
-        );
-    } catch (error) {
-        console.log("error", error)
-        // Error saving data
-    }
+                <NextStep onPress={async () => {
 
-    setActiveSteps(4)
+                    try {
+
+                        await AsyncStorage.setItem(
+                            'activeStep',
+                            JSON.stringify(7)
+                        );
+                    } catch (error) {
+                        console.log("error", error)
+                        // Error saving data
+                    }
+
+                    setActiveSteps(7)
 
 
-}} />
-
+                }} />
             </View>
     );
 };
@@ -235,4 +219,4 @@ const styles = StyleSheet.create({
 
 
 
-export default RepartitionMur;
+export default OuvrantType;

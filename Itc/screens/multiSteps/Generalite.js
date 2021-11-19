@@ -73,15 +73,14 @@ const Generaliter: () => Node = ({setActiveSteps}) => {
         const currentDate = selectedDate || date;
         setDate(currentDate);
     };
-console.log(fullName)
-     return (
+      return (
         <View style={{
             alignItems: 'center',
             minHeight:windowHeight,
             justifyContent: 'center',
             position:"relative",
          }}>
-            <Head title={"GENERALITE"} />
+            <Head hide={true} title={"GENERALITE"}  setActiveSteps={setActiveSteps}/>
             <ScrollView
             nestedScrollEnabled={true}
              showsVerticalScrollIndicator={false}

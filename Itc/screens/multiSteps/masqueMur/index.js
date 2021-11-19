@@ -13,11 +13,11 @@ import InputView from '../../components/InputView';
 import NextStep from '../../components/NextSteps'
 import { Dimensions } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign'
-import AddRepartition from './AddRepartition';
+import AddMasque from './AddMasque';
 import { AsyncStorage } from 'react-native';
 import { useEffect } from 'react';
-import EditRepartition from './EditRepartition';
-const RepartitionMur: () => Node = ({ setActiveSteps }) => {
+import EditMasque from './EditMasque';
+const MasqueMur: () => Node = ({ setActiveSteps }) => {
     const windowHeight = Dimensions.get('window').height;
     const windowWidth = Dimensions.get('window').width;
 
@@ -34,10 +34,12 @@ const RepartitionMur: () => Node = ({ setActiveSteps }) => {
 
     async function fetchData() {
         try {
-            const value = JSON.parse(await AsyncStorage.getItem('Repartition'));
+            const value = JSON.parse(await AsyncStorage.getItem('MasqueMur'));
             if (value !== null) {
                 setMur(value)
             }
+            else setMur([])
+
         } catch (error) {
             console.log(error)
             // Error retrieving data
@@ -52,30 +54,30 @@ const RepartitionMur: () => Node = ({ setActiveSteps }) => {
 
 
     }, []);
-    useEffect(() => {
+    // useEffect(() => {
 
 
-        getMur()
+    //     getMur()
 
 
-    }, [mur]);
-    async function getMur() {
-        try {
-            await AsyncStorage.setItem(
-                'Repartition',
-                JSON.stringify(mur)
-            );
+    // }, [mur]);
+    // async function getMur() {
+    //     try {
+    //         await AsyncStorage.setItem(
+    //             'MasqueMur',
+    //             JSON.stringify(mur)
+    //         );
 
-        } catch (error) {
-            console.log("error", error)
-            // Error saving data
-        }
-    }
-    return (
+    //     } catch (error) {
+    //         console.log("error", error)
+    //         // Error saving data
+    //     }
+    // }
+     return (
         add ?
-            <AddRepartition setAdd={setAdd}   setMur={setMur} />
+            <AddMasque setAdd={setAdd}   setMur={setMur} />
             :edit?
-            <EditRepartition 
+            <EditMasque 
             index={index}
             murs={mur}
             setEdit={setEdit} 
@@ -93,7 +95,7 @@ const RepartitionMur: () => Node = ({ setActiveSteps }) => {
             }}>
                 <View style={{ backgroundColor: "rgb(0,101,147)", textAlign: "center", justifyContent: "center", width: "100%", height: 80, display: "flex", position: "relative" }}>
                     <Text style={{ textAlign: "center", fontWeight: "bold", fontSize: 20, color: "white" }}>
-                        Répartition mur
+                        Masque mur
                     </Text>
                     <TouchableOpacity style={{ position: "absolute", right: 20 }} onPress={() => setAdd(true)}>
 
@@ -121,7 +123,7 @@ const RepartitionMur: () => Node = ({ setActiveSteps }) => {
                         flexGrow: 1,
                     }}>
 
-
+ 
                     <View
                         style={{
 
@@ -141,7 +143,7 @@ const RepartitionMur: () => Node = ({ setActiveSteps }) => {
                             }
                         }> 
                             <InputView>
-                                <Text key={item.nomDeMur} style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 5 }}> {item.nomDeMur}</Text>
+                                <Text key={item.designation} style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 5 }}> {item.designation}</Text>
                             </InputView>
                             </TouchableOpacity>
                         )}
@@ -163,7 +165,7 @@ const RepartitionMur: () => Node = ({ setActiveSteps }) => {
   
         await AsyncStorage.setItem(
             'activeStep',
-            JSON.stringify(4)
+            JSON.stringify(9)
         );
     } catch (error) {
         console.log("error", error)
@@ -235,4 +237,4 @@ const styles = StyleSheet.create({
 
 
 
-export default RepartitionMur;
+export default MasqueMur;

@@ -6,60 +6,82 @@
  * @flow strict-local
  */
 
- import React,{useState} from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import Generaliter from './Generalite';
 import Context from './Context'
-import Architecture  from './Architecture';
+import Architecture from './Architecture';
 import Repartion from './RepartitionMur/index'
+import OuvrantType  from './ouvrantType';
+import OuvrantTypeRelation  from './ouvrantTypeRelation';
+import Porte from './porte'
+import PorteDesignation from './porteDesignation'
+import MasqueMur from './masqueMur'
+import PlancherBas from './plancherBas'
+
 import { AsyncStorage } from 'react-native';
 import { useEffect } from 'react';
 const App: () => Node = () => {
- 
+
     const [activeStep, setActiveSteps] = useState(0);
     async function fetchData() {
-      try {
-          const value = JSON.parse(await AsyncStorage.getItem('activeStep'));
-          
-          if (value !== null) {
-            setActiveSteps(value)
-             
-          }
-      } catch (error) {
-          console.log(error)
-          // Error retrieving data
-      }
-      // ...
-  }
-  useEffect(() => {
+        try {
+            const value = JSON.parse(await AsyncStorage.getItem('activeStep'));
 
-      fetchData();
+            if (value !== null) {
+                setActiveSteps(value)
 
-
-
-
-  }, []);
-
-   return (
-   <View> 
-       {activeStep===0? 
-    <Generaliter setActiveSteps={setActiveSteps}/>
-    :activeStep===1?
-
-    <Context setActiveSteps={setActiveSteps} />
-    :activeStep===2?
-    
-    <Architecture setActiveSteps={setActiveSteps} />
-    : <Repartion setActiveSteps={setActiveSteps} />
-
-    
-
-    
+            }
+        } catch (error) {
+            console.log(error)
+            // Error retrieving data
+        }
+        // ...
     }
-   </View>
-  );
+    useEffect(() => {
+
+        fetchData();
+
+
+
+
+    }, []);
+
+    return (
+        <View>
+            {activeStep === 0 ?
+                <Generaliter setActiveSteps={setActiveSteps} />
+                : activeStep === 1 ?
+
+                    <Context setActiveSteps={setActiveSteps} />
+                    : activeStep === 2 ?
+
+                        <Architecture setActiveSteps={setActiveSteps} />
+                        :activeStep===3?
+                         <Repartion setActiveSteps={setActiveSteps} />
+                         
+                     :activeStep===4?
+
+                         <OuvrantType setActiveSteps={setActiveSteps} />
+                         :activeStep===5?
+                         <OuvrantTypeRelation setActiveSteps={setActiveSteps} />
+                         :activeStep===6?
+                        <Porte setActiveSteps={setActiveSteps} />
+                        :activeStep===7?
+
+                        <PorteDesignation setActiveSteps={setActiveSteps} />
+                        :activeStep===7?
+                        <MasqueMur setActiveSteps={setActiveSteps} />
+                        :<PlancherBas setActiveSteps={setActiveSteps}/>
+
+
+
+
+            }
+        </View>
+    );
 };
 
- 
+
 
 export default App;

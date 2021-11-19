@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@react-native-community/datetimepicker": "^3.5.2",
+    "formik": "^2.2.9",
     "react": "17.0.2",
     "react-native": "0.66.1",
     "react-native-dropdown-picker": "^5.2.3",

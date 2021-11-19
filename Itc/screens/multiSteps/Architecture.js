@@ -26,16 +26,7 @@ import { useEffect } from 'react';
 
      
  
-     const [items, setItems] = useState([
-        { label: 'Maison individuelle', value: 'MI' },
-        { label: 'Appartement', value: 'Ap' },
-        { label: 'Logement collectif', value: 'Lc' },
-        { label: 'Teritiare', value: 'T' },
 
-
-
-    ]);
-     
      const [date, setDate] = useState(new Date());
  
 
@@ -79,7 +70,7 @@ import { useEffect } from 'react';
              position: "relative",
              paddingBottom:40
          }}>
-             <Head title={"ARCHITECTURE"} />
+             <Head title={"ARCHITECTURE"}  setActiveSteps={setActiveSteps}/>
              <ScrollView
  
                  horizontal={false}

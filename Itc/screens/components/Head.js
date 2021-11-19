@@ -7,11 +7,12 @@
  */
 
  import React  from 'react';
-import { View,Text } from 'react-native';
- 
+import { View,Text,TouchableOpacity } from 'react-native';
+import AntDesign from 'react-native-vector-icons/AntDesign'
+
   
 
-const Head: () => Node = ({title}) => {
+const Head: () => Node = ({title, setActiveSteps,hide}) => {
  
   
 
@@ -20,7 +21,15 @@ const Head: () => Node = ({title}) => {
    <Text style={{textAlign:"center",fontWeight:"bold",fontSize:20,color:"white"}}> 
     {title}
    </Text>
+   {hide?null: 
+   <TouchableOpacity
+                    onPress={() => setActiveSteps(prev=>prev-1)}
+                    style={{ position: "absolute", left: 20, bottom: 20 }}>
 
+                    <AntDesign name="arrowleft" color="white" size={30} />
+
+                </TouchableOpacity>
+                }
    </View>
   );
 };

@@ -13,11 +13,11 @@ import InputView from '../../components/InputView';
 import NextStep from '../../components/NextSteps'
 import { Dimensions } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign'
-import AddRepartition from './AddRepartition';
+import AddOuvrantRelation from './AddPorteDesignation';
 import { AsyncStorage } from 'react-native';
 import { useEffect } from 'react';
-import EditRepartition from './EditRepartition';
-const RepartitionMur: () => Node = ({ setActiveSteps }) => {
+import EditRepartition from './EditPorteDesignation';
+const PorteDesignation: () => Node = ({ setActiveSteps }) => {
     const windowHeight = Dimensions.get('window').height;
     const windowWidth = Dimensions.get('window').width;
 
@@ -34,8 +34,9 @@ const RepartitionMur: () => Node = ({ setActiveSteps }) => {
 
     async function fetchData() {
         try {
-            const value = JSON.parse(await AsyncStorage.getItem('Repartition'));
+            const value = JSON.parse(await AsyncStorage.getItem('PorteDesignation'));
             if (value !== null) {
+                console.log("c",value)
                 setMur(value)
             }
         } catch (error) {
@@ -52,34 +53,35 @@ const RepartitionMur: () => Node = ({ setActiveSteps }) => {
 
 
     }, []);
-    useEffect(() => {
+    // useEffect(() => {
 
 
-        getMur()
+    //     getMur()
 
 
-    }, [mur]);
-    async function getMur() {
-        try {
-            await AsyncStorage.setItem(
-                'Repartition',
-                JSON.stringify(mur)
-            );
+    // }, [mur]);
+    // async function getMur() {
+    //     try {
+    //         await AsyncStorage.setItem(
+    //             'OuvrantTypeList',
+    //             JSON.stringify(mur)
+    //         );
 
-        } catch (error) {
-            console.log("error", error)
-            // Error saving data
-        }
-    }
+    //     } catch (error) {
+    //         console.log("error", error)
+    //         // Error saving data
+    //     }
+    // }
     return (
         add ?
-            <AddRepartition setAdd={setAdd}   setMur={setMur} />
+            <AddOuvrantRelation setAdd={setAdd}   setMur={setMur} mur={mur} />
             :edit?
             <EditRepartition 
             index={index}
             murs={mur}
             setEdit={setEdit} 
             mur={murToEdit} 
+            setAdd={setAdd}
             setMur={setMur} 
             
             />
@@ -93,7 +95,7 @@ const RepartitionMur: () => Node = ({ setActiveSteps }) => {
             }}>
                 <View style={{ backgroundColor: "rgb(0,101,147)", textAlign: "center", justifyContent: "center", width: "100%", height: 80, display: "flex", position: "relative" }}>
                     <Text style={{ textAlign: "center", fontWeight: "bold", fontSize: 20, color: "white" }}>
-                        Répartition mur
+                    Porte designation
                     </Text>
                     <TouchableOpacity style={{ position: "absolute", right: 20 }} onPress={() => setAdd(true)}>
 
@@ -141,7 +143,7 @@ const RepartitionMur: () => Node = ({ setActiveSteps }) => {
                             }
                         }> 
                             <InputView>
-                                <Text key={item.nomDeMur} style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 5 }}> {item.nomDeMur}</Text>
+                                <Text key={item.nomDeMur} style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 5 }}> {item.designationValue}-->{item.laison}</Text>
                             </InputView>
                             </TouchableOpacity>
                         )}
@@ -158,23 +160,22 @@ const RepartitionMur: () => Node = ({ setActiveSteps }) => {
                 </ScrollView>
 
 <NextStep onPress={async () => {
- 
+
     try {
-  
+
         await AsyncStorage.setItem(
             'activeStep',
-            JSON.stringify(4)
+            JSON.stringify(8)
         );
     } catch (error) {
         console.log("error", error)
         // Error saving data
     }
 
-    setActiveSteps(4)
+    setActiveSteps(8)
 
 
 }} />
-
             </View>
     );
 };
@@ -235,4 +236,4 @@ const styles = StyleSheet.create({
 
 
 
-export default RepartitionMur;
+export default PorteDesignation;

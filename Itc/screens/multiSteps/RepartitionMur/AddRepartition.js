@@ -15,7 +15,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { Dimensions } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
-const AddRepartition: () => Node = ({ setAdd }) => {
+const AddRepartition: () => Node = ({ setAdd, setMur }) => {
     const windowHeight = Dimensions.get('window').height;
 
     const [open, setOpen] = useState(false);
@@ -45,7 +45,23 @@ const AddRepartition: () => Node = ({ setAdd }) => {
         setDate(currentDate);
     };
 
-
+    const addOneMur = (event, selectedDate) => {
+        let NewMur = {
+            nomDeMur,
+            composition,
+            position,
+            epaisseur,
+            isolation,
+            typeIsolation,
+            epaisseurIsolation,
+            resistanceIsolation,
+            longeur,
+            hauteur,
+            orienation
+        }
+         setMur(oldArray => [...oldArray, NewMur]);
+        setAdd(false)
+    };
     return (
         <View style={{
             alignItems: 'center',
@@ -58,11 +74,11 @@ const AddRepartition: () => Node = ({ setAdd }) => {
                 <Text style={{ textAlign: "center", fontWeight: "bold", fontSize: 20, color: "white" }}>
                     Répartition mur
                 </Text>
-                <TouchableOpacity 
-                // onPress={() => setAdd(false)} 
-                style={{ position: "absolute", left: 20, bottom: 0 }}>
+                <TouchableOpacity
+                    onPress={() => setAdd(false)}
+                    style={{ position: "absolute", left: 20, bottom: 20 }}>
 
-                    <AntDesign name="arrowleft" color="white" size={30}  />
+                    <AntDesign name="arrowleft" color="white" size={30} />
 
                 </TouchableOpacity>
             </View>
@@ -89,7 +105,11 @@ const AddRepartition: () => Node = ({ setAdd }) => {
                             style={styles.inputText}
                             placeholder="Nom de mur"
                             placeholderTextColor="#003f5c"
-                            onChangeText={text => console.log(text)} />
+                            onChangeText={setNomDeMur}
+                            value={nomDeMur}
+
+
+                        />
                     </InputView>
                     <View style={{
                         width: "80%",
@@ -115,14 +135,21 @@ const AddRepartition: () => Node = ({ setAdd }) => {
                             style={styles.inputText}
                             placeholder="Composition mur/ Niveau"
                             placeholderTextColor="#003f5c"
-                            onChangeText={text => console.log(text)} />
+                            onChangeText={setComposition}
+                            value={composition}
+
+
+                        />
                     </InputView>
                     <InputView>
                         <TextInput
                             style={styles.inputText}
                             placeholder="Position "
                             placeholderTextColor="#003f5c"
-                            onChangeText={text => console.log(text)} />
+                            onChangeText={setPosition}
+                            value={position}
+
+                        />
                     </InputView>
 
                     <InputView>
@@ -131,51 +158,53 @@ const AddRepartition: () => Node = ({ setAdd }) => {
                             placeholder="Epaisseur (cm)"
                             placeholderTextColor="#003f5c"
                             keyboardType="numeric"
-
-                            onChangeText={text => console.log(text)} />
+                            value={epaisseur}
+                            onChangeText={setEpaisseur} />
                     </InputView>
                     <InputView>
                         <TextInput
                             style={styles.inputText}
                             placeholder="Isolation int Ou Ext"
-
+                            value={isolation}
                             placeholderTextColor="#003f5c"
-                            onChangeText={text => console.log(text)} />
+                            onChangeText={setIsolation} />
                     </InputView>
                     <InputView>
                         <TextInput
                             style={styles.inputText}
                             placeholder="Type d'isolant"
-
+                            value={typeIsolation}
                             placeholderTextColor="#003f5c"
-                            onChangeText={text => console.log(text)} />
+                            onChangeText={setTypeIsolation}
+                        />
                     </InputView>
                     <InputView>
                         <TextInput
                             style={styles.inputText}
                             placeholder="Epaisseur de l'isolant (cm) "
                             keyboardType="numeric"
+                            value={epaisseurIsolation}
 
                             placeholderTextColor="#003f5c"
-                            onChangeText={text => console.log(text)} />
+                            onChangeText={setEpaisseurIsolation} />
                     </InputView>
                     <InputView>
                         <TextInput
                             style={styles.inputText}
                             placeholder="Résistance d'isolant (m2.K/W)"
                             keyboardType="numeric"
-
+                            value={resistanceIsolation}
                             placeholderTextColor="#003f5c"
-                            onChangeText={text => console.log(text)} />
+                            onChangeText={setResistanceIsolation} />
                     </InputView>
                     <InputView>
                         <TextInput
                             style={styles.inputText}
                             placeholder="Longeur (m)"
                             keyboardType="numeric"
-
+                            value={longeur}
                             placeholderTextColor="#003f5c"
-                            onChangeText={text => console.log(text)} />
+                            onChangeText={setLongeur} />
                     </InputView>
                     <View style={{ marginBottom: 80, width: "100%", marginLeft: "20%" }}>
                         <InputView>
@@ -183,19 +212,19 @@ const AddRepartition: () => Node = ({ setAdd }) => {
                                 style={styles.inputText}
                                 placeholder="Hauteur (m)"
                                 keyboardType="numeric"
-
+                                value={hauteur}
                                 placeholderTextColor="#003f5c"
-                                onChangeText={text => console.log(text)} />
+                                onChangeText={setHauteur} />
                         </InputView>
                     </View>
                 </View>
             </ScrollView>
-            <TouchableOpacity 
-            style={styles.validateButton} 
-            // onPress={() => setAdd(false)}
+            <TouchableOpacity
+                style={styles.validateButton}
+                onPress={addOneMur}
             >
                 <View style={{ flexDirection: "row", display: "flex", justifyContent: "center", alignContent: "center", alignItems: "center" }}>
-                    <Text style={{ color: "white" }}>
+                    <Text style={{ color: "white", fontWeight: "bold" }}>
                         Valider
 
                     </Text>

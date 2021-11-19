@@ -97,7 +97,7 @@ DropDownPicker.setMode("BADGE");
             position: "relative",
             paddingBottom: 40
         }}>
-            <Head title={"CONTEXTE"} />
+            <Head title={"CONTEXTE"}  setActiveSteps={setActiveSteps}/>
             <ScrollView
 
                 horizontal={false}
