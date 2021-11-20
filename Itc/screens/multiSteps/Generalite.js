@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native';
 import Head from '../components/Head'
 import InputView from '../components/InputView';
@@ -14,10 +14,13 @@ import InputView from '../components/InputView';
 import DropDownPicker from 'react-native-dropdown-picker';
 import NextStep from '../components/NextSteps'
 import { Dimensions } from 'react-native';
-import { useEffect } from 'react';
-import { AsyncStorage } from 'react-native';
+ import { AsyncStorage } from 'react-native';
+import GetLocation from 'react-native-get-location'
+import Geocoder from 'react-native-geocoding';
 
 const Generaliter: () => Node = ({setActiveSteps}) => {
+    Geocoder.init("AIzaSyCk8E3zVDItAxwOTYuzQW29k_m_aE0luQk"); 
+
     const windowHeight = Dimensions.get('window').height;
     const [fullName, setFullName] = useState();
     const [adresse, setAdresse] = useState();
@@ -37,7 +40,7 @@ const Generaliter: () => Node = ({setActiveSteps}) => {
 
 
     ]);
-    
+  
     async function fetchData() {
         try { 
             const  value = JSON.parse(await AsyncStorage.getItem('Generalite')) ;
@@ -59,21 +62,37 @@ const Generaliter: () => Node = ({setActiveSteps}) => {
           }
         // ...
       }
+      
     useEffect(() => {
       
           fetchData();
-        
+
+          GetLocation.getCurrentPosition({
+            enableHighAccuracy: true,
+            timeout: 15000,
+        })
+        .then(location => {
+ 
+             Geocoder.from(location).then(json => {
+         		// var addressComponent = json.results[0].address_components[2];
+			    // console.log(addressComponent);
+                setAdresse(json.results[0].address_components[2].short_name)
+            //    console.log(json.results[0].address_components[2].short_name)
+		})
+		.catch(error => console.log(error));;
+
+        })
+        .catch(error => {
+            const { code, message } = error;
+            console.log(code, message);
+        })
         
     
     
     },[]);
-    const [date, setDate] = useState(new Date());
+    // const [date, setDate] = useState(new Date());
 
-    const onChange = (event, selectedDate) => {
-        const currentDate = selectedDate || date;
-        setDate(currentDate);
-    };
-      return (
+       return (
         <View style={{
             alignItems: 'center',
             minHeight:windowHeight,
@@ -116,7 +135,7 @@ const Generaliter: () => Node = ({setActiveSteps}) => {
                     paddingLeft: 5
                 }}
                 >
-                    Date de visite
+                    {new Date().toISOString().slice(0, 10) }
                 </Text>
             </InputView>
             <InputView>

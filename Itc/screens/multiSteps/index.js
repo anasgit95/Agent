@@ -18,9 +18,11 @@ import Porte from './porte'
 import PorteDesignation from './porteDesignation'
 import MasqueMur from './masqueMur'
 import PlancherBas from './plancherBas'
-
+import PlancherHaut from './plancherHaut';
 import { AsyncStorage } from 'react-native';
 import { useEffect } from 'react';
+import Linetique from './linetique';
+import Picker from './pickerImage'
 const App: () => Node = () => {
 
     const [activeStep, setActiveSteps] = useState(0);
@@ -70,10 +72,15 @@ const App: () => Node = () => {
                         :activeStep===7?
 
                         <PorteDesignation setActiveSteps={setActiveSteps} />
-                        :activeStep===7?
+                        :activeStep===8?
                         <MasqueMur setActiveSteps={setActiveSteps} />
-                        :<PlancherBas setActiveSteps={setActiveSteps}/>
-
+                        :activeStep===9?
+                        <PlancherBas setActiveSteps={setActiveSteps}/>
+                        :activeStep===10?
+                        <PlancherHaut setActiveSteps={setActiveSteps}/>
+                        :activeStep===11?
+                        <Linetique setActiveSteps={setActiveSteps}/>
+                        :<Picker setActiveSteps={setActiveSteps}/>
 
 
 

@@ -12,34 +12,44 @@ import InputView from '../../components/InputView';
 // import DropDownPicker from 'react-native-dropdown-picker';
 import NextStep from '../../components/NextSteps'
 import { Dimensions } from 'react-native';
-import AntDesign from 'react-native-vector-icons/AntDesign'
-import AddMasque from './AddMasque';
 import { AsyncStorage } from 'react-native';
 import { useEffect } from 'react';
-import EditMasque from './EditMasque';
-const MasqueMur: () => Node = ({ setActiveSteps }) => {
+import EditPlancher from './EditPlancher';
+import Head from '../../components/Head'
+import { RadioButton } from 'react-native-paper';
+
+const PlancherHaut: () => Node = ({ setActiveSteps }) => {
     const windowHeight = Dimensions.get('window').height;
     const windowWidth = Dimensions.get('window').width;
 
 
 
 
-    const [mur, setMur] = useState([]);
+    const [mur, setMur] = useState([
+        { Type: "1", id: 1 },
+        { Type: "2", id: 2 },
+        { Type: "3", id: 3 }
+
+    ]);
+    
     const [edit, setEdit] = useState(false);
     const [murToEdit, setMurToEdit] = useState();
     const [index, setIndex] = useState();
 
 
-    const [add, setAdd] = useState(false);
 
     async function fetchData() {
         try {
-            const value = JSON.parse(await AsyncStorage.getItem('MasqueMur'));
-            if (value !== null) {
+            const value = JSON.parse(await AsyncStorage.getItem('PlancherHaut'));
+            if (value !== null && value.length > 0) {
+                console.log(value)
                 setMur(value)
             }
-            else setMur([])
-
+            else await AsyncStorage.setItem(
+                'PlancherHaut',
+                JSON.stringify(mur)
+            );
+          
         } catch (error) {
             console.log(error)
             // Error retrieving data
@@ -64,7 +74,7 @@ const MasqueMur: () => Node = ({ setActiveSteps }) => {
     // async function getMur() {
     //     try {
     //         await AsyncStorage.setItem(
-    //             'MasqueMur',
+    //             'Ouvrant',
     //             JSON.stringify(mur)
     //         );
 
@@ -73,43 +83,26 @@ const MasqueMur: () => Node = ({ setActiveSteps }) => {
     //         // Error saving data
     //     }
     // }
-     return (
-        add ?
-            <AddMasque setAdd={setAdd}   setMur={setMur} />
-            :edit?
-            <EditMasque 
-            index={index}
-            murs={mur}
-            setEdit={setEdit} 
-            mur={murToEdit} 
-            setMur={setMur} 
-            
+    return (
+
+        edit ?
+            <EditPlancher
+                index={index}
+                murs={mur}
+                setEdit={setEdit}
+                mur={murToEdit}
+                setMur={setMur}
+
             />
 
-            :<View style={{
+            : <View style={{
                 alignItems: 'center',
                 minHeight: windowHeight,
                 minWidth: windowWidth,
                 position: "relative",
                 paddingBottom: 40
             }}>
-                <View style={{ backgroundColor: "rgb(0,101,147)", textAlign: "center", justifyContent: "center", width: "100%", height: 80, display: "flex", position: "relative" }}>
-                    <Text style={{ textAlign: "center", fontWeight: "bold", fontSize: 20, color: "white" }}>
-                        Masque mur
-                    </Text>
-                    <TouchableOpacity style={{ position: "absolute", right: 20 }} onPress={() => setAdd(true)}>
-
-                        <AntDesign name="plus" color="white" size={30} />
-
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                    onPress={() => setActiveSteps(prev=>prev-1)}
-                    style={{ position: "absolute", left: 20, bottom: 20 }}>
-
-                    <AntDesign name="arrowleft" color="white" size={30} />
-
-                </TouchableOpacity>
-                </View>
+                <Head title={"Plancher haut"} setActiveSteps={setActiveSteps} />
 
 
                 <ScrollView
@@ -123,7 +116,7 @@ const MasqueMur: () => Node = ({ setActiveSteps }) => {
                         flexGrow: 1,
                     }}>
 
- 
+
                     <View
                         style={{
 
@@ -133,50 +126,45 @@ const MasqueMur: () => Node = ({ setActiveSteps }) => {
                         }}>
 
 
-                        {mur.map((item,index) =>
-                        <TouchableOpacity style={{width:"100%",marginLeft:"20%"}} onPress={
+                        {mur.map((item, index) =>
+                            <TouchableOpacity key={index} style={{ width: "100%", marginLeft: "20%" }} onPress={
 
-                            ()=>{
-                                setIndex(index)
-                                setMurToEdit(item)
-                                setEdit(true)
-                            }
-                        }> 
-                            <InputView>
-                                <Text key={item.designation} style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 5 }}> {item.designation}</Text>
-                            </InputView>
+                                () => {
+                                    setIndex(index)
+                                    setMurToEdit(item)
+                                    setEdit(true)
+                                }
+                            }>
+                                <InputView>
+                                    <Text key={item.nomDeMur} style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 5 }}> {item.Type}</Text>
+                                </InputView>
                             </TouchableOpacity>
                         )}
 
 
 
-
-
-
-
-
-
                     </View>
-                </ScrollView>
+            
+                 </ScrollView>
 
-<NextStep onPress={async () => {
+                <NextStep onPress={async () => {
+
+                    try {
+
+                        await AsyncStorage.setItem(
+                            'activeStep',
+                            JSON.stringify(11)
+                        );
  
-    try {
-  
-        await AsyncStorage.setItem(
-            'activeStep',
-            JSON.stringify(9)
-        );
-    } catch (error) {
-        console.log("error", error)
-        // Error saving data
-    }
+                    } catch (error) {
+                        console.log("error", error)
+                        // Error saving data
+                    }
 
-    setActiveSteps(9)
+                    setActiveSteps(11)
 
 
-}} />
-
+                }} />
             </View>
     );
 };
@@ -237,4 +225,4 @@ const styles = StyleSheet.create({
 
 
 
-export default MasqueMur;
+export default PlancherHaut;
