@@ -1,67 +1,26 @@
 const Evaluation = require("../models/evaluation");
- 
+const Image = require("../models/images");
+
 
 exports.creatEvaluation = async (req, res) => {
  
   try {
       
-      const listResponse = await Evaluation.create({ ...req.body  });
-    
-        res.send(listResponse);
+       const listResponse = await Evaluation.create({ ...req.body  });
+       for(let i=0;i<req.body.images.length;i++) {
+        req.body.images[i].evaluation=listResponse._id;
+         const NewPhoto = await Image.create({ ...req.body.images[i] });
+
+
+
+       }
+         res.send(listResponse);
   } catch (error) {
-    console.log("error", error.message);
+    console.log("errors", error.message);
     res.status(400).end();
   }
 };
-exports.login = async (req, res) => {
-  try {
-    console.log(req.body)
-     const current_user = await Evaluation.findOne({ Email: req.body.Email, Hash_Password: req.body.Password }).lean();
-     if (!current_user) {
-      return new Error('Identifiant / mot de passe incorrect')
-    }
-    if (current_user.Active === false && current_user.Deleted === false) {
-      return new Error("Votre compte a été banni veuillez contacter l'administrateur")
-    }
-    else if (current_user.Active === false && current_user.Deleted === true) {
-      return new Error("Votre compte a été désactivé veuillez contacter l'administrateur")
-    } else if (current_user.Active === true && current_user.Deleted === false) {
-      if (current_user.ExpirationAccountDate) {
-        let today = new Date();
-        let expirationDate = new Date(current_user.ExpirationAccountDate);
-        if (today > expirationDate) {
-          return new Error("Votre compte a expiré, veuillez contacter l'administrateur")
-        }
-      }
-      const token = jwt.sign({ id: current_user._id }, "Agent", { algorithm: "HS256", subject: current_user.Email, expiresIn: "8h" });
-      let firstConnection = true;
-      if (current_user.LastConnection) {
-        firstConnection = false;
-      }
-      let connectedUser = await Evaluation.findOneAndUpdate(
-        {
-          _id: current_user._id,
-        },
-        {
-          Token: token,
-          LastConnection: new Date()
-        },
-        {
-          new: true,
-        }
-      );
-      console.log(connectedUser)
-      connectedUser.FirstConnection = firstConnection;
-      res.send(connectedUser);
-
-      return ;
-    }
-  } catch (error) {
-    console.log(error)
-     return error
-  }
-
-};
+ 
 
 
 exports.getOneAgent = async (req, res) => {
@@ -111,7 +70,7 @@ exports.deleteElement = async (req, res) => {
 exports.getAllList = async (req, res) => {
   
   try {
-    const lists  =  await User.find({Role:"agent"});
+    const lists  =  await Evaluation.find({});
     console.log(lists)
     res.send(lists);
   } catch (e) {

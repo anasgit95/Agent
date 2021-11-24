@@ -14,26 +14,23 @@ exports.creatAgent = async (req, res) => {
     res.status(400).end();
   }
 };
-exports.login = async (req, res) => {
+exports.login = async (req, res) => { 
   try {
-    console.log(req.body)
-     const current_user = await User.findOne({ Email: req.body.Email, Hash_Password: req.body.Password }).lean();
+      const current_user = await User.findOne({ Email: req.body.Email, Hash_Password: req.body.Password }).lean();
      if (!current_user) {
-      return new Error('Identifiant / mot de passe incorrect')
-    }
+          return res.status(400).end()
+
+     }
     if (current_user.Active === false && current_user.Deleted === false) {
-      return new Error("Votre compte a été banni veuillez contacter l'administrateur")
-    }
+      return res.status(400).end()
+
+     }
     else if (current_user.Active === false && current_user.Deleted === true) {
-      return new Error("Votre compte a été désactivé veuillez contacter l'administrateur")
-    } else if (current_user.Active === true && current_user.Deleted === false) {
-      if (current_user.ExpirationAccountDate) {
-        let today = new Date();
-        let expirationDate = new Date(current_user.ExpirationAccountDate);
-        if (today > expirationDate) {
-          return new Error("Votre compte a expiré, veuillez contacter l'administrateur")
-        }
-      }
+      return res.status(400).end()
+
+     } else if (current_user.Active === true && current_user.Deleted === false) {
+ 
+ 
       const token = jwt.sign({ id: current_user._id }, "Agent", { algorithm: "HS256", subject: current_user.Email, expiresIn: "8h" });
       let firstConnection = true;
       if (current_user.LastConnection) {
@@ -41,7 +38,7 @@ exports.login = async (req, res) => {
       }
       let connectedUser = await User.findOneAndUpdate(
         {
-          _id: current_user._id,
+          _id: current_user._id,  
         },
         {
           Token: token,
