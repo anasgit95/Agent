@@ -11,8 +11,7 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, ScrollView 
 import Head from '../../components/Head'
 import InputView from '../../components/InputView';
 // import DropDownPicker from 'react-native-dropdown-picker';
-import DropDownPicker from 'react-native-dropdown-picker';
-import { Dimensions } from 'react-native';
+ import { Dimensions } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
 const AddMasque: () => Node = ({ setAdd, setMur }) => {
@@ -44,9 +43,11 @@ const AddMasque: () => Node = ({ setAdd, setMur }) => {
             alignItems: 'center',
             minHeight: windowHeight,
             justifyContent: 'center',
-            position: "relative",
-        }}>
-            <View style={{ backgroundColor: "rgb(0,101,147)", textAlign: "center", justifyContent: "center", width: "100%", height: 80, display: "flex", position: "relative" }}>
+            display:"flex",
+            width:"100%",
+            position: "relative"
+         }}>
+            <View style={{  backgroundColor: "rgb(0,101,147)", textAlign: "center", justifyContent: "center", width: "100%", height: 80, display: "flex", position: "relative" }}>
 
                 <Text style={{ textAlign: "center", fontWeight: "bold", fontSize: 20, color: "white" }}>
                     Masque mur
@@ -75,8 +76,7 @@ const AddMasque: () => Node = ({ setAdd, setMur }) => {
 
                         alignItems: 'center',
                         justifyContent: 'center',
-                        width: "100%"
-                    }}>
+                     }}>
             
                
 
@@ -184,8 +184,7 @@ const styles = StyleSheet.create({
         marginBottom: 40
     },
     inputView: {
-        width: "80%",
-        backgroundColor: "white",
+         backgroundColor: "white",
         borderColor: "#006593",
         borderWidth: 1,
 
@@ -193,13 +192,13 @@ const styles = StyleSheet.create({
         height: 50,
         marginBottom: 20,
         justifyContent: "center",
-        padding: 20
+        padding: 20,
+        flex:1
     },
     inputText: {
         height: 50,
         color: "#006593",
-        minWidth:"100%"
-    },
+      },
     forgot: {
         color: "white",
         fontSize: 11

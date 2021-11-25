@@ -54,25 +54,25 @@ const MasqueMur: () => Node = ({ setActiveSteps }) => {
 
 
     }, []);
-    // useEffect(() => {
+    useEffect(() => {
 
 
-    //     getMur()
+        getMur()
 
 
-    // }, [mur]);
-    // async function getMur() {
-    //     try {
-    //         await AsyncStorage.setItem(
-    //             'MasqueMur',
-    //             JSON.stringify(mur)
-    //         );
+    }, [mur]);
+    async function getMur() {
+        try {
+            await AsyncStorage.setItem(
+                'MasqueMur',
+                JSON.stringify(mur)
+            );
 
-    //     } catch (error) {
-    //         console.log("error", error)
-    //         // Error saving data
-    //     }
-    // }
+        } catch (error) {
+            console.log("error", error)
+            // Error saving data
+        }
+    }
      return (
         add ?
             <AddMasque setAdd={setAdd}   setMur={setMur} />
@@ -91,7 +91,7 @@ const MasqueMur: () => Node = ({ setActiveSteps }) => {
                 minHeight: windowHeight,
                 minWidth: windowWidth,
                 position: "relative",
-                paddingBottom: 40
+                paddingBottom: 40,
             }}>
                 <View style={{ backgroundColor: "rgb(0,101,147)", textAlign: "center", justifyContent: "center", width: "100%", height: 80, display: "flex", position: "relative" }}>
                     <Text style={{ textAlign: "center", fontWeight: "bold", fontSize: 20, color: "white" }}>

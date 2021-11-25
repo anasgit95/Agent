@@ -15,9 +15,8 @@ const actionSheetRefs = createRef();
 let options = {
    includeBase64: true //add this in the option to include base64 value in the response
 }
-const App = props => {
+const App = ({images,setImages}) => {
 
-  const [images, setImages] = useState([]);
  const handleChange=(text,index) =>{
   let NewImages = [...images] 
    NewImages[index].name=text

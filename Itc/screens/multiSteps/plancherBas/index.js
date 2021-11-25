@@ -32,7 +32,7 @@
  
      ]);
      const [sousSol, setSousSol] = useState({
-         type: "Plein pieds",
+         typeSousSol: "Plein pieds",
          surface: "",
          hauteur: "",
  
@@ -142,11 +142,11 @@
                          <Text style={{ marginLeft: "10%", fontWeight: "bold", color: "black", fontSize: 20 }}> Sous-sol</Text>
                          <RadioButton.Group onValueChange={newValue => {
                              let newSoulSol = { ...sousSol }
-                             newSoulSol.type = newValue
+                             newSoulSol.typeSousSol = newValue
  
                              setSousSol(newSoulSol)
                          }}
-                             value={sousSol.type}>
+                             value={sousSol.typeSousSol}>
  
                              <View style={{ display: "flex", flexDirection: "row", justifyContent: "flex-start", width: "100%", marginLeft: "10%", marginTop: 10 }}>
  
@@ -183,6 +183,8 @@
                                  <TextInput
                                      style={styles.inputText}
                                      placeholder="Surface M"
+                                     keyboardType="numeric"
+
                                      placeholderTextColor="#003f5c"
                                      onChangeText={newValue => {
                                          let newSoulSol = { ...sousSol }
@@ -200,6 +202,8 @@
                                  <TextInput
                                      style={styles.inputText}
                                      placeholder="Hauteur sous-sol"
+                                     keyboardType="numeric"
+
                                      placeholderTextColor="#003f5c"
                                      onChangeText={newValue => {
                                          let newSoulSol = { ...sousSol }

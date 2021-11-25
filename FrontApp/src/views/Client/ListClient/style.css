@@ -1,0 +1,170 @@
+.ant-table-filter-column-title {
+    -ms-flex: auto;
+    flex: auto;
+    color: white;
+    background: #006593;
+    border-radius: 24px;
+    padding: 16px 2.3em 16px 16px;
+}
+
+.ant-table-filter-trigger {
+    display: block;
+    font-size: 18px;
+    width: 2.3em;
+    color: white !important;
+    /* color: #bfbfbf; */
+    font-size: 18px  !important;
+    -webkit-transition: color 0.3s;
+    transition: color 0.3s;
+}
+
+.profil {
+    border: 1px solid rgb(152,212,156);
+    color: rgb(152,212,156);
+    background-color: transparent;
+    padding: 6px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 24px;
+    font-weight: bold;
+}
+.profil:hover {
+    border: 1px solid rgb(152,212,156);
+    color: white;
+    background-color: rgb(152,212,156);
+    padding: 6px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 24px;
+    font-weight: bold;
+}
+.bloquer {
+    border: 1px solid #F3ABAB;
+    color: #F3ABAB;
+    background: transparent;
+    /* background: #F5B6B6; */
+    padding: 6px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 24px;
+    font-weight: bold;
+}
+.bloquer:hover {
+    border: 1px solid #F3ABAB;
+    color: white;
+    background-color: #F3ABAB;
+    /* background: #F5B6B6; */
+    padding: 6px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 24px;
+    font-weight: bold;
+}
+
+.ant-table-pagination.ant-pagination {
+    margin: 16px 18px !important;
+    /* margin-right: 20px; */
+}
+
+.ant-pagination-disabled .ant-pagination-item-link, .ant-pagination-disabled:hover .ant-pagination-item-link, .ant-pagination-disabled:focus .ant-pagination-item-link {
+    color: rgba(0, 0, 0, 0.25);
+    border-color: #d9d9d9;
+    cursor: not-allowed;
+    border-radius: 8px   !important;
+    box-shadow: rgb(0 0 0 / 16%) 0px 3px 6px, rgb(0 0 0 / 23%) 0px 3px 6px;
+}
+
+.ant-pagination-item-active {
+    font-weight: 500;
+    background: #1890ff !important;
+    color: white !important;
+    border-radius: 12px !important;
+    box-shadow: rgb(0 0 0 / 16%) 0px 3px 6px, rgb(0 0 0 / 23%) 0px 3px 6px;
+}
+.ant-pagination-item {
+    display: inline-block;
+    min-width: 32px;
+    height: 32px;
+    margin-right: 8px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    line-height: 30px;
+    text-align: center;
+    vertical-align: middle;
+    list-style: none;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+    outline: 0;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+ 
+    border-radius: 12px !important;
+    box-shadow: rgb(0 0 0 / 16%) 0px 3px 6px, rgb(0 0 0 / 23%) 0px 3px 6px;
+}
+
+ 
+    
+ 
+ 
+.ant-pagination-prev .ant-pagination-item-link, .ant-pagination-next .ant-pagination-item-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    font-size: 12px;
+    text-align: center;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+    outline: none;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    box-shadow: rgb(0 0 0 / 16%) 0px 3px 6px, rgb(0 0 0 / 23%) 0px 3px 6px;
+    border-radius: 12px !important;
+
+}
+
+/* 
+.ant-table-thead > tr > th {
+    color: rgba(0, 0, 0, 0.85);
+    font-weight: 500;
+    color: white;
+    /* border-radius: 12px; */
+    /* text-align: left;
+    color: white !important;
+     background: rgb(21,0,167) !important;
+    background-image: initial;
+    background-position-x: initial;
+    background-position-y: initial;
+    background-size: initial;
+    background-repeat-x: initial;
+    background-repeat-y: initial;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: rgb(21, 0, 167);
+    /* background: red; */
+    /* background-image: initial;
+    background-position-x: initial;
+    background-position-y: initial;
+    background-size: initial;
+    background-repeat-x: initial;
+    background-repeat-y: initial;
+    background-attachment: initial;
+    background-origin: initial;
+    background-clip: initial;
+    background-color: rgb(21, 0, 167);
+    border-bottom: 1px solid #f0f0f0;
+    -webkit-transition: background 0.3s ease;
+    transition: background 0.3s ease;
+    transition-property: background;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+    transition-delay: 0s; */ 

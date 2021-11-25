@@ -131,6 +131,8 @@ const EditPlancher: () => Node = ({ setEdit, setMur, mur, index, murs }) => {
                                     style={styles.inputText}
                                     placeholder="Epaisseur du plancher bas (cm)"
                                     placeholderTextColor="#003f5c"
+                                    keyboardType="numeric"
+
                                     onChangeText={handleChange('EpaisseurPlancher')}
                                     value={values.EpaisseurPlancher}
 

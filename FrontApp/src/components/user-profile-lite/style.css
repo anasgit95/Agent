@@ -1,0 +1,33 @@
+.img__wrap {
+    position: relative;
+    height: 115px;
+    width: 100px;
+    cursor: pointer;
+
+  }
+  
+  .img__description {
+      cursor: pointer;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    visibility: hidden;
+    opacity: 0;
+     margin-right: 10;
+   border-radius: 50%;
+   font-size: 12px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+    /* transition effect. not necessary */
+    transition: opacity .2s, visibility .2s;
+  }
+  
+  .img__wrap:hover .img__description {
+    visibility: visible;
+    opacity: 1;
+  }

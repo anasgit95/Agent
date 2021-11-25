@@ -31,8 +31,7 @@ const linetique: () => Node = ({ setActiveSteps }) => {
     const [comble, setComble] = React.useState('Isolation totale');
     const [hauteurMoyenne, setHauteurMoyenne] = React.useState();
     const [surfaceComble, setSurfaceComble] = useState(null);
-    const [valueTechnique, setValueTechnique] = useState(null);
-    const [solution, setSolutions] = useState();
+   
     async function fetchData() {
         try {
             const value = JSON.parse(await AsyncStorage.getItem('Linetique'));
@@ -235,18 +234,18 @@ const linetique: () => Node = ({ setActiveSteps }) => {
 
                             <View style={{ flexDirection: "row", flex: 1.1 }}>
                                 <RadioButton value="Isolation totale" />
-                                <Text style={{ paddingTop: 10, fontSize: 13 }}>Isolation totale </Text>
+                                <Text style={{ paddingTop: 10, fontSize: 11 }}>Isolation totale </Text>
 
                             </View>
                             <View style={{ flexDirection: "row", flex: 1.3 }}>
                                 <RadioButton value="Isolation partielle" />
-                                <Text style={{ paddingTop: 10, fontSize: 13 }}>Isolation partielle</Text>
+                                <Text style={{ paddingTop: 10, fontSize: 11 }}>Isolation partielle</Text>
 
 
                             </View>
                             <View style={{ flexDirection: "row", flex: 1 }}>
-                                <RadioButton value="Plancher léger" />
-                                <Text style={{ paddingTop: 10, fontSize: 13 }}>Plancher léger</Text>
+                                <RadioButton value="Comble non isolé" />
+                                <Text style={{ paddingTop: 10, fontSize: 11 }}>Comble non isolé</Text>
 
 
                             </View>
@@ -287,29 +286,27 @@ const linetique: () => Node = ({ setActiveSteps }) => {
             <NextStep onPress={async () => {
 
 
-                // let gener = {
-                //     occupation,
-                //     logement,
-                //     confortHiver,
-                //     confortAccoutique,
-                //     confortEte,
-                //     profond,
-                //     certificatEco,
-                //     priority,
-                //     extensionBatimant,
-                //     valueTechnique,
-                //     solution,
+                let gener = {
+                    liason,
+                    liasonLongeur,
+                    detail,
+                    isolationPoutrse,
+                    plancherIntermediare,
+                    comble,
+                    hauteurMoyenne,
+                    surfaceComble,
+                
 
 
 
 
 
-                // }
+                }
                 try {
-                    // await AsyncStorage.setItem(
-                    //     'Linetique',
-                    //     JSON.stringify(gener)
-                    // );
+                    await AsyncStorage.setItem(
+                        'Linetique',
+                        JSON.stringify(gener)
+                    );
                     await AsyncStorage.setItem(
                         'activeStep',
                         JSON.stringify(12)

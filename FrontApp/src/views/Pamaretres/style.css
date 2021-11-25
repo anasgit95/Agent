@@ -1,0 +1,19 @@
+ .blockOne{
+  display: flex;
+  align-items: center;
+    border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  min-height: 240px;
+  margin-bottom: 48px;
+   background-color: white;
+   cursor: pointer;
+   box-shadow: rgb(0 0 0 / 16%) 0px 3px 6px, rgb(0 0 0 / 23%) 0px 3px 6px;
+text-align: center;
+  }
+ 
+
+ .titleParemetre {
+     font-size:22px;
+     font-weight: bold;
+     text-align: center;
+ }

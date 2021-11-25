@@ -6,21 +6,34 @@
  * @flow strict-local
  */
 
-import React  from 'react';
+import React,{useEffect} from 'react';
  import {
  
   StyleSheet,
   
 } from 'react-native';
-import Login from './screens/login'
-import MultiSteps from './screens/multiSteps';
+ import MultiSteps from './screens/multiSteps';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { LogBox } from 'react-native';
 LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
 LogBox.ignoreAllLogs();//Ignore all log notifications
 const App: () => Node = () => {
- 
+  useEffect(() => {
+    XMLHttpRequest = GLOBAL.originalXMLHttpRequest ?
+      GLOBAL.originalXMLHttpRequest :
+      GLOBAL.XMLHttpRequest;
+
+    // fetch logger
+    global._fetch = fetch;
+    global.fetch = function (uri, options, ...args) {
+      return global._fetch(uri, options, ...args).then((response) => {
+        return response;
+      })
+    }
+
+   },[]);
   
+ 
 
   return (
     <PaperProvider>

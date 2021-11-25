@@ -7,11 +7,10 @@
  */
 
  import React, { useState } from 'react';
- import { StyleSheet, Text, View, TextInput, TouchableOpacity , ScrollView } from 'react-native';
+ import { StyleSheet, Text, View, TextInput, TouchableOpacity , ScrollView,AsyncStorage } from 'react-native';
   import InputView from '../../components/InputView';
  // import DropDownPicker from 'react-native-dropdown-picker';
- import DropDownPicker from 'react-native-dropdown-picker';
- import { Dimensions } from 'react-native';
+  import { Dimensions } from 'react-native';
  import AntDesign from 'react-native-vector-icons/AntDesign'
  import { useEffect } from 'react';
 
@@ -41,7 +40,7 @@
         setHauteurMoyenne(hauteurMoyenne)
        
 
-    }, [mur]);
+    }, []);
       async function getMur(masqueMur) {
         try {
             await AsyncStorage.setItem(
