@@ -27,7 +27,7 @@ exports.getOneAgent = async (req, res) => {
   try {
     const doc = await Evaluation.findOne(
         { _id: req.params._id }
-                );
+                ).populate("Creator");;
          res.send(doc)
     
   } catch (error) {
@@ -70,9 +70,8 @@ exports.deleteElement = async (req, res) => {
 exports.getAllList = async (req, res) => {
   
   try {
-    const lists  =  await Evaluation.find({});
-    console.log(lists)
-    res.send(lists);
+    const lists  =  await Evaluation.find({}).populate("Creator").sort({'createdAt': -1});
+     res.send(lists);
   } catch (e) {
     console.log(e);
     // res.status(400).end()

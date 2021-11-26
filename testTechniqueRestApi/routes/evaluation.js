@@ -3,7 +3,7 @@ const agentController = require("../controllers/evaluationController");
  
 
 var router = express.Router();
-router.get("/getOneAgent/:_id", agentController.getOneAgent);
+router.get("/getOneEvolution/:_id", agentController.getOneAgent);
  
 router.get("/", agentController.getAllList);
 
