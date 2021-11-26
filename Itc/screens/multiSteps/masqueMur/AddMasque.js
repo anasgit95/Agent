@@ -16,6 +16,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 
 const AddMasque: () => Node = ({ setAdd, setMur }) => {
     const windowHeight = Dimensions.get('window').height;
+    const windowWidth = Dimensions.get('window').width;
 
  
     const [designation, setDesignation] = useState(null);
@@ -44,7 +45,7 @@ const AddMasque: () => Node = ({ setAdd, setMur }) => {
             minHeight: windowHeight,
             justifyContent: 'center',
             display:"flex",
-            width:"100%",
+            width:windowWidth,
             position: "relative"
          }}>
             <View style={{  backgroundColor: "rgb(0,101,147)", textAlign: "center", justifyContent: "center", width: "100%", height: 80, display: "flex", position: "relative" }}>
@@ -65,6 +66,7 @@ const AddMasque: () => Node = ({ setAdd, setMur }) => {
                 showsVerticalScrollIndicator={false}
                 style={{
                     flex: 1,
+                    width:windowWidth
                 }}
                 contentContainerStyle={{
                     flexGrow: 1,

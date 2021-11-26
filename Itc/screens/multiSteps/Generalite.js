@@ -151,6 +151,8 @@ const Generaliter: () => Node = ({setActiveSteps}) => {
                     value={postalCode}
                     style={styles.inputText}
                     placeholder="Code postal"
+                    keyboardType="numeric"
+
                     placeholderTextColor="#003f5c"
                     onChangeText={setPostalCode} />
             </InputView>
@@ -173,6 +175,8 @@ const Generaliter: () => Node = ({setActiveSteps}) => {
                 value={yearConstruction}
                     style={styles.inputText}
                     placeholder="Année de construction"
+                    keyboardType="numeric"
+
                     placeholderTextColor="#003f5c"
                     onChangeText={setYearConstruction} />
             </InputView>

@@ -83,7 +83,7 @@ const AddImage: () => Node = ({ setActiveSteps }) => {
                     // );
                     await AsyncStorage.setItem(
                         'activeStep',
-                        JSON.stringify(13)
+                        JSON.stringify(16)
                     );
                     await AsyncStorage.setItem(
                         'images',
@@ -97,7 +97,7 @@ const AddImage: () => Node = ({ setActiveSteps }) => {
                     // Error saving data
                 }
 
-                setActiveSteps(13)
+                setActiveSteps(16)
 
 
             }} />
