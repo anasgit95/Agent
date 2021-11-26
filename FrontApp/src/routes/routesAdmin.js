@@ -6,7 +6,7 @@ import { DefaultLayout } from "../layouts";
  
 import Errors from "../views/Errors";
 import Home from '../components/home/home';
-import Users from '../components/users/users';
+import Projet from '../views/Projets/Projet';
 import Clients from  '../views/Client';
 import AddClient from  '../views/Client/AddClient';
 import Monteur from  '../views/Monteur';
@@ -14,13 +14,14 @@ import AddMonteur from  '../views/Monteur/AddMonteurs';
 import Administrateur from '../views/Administrateur'
 import AddAdministrateur from '../views/Administrateur/AddAdministrateur'
 import Profile from "../views/myprofile/index"
-import Parametres from '../views/Pamaretres/index'
-import Categorie from '../views/Pamaretres/Catergorie/'
-import Departement from '../views/Pamaretres/Departement'
-import Family from '../views/Pamaretres/Family'
+// import Parametres from '../views/Pamaretres/index'
+// import Categorie from '../views/Pamaretres/Catergorie/'
+// import Departement from '../views/Pamaretres/Departement'
+// import Family from '../views/Pamaretres/Family'
 import ModifierClient from  '../views/Client/ModifierClient';
 import ModifierEditor from  '../views/Monteur/ModifierMonteur';
 import ProfileUser from  '../views/profile-user/';
+import Projets from "../views/Projets"
 
      export default [
 
@@ -60,6 +61,13 @@ import ProfileUser from  '../views/profile-user/';
     component: Clients
   },
   {
+    path: "/Projets/:id",
+    exact: true,
+
+    layout: DefaultLayout,
+    component: Projet
+  },
+  {
     path: "/Agent/Modifier/:id",
     exact: true,
 
@@ -92,7 +100,7 @@ import ProfileUser from  '../views/profile-user/';
 
     path: "/Projets",
     layout: DefaultLayout,
-    component: Users
+    component: Projets
   },
   {
     exact:true,
@@ -115,30 +123,9 @@ import ProfileUser from  '../views/profile-user/';
     layout: DefaultLayout,
     component: Profile
   },
-  {
-    path: "/Parametre/Departement",
-    exact:true,
-    layout: DefaultLayout,
-    component: Departement
-  }
-  ,{
-    path: "/Parametre/Categorie",
-    exact:true,
-    layout: DefaultLayout,
-    component: Categorie
-  },
-  {
-    path: "/Parametre/Famille",
-    exact:true,
-    layout: DefaultLayout,
-    component: Family
-  },
-  {
-    path: "/Parametre",
-    exact:true,
-    layout: DefaultLayout,
-    component: Parametres
-  },
+ 
+   
+ 
   {
     path: "/",
     exact:true,
