@@ -18,9 +18,8 @@ const evaluationSchema = new Schema({
     orienation:String
   }],
   ouvrantType :[{
-    Type:String,
-    id:Number, 
-    designation:String,
+    nom:String,
+     designation:String,
     typeDeParoi:String,
     typeDeMenuiserie:String,
     materiaux:String,
@@ -89,11 +88,23 @@ const evaluationSchema = new Schema({
     surfaceComble:Number,
 
    },
+   dimension:{
+    
+    longeur: String,
+    largeur:  String,
+    hauteur:  String,
+    orientationPrincipale:  String,
+
+  },
   architecture:{
     surfacehabtable:Number,
     lvlNumber:Number,
     platFondLvl:String,
-    plancherBas:String
+    plancherBas:String,
+    sousSol:String,
+    rdc:String,
+    r1:String,
+    r2:String
   },
   plancherHaut: [{
     compositionPlancherBas: String,
@@ -116,6 +127,8 @@ const evaluationSchema = new Schema({
   solution:String,
   logement:String},
    generaliter :{
+     email:{ type: String, trim: true, required: true },
+     phone :{ type: String, trim: true, required: true },
     fullName: { type: String, trim: true, required: true },
     visitDate: { type: Date },
     adresse: { type: String,},
