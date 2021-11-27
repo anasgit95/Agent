@@ -1,7 +1,31 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const evaluationSchema = new Schema({
+  decrechement: [{
+    sousSol: String,
+    rdc: String,
+    rPlus: String,
  
+   }],
+   
+   
+   emetteur:{
+    typeDeEmmetteur: String,
+    systemeDeregulation: String,
+    ProgrammationChauffage: String,
+    nombreDeGenerateur: String,
+    systemDappoint: String,
+    annee: String,
+   },
+   emission: {
+    energieDeChuaffage: String,
+    typeGenerateur: String,
+    puissanceNominale: String,
+    nombreDeGenerateur: String,
+    poisition: String,
+    annee: String,
+  
+   },
  
  
   repartissant :[{
