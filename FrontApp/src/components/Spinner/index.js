@@ -15,10 +15,7 @@ export default () => {
 
             }}>
 
-                <img
-                    src={require("../../assets/images/digividz.png")}
-                    alt="User Avatar"
-                />
+               
             </div>
 
         </div>

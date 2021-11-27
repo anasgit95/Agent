@@ -36,77 +36,7 @@ class Footer extends React.Component {
         {...props}
         className={classes}
       >
-        <div className="container">
-          <div className={
-            classNames(
-              'site-footer-inner',
-              topDivider && 'has-top-divider'
-            )}>
-            <div className="footer-top text-xxs">
-              <div className="footer-blocks">
-                <div className="footer-block reveal-from-bottom" data-reveal-offset="0">
-                  <Logo className="mb-16" />
-                  <div className="footer-copyright">&copy; 2020 Twist, all rights reserved</div>
-                </div>
-                <div className="footer-block reveal-from-bottom" data-reveal-offset="0" data-reveal-delay="100">
-                  <div className="footer-block-title">Company</div>
-                  <ul className="list-reset">
-                    <li>
-                      <a href="https://digividz.tech/">Dummy text used</a>
-                    </li>
-                    <li>
-                      <a href="https://digividz.tech/">The purpose of lorem</a>
-                    </li>
-                    <li>
-                      <a href="https://digividz.tech/">Filler text can be very useful</a>
-                    </li>
-                    <li>
-                      <a href="https://digividz.tech/">Be on design</a>
-                    </li>
-                  </ul>
-                </div>
-                <div className="footer-block reveal-from-bottom" data-reveal-offset="0" data-reveal-delay="200">
-                  <div className="footer-block-title">Uses cases</div>
-                  <ul className="list-reset">
-                    <li>
-                      <a href="https://digividz.tech/">Consectetur adipiscing</a>
-                    </li>
-                    <li>
-                      <a href="https://digividz.tech/">Lorem Ipsum is place</a>
-                    </li>
-                    <li>
-                      <a href="https://digividz.tech/">Excepteur sint</a>
-                    </li>
-                    <li>
-                      <a href="https://digividz.tech/">Occaecat cupidatat</a>
-                    </li>
-                  </ul>
-                </div>
-                <div className="footer-block reveal-from-bottom" data-reveal-offset="0" data-reveal-delay="300">
-                  <div className="footer-block-title">Docs</div>
-                  <ul className="list-reset mb-0">
-                    <li>
-                      <a href="https://digividz.tech/">The purpose of lorem</a>
-                    </li>
-                    <li>
-                      <a href="https://digividz.tech/">Dummy text used</a>
-                    </li>
-                    <li>
-                      <a href="https://digividz.tech/">Excepteur sint</a>
-                    </li>
-                    <li>
-                      <a href="https://digividz.tech/">Occaecat cupidatat</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div className="footer-bottom space-between center-content-mobile text-xxs reveal-from-bottom" data-reveal-offset="0">
-              <FooterNav />
-              <FooterSocial />
-            </div>
-          </div>
-        </div>
+  
       </footer>
     )
   }

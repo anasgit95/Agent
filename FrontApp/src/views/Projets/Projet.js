@@ -1,50 +1,58 @@
-import React, { useState,useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
-import { Container, Row,  Button} from "shards-react";
+
+import { Container, Row,  Col,Button} from "shards-react";
 import axios from '../../utils/Api'
-import CsvDownload from 'react-json-to-csv'
-
-import PageTitle from "../../components/common/PageTitle";
- const Projet =(props) => {
-    
-
-     const [loading, setLoading] = useState(true);
-    const [data, setData] = useState(null);
-
-    useEffect(() => {
-           axios.get("/evaluation/getOneEvolution/"+props.match.params.id).then(
-               response=>{
-                   
-                setLoading(false)
-                setData(response.data)
  
-               }
+import ReactToPrint from 'react-to-print';
 
-             
-           )
-         
-    }, []);
-    console.log(data)
-        return (
-          data?
-            <Container fluid className="main-content-container px-4">
+import ProjetDetails from './ProjetsDetails'
+import PageTitle from "../../components/common/PageTitle";
+class Example extends React.PureComponent {
+    constructor(props) {
+        super(props);
+        // Don't call this.setState() here!
+        this.state = { loading: false,data:null };
+       }
+componentDidMount (){
+    axios.get("/evaluation/getOneEvolution/"+this.props.match.params.id).then(
+        response=>{
+            
+         this.setState({loading:false,data:response.data})
+          })
+}
+
+      render(){ 
+     
+          return (
+          this.state.data?
+            <Container fluid className="main-content-container px-4"    >
+           
             {/* Page Header */}
             <Row noGutters className="page-header py-4">
             <PageTitle sm="6" title="" subtitle="Projet" className="text-sm-left" />
-           
-             
+            <ReactToPrint
+          trigger={() => {
+            // NOTE: could just as easily return <SomeComponent />. Do NOT pass an `onClick` prop
+            // to the root node of the returned component as it will be overwritten.
+            return <a href="#">Print this out!</a>;
+          }}
+          content={() => this.componentRef}
+        />
+{/*            
+            <ReactToPrint
+        trigger={() =>  <Button style={{height:40}}   theme="accent" size="sm" className="ml-auto"  >
+        <i className="material-icons">library_add</i> 
+        Imprimer
+      </Button>}
+          content={() => this.componentRef}
+          /> */}
             </Row>
-            <CsvDownload data={[data]} />
-         {/* {
-             Object.keys(data).map((key) => {
-                return <p className="whiteSpaceNoWrap"><p> {key} </p>     </p>
-             })
-         } */}
-             
+             <ProjetDetails data={this.state.data} ref={el => (this.componentRef = el)}/>
           </Container>
         :null
         );
     }
    
- 
-    export default Projet   
+}
+    export default Example   

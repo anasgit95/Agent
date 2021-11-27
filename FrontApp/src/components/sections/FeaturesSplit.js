@@ -54,7 +54,7 @@ class FeaturesSplit extends React.Component {
     );
 
     const sectionHeader = {
-      title: 'DigiVidz Lorem ipsum',
+      title: '  Lorem ipsum',
       paragraph: 'Lorem ipsum is common placeholder text used to demonstrate the graphic elements of a document or visual presentation.'
     };
 
