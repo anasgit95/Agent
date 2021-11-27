@@ -71,28 +71,7 @@ class ProjetDetails extends React.PureComponent {
                    
 
  </Col>
- <Col lg={8}>
-                <h2> Architecture  </h2>
- 
- 
-                 <h6> Surface habitable du batiment : {data.architecture.surfacehabtable}  </h6>
-                <h6> Nombre de niveaux:
-                    <p> Sous sol : {data.architecture.sousSol}</p>
-                    <p> RDC : {data.architecture.rdc}</p>
-                    <p> R+1 : {data.architecture.r1}</p>
-                    <p> R+2: {data.architecture.r2}</p>
-
-
-                    
-                     </h6>
-                <h6> Nature du plafond  : {data.architecture.platFondLvl} </h6>
-                <h6> Nature du plancher base  : {data.architecture.plancherBas} </h6>
-               
-                   
-
- </Col>
-
- 
+  
  <Col lg={12}>
                 <h2> Répartition mur   </h2>
  

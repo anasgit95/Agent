@@ -33,9 +33,13 @@ componentDidMount (){
             <PageTitle sm="6" title="" subtitle="Projet" className="text-sm-left" />
             <ReactToPrint
           trigger={() => {
+
             // NOTE: could just as easily return <SomeComponent />. Do NOT pass an `onClick` prop
             // to the root node of the returned component as it will be overwritten.
-            return <a href="#">Print this out!</a>;
+            return <Button style={{height:40}}   theme="accent" size="sm" className="ml-auto"  >
+        <i className="material-icons">library_add</i> 
+        Imprimer
+      </Button>;
           }}
           content={() => this.componentRef}
         />
