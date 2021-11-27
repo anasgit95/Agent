@@ -92,8 +92,8 @@ const linetique: () => Node = ({ setActiveSteps }) => {
 
 
 
+                    <Text style={{ paddingTop: 10, fontWeight: "bold",color:"black",fontSize:15 }}>Type Mur refend? ?</Text>
 
-                    <Text style={{ paddingTop: 10, fontWeight: "bold" }}>Type Mur refend? ?</Text>
                     <RadioButton.Group onValueChange={newValue => setDetail(newValue)} value={detail}>
 
                         <View style={{ display: "flex", flexDirection: "row", justifyContent: "flex-start", width: "100%", marginLeft: "10%", marginTop: 10 }}>
@@ -144,7 +144,7 @@ const linetique: () => Node = ({ setActiveSteps }) => {
 
 
 
-                    <Text style={{ paddingTop: 10, fontWeight: "bold" }}>Isolation poutres plancher bas ?</Text>
+                    <Text style={{paddingTop: 10, fontWeight: "bold",color:"black",fontSize:15 }}>Isolation poutres plancher bas ?</Text>
 
                     <RadioButton.Group onValueChange={newValue => setIsolationPoutres(newValue)} value={isolationPoutrse}>
 
@@ -190,7 +190,7 @@ const linetique: () => Node = ({ setActiveSteps }) => {
                     </View>
 
 
-                    <Text style={{ paddingTop: 10, fontWeight: "bold" }}>Plancher intermédiaire   ?</Text>
+                    <Text style={{ paddingTop: 10, fontWeight: "bold",color:"black",fontSize:15 }}>Plancher intermédiaire   ?</Text>
 
 
                     <RadioButton.Group
@@ -223,7 +223,7 @@ const linetique: () => Node = ({ setActiveSteps }) => {
 
                     </RadioButton.Group>
 
-                    <Text style={{ paddingTop: 10, fontWeight: "bold" }}>Comble aménagé    ?</Text>
+                    <Text style={{paddingTop: 10, fontWeight: "bold",color:"black",fontSize:15 }}>Comble aménagé    ?</Text>
 
 
                     <RadioButton.Group
@@ -309,14 +309,14 @@ const linetique: () => Node = ({ setActiveSteps }) => {
                     );
                     await AsyncStorage.setItem(
                         'activeStep',
-                        JSON.stringify(12)
+                        JSON.stringify(13)
                     );
                 } catch (error) {
                     console.log("error", error)
                     // Error saving data
                 }
 
-                setActiveSteps(12)
+                setActiveSteps(13)
 
 
             }} />

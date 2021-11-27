@@ -36,8 +36,7 @@ const PorteDesignation: () => Node = ({ setActiveSteps }) => {
         try {
             const value = JSON.parse(await AsyncStorage.getItem('PorteDesignation'));
             if (value !== null) {
-                console.log("c",value)
-                setMur(value)
+                 setMur(value)
             }
         } catch (error) {
             console.log(error)
@@ -165,14 +164,14 @@ const PorteDesignation: () => Node = ({ setActiveSteps }) => {
 
         await AsyncStorage.setItem(
             'activeStep',
-            JSON.stringify(8)
+            JSON.stringify(9)
         );
     } catch (error) {
         console.log("error", error)
         // Error saving data
     }
 
-    setActiveSteps(8)
+    setActiveSteps(9)
 
 
 }} />

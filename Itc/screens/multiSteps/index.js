@@ -28,6 +28,7 @@ import Valider from './Enregistrement'
 import Decrechement from './decrechementBatimant';
 import Emission from './emission';
 import Emetteur from './emetteur';
+import Demission from './demension'
 const App: () => Node = () => {
 
     const [activeStep, setActiveSteps] = useState(0);
@@ -101,33 +102,37 @@ const App: () => Node = () => {
 
                         <Architecture setActiveSteps={setActiveSteps} />
                         :activeStep===3?
+                        <Demission setActiveSteps={setActiveSteps} />
+
+                         :activeStep===4?
                          <Repartion setActiveSteps={setActiveSteps} />
-                         
-                     :activeStep===4?
+
+
+                     :activeStep===5?
 
                          <OuvrantType setActiveSteps={setActiveSteps} />
-                         :activeStep===5?
-                         <OuvrantTypeRelation setActiveSteps={setActiveSteps} />
                          :activeStep===6?
+                         <OuvrantTypeRelation setActiveSteps={setActiveSteps} />
+                         :activeStep===7?
                         <Porte setActiveSteps={setActiveSteps} />
-                        :activeStep===7?
+                        :activeStep===8?
 
                         <PorteDesignation setActiveSteps={setActiveSteps} />
-                        :activeStep===8?
-                        <MasqueMur setActiveSteps={setActiveSteps} />
                         :activeStep===9?
-                        <PlancherBas setActiveSteps={setActiveSteps}/>
+                        <MasqueMur setActiveSteps={setActiveSteps} />
                         :activeStep===10?
-                        <PlancherHaut setActiveSteps={setActiveSteps}/>
+                        <PlancherBas setActiveSteps={setActiveSteps}/>
                         :activeStep===11?
-                        <Linetique setActiveSteps={setActiveSteps}/>
+                        <PlancherHaut setActiveSteps={setActiveSteps}/>
                         :activeStep===12?
-                        <Decrechement setActiveSteps={setActiveSteps}/>
+                        <Linetique setActiveSteps={setActiveSteps}/>
                         :activeStep===13?
-                        <Emission setActiveSteps={setActiveSteps}/>
+                        <Decrechement setActiveSteps={setActiveSteps}/>
                         :activeStep===14?
-                        <Emetteur setActiveSteps={setActiveSteps}/>
+                        <Emission setActiveSteps={setActiveSteps}/>
                         :activeStep===15?
+                        <Emetteur setActiveSteps={setActiveSteps}/>
+                        :activeStep===16?
                         <Picker setActiveSteps={setActiveSteps}/>
                         :<Valider setActiveSteps={setActiveSteps}/>
 

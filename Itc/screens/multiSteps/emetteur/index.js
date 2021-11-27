@@ -86,7 +86,7 @@
                    
                         await AsyncStorage.setItem(
                             'activeStep',
-                            JSON.stringify(15)
+                            JSON.stringify(16)
                         );
                         
                         await AsyncStorage.setItem(
@@ -100,7 +100,7 @@
                         // Error saving data
                     }
                    
-                    setActiveSteps(15)}
+                    setActiveSteps(16)}
                    
                    
  
@@ -111,18 +111,11 @@
             {({ handleChange, handleBlur, handleSubmit, values }) => (
                 <View style={{
                     alignItems: 'center',
-                    minHeight: windowHeight-50,
+                    minHeight: windowHeight-100,
                     justifyContent: 'center',
                     position: "relative",
                 }}>
-                    <View style={{  textAlign: "center", justifyContent: "center", width: "100%", height: 80, display: "flex", position: "relative" }}>
-
-                        <Text style={{ textAlign: "center", fontWeight: "bold", fontSize: 20, color: "black" }}>
-                             Emetteurs
-                        </Text>
-                   
-                    </View>
-
+         
                     <ScrollView
                         nestedScrollEnabled={true}
                         showsVerticalScrollIndicator={false}
@@ -134,6 +127,13 @@
                             flexGrow: 1,
                         }}>
 
+<View style={{  textAlign: "center", justifyContent: "center", width: "100%", height: 80, display: "flex", position: "relative" }}>
+
+<Text style={{ textAlign: "center", fontWeight: "bold", fontSize: 20, color: "black" }}>
+     Emetteurs
+</Text>
+
+</View>
 
                         <View
                             style={{

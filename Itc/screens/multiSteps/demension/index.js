@@ -31,19 +31,17 @@
      
       const [mur, setMur] = useState({
 
-        energieDeChuaffage: "",
-        typeGenerateur:  "",
-        puissanceNominale:  "",
-        nombreDeGenerateur:  "",
-        poisition: "",
-        annee:""
+        longeur: "",
+        largeur:  "",
+        hauteur:  "",
+        orientationPrincipale:  "",
+  
       });
-  console.log("mur",mur)
- 
+  
  
      async function fetchData() {
          try {
-             const value = JSON.parse(await AsyncStorage.getItem('emission'));
+             const value = JSON.parse(await AsyncStorage.getItem('dimension'));
               if (value !== null ) {
                   setMur(value)
              }
@@ -73,18 +71,17 @@
                  position: "relative",
                  paddingBottom: 40
              }}>
-                 <Head title={"Emission"} setActiveSteps={setActiveSteps} />
+                 <Head title={"Forme bâtiment"} setActiveSteps={setActiveSteps} />
                 {!loading?
                  <Formik
+                 
+        
                 initialValues={{
-                energieDeChuaffage: mur.energieDeChuaffage,
-                typeGenerateur:  mur.typeGenerateur,
-                puissanceNominale:  mur.puissanceNominale,
-                nombreDeGenerateur:  mur.nombreDeGenerateur,
-                position:  mur.position,
-                annee:  mur.annee,
-                systempoint:  mur.systempoint,
-                puissance:  mur.puissance,
+                    longeur: mur.longeur,
+                    largeur:  mur.largeur,
+                    hauteur:  mur.hauteur,
+                    orientationPrincipale:  mur.orientationPrincipale,
+           
 
 
              }}
@@ -94,11 +91,11 @@
                    
                         await AsyncStorage.setItem(
                             'activeStep',
-                            JSON.stringify(15)
+                            JSON.stringify(4)
                         );
                         
                         await AsyncStorage.setItem(
-                            'emission',
+                            'dimension',
                             JSON.stringify(values)
                         );
                         
@@ -108,7 +105,7 @@
                         // Error saving data
                     }
                    
-                    setActiveSteps(15)}
+                    setActiveSteps(4)}
                    
                    
  
@@ -140,7 +137,7 @@
 <View style={{  textAlign: "center", justifyContent: "center", width: "100%", height: 80, display: "flex", position: "relative" }}>
 
 <Text style={{ textAlign: "center", fontWeight: "bold", fontSize: 20, color: "black" }}>
-     Systéme de chauffage
+Dimension
 </Text>
 
 </View>
@@ -154,61 +151,28 @@
                             <InputView>
                                 <TextInput
                                     style={styles.inputText}
-                                    placeholder="Energie de chauffage"
-                                    placeholderTextColor="#003f5c"
-                                    onChangeText={handleChange('energieDeChuaffage')}
-                                     value={values.energieDeChuaffage}
-
-
-                                />
-                            </InputView>
-
-
-                            <InputView>
-                                <TextInput
-                                    style={styles.inputText}
-                                    placeholder="Type de générateur"
-                                    placeholderTextColor="#003f5c"
-                                    onChangeText={handleChange('typeGenerateur')}
-                                     value={values.typeGenerateur}
-
-
-
-                                />
-                            </InputView>
-                            <InputView>
-                                <TextInput
-                                    style={styles.inputText}
-                                    placeholder="Puissance nominale"
+                                    placeholder="Longeur"
                                     placeholderTextColor="#003f5c"
                                     keyboardType="numeric"
 
-                                    onChangeText={handleChange('puissanceNominale')}
-                                    value={values.puissanceNominale}
+                                    onChangeText={handleChange('longeur')}
+                                     value={values.longeur}
 
 
                                 />
                             </InputView>
+
+
                             <InputView>
                                 <TextInput
                                     style={styles.inputText}
-                                    placeholder="Nombre de générateur"
+                                    placeholder="largeur"
+                                    placeholderTextColor="#003f5c"
                                     keyboardType="numeric"
 
-                                    placeholderTextColor="#003f5c"
-                                    onChangeText={handleChange('nombreDeGenerateur')}
-                                    value={values.nombreDeGenerateur}
+                                    onChangeText={handleChange('largeur')}
+                                     value={values.largeur}
 
-
-                                />
-                            </InputView>
-                            <InputView>
-                                <TextInput
-                                    style={styles.inputText}
-                                    placeholder="Position (en vol chauffé )"
-                                    placeholderTextColor="#003f5c"
-                                    onChangeText={handleChange('position')}
-                                    value={values.position}
 
 
                                 />
@@ -216,12 +180,12 @@
                             <InputView>
                                 <TextInput
                                     style={styles.inputText}
-                                    placeholder="Année"
+                                    placeholder="Hauteur"
+                                    placeholderTextColor="#003f5c"
                                     keyboardType="numeric"
 
-                                    placeholderTextColor="#003f5c"
-                                    onChangeText={handleChange('annee')}
-                                    value={values.annee}
+                                    onChangeText={handleChange('hauteur')}
+                                    value={values.hauteur}
 
 
                                 />
@@ -229,30 +193,16 @@
                             <InputView>
                                 <TextInput
                                     style={styles.inputText}
-                                    placeholder="Systéme d'appoint"
+                                    placeholder="Orientation façade principale"
  
                                     placeholderTextColor="#003f5c"
-                                    onChangeText={handleChange('systempoint')}
-                                    value={values.systempoint}
+                                    onChangeText={handleChange('orientationPrincipale')}
+                                    value={values.orientationPrincipale}
 
 
                                 />
                             </InputView>
-                            <InputView>
-                                <TextInput
-                                    style={styles.inputText}
-                                    placeholder="Puissance de l'appoint (kw)"
-                                    keyboardType="numeric"
-
-                                    placeholderTextColor="#003f5c"
-                                    onChangeText={handleChange('puissance')}
-                                    value={values.puissance}
-
-
-                                />
-                            </InputView>
-
-
+                             
 
                         </View>
                     </ScrollView>

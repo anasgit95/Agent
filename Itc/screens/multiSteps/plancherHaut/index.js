@@ -135,7 +135,7 @@ const PlancherHaut: () => Node = ({ setActiveSteps }) => {
                                     setEdit(true)
                                 }
                             }>
-                                <InputView>
+                                 <InputView borderColor={item.compositionPlancherBas?"green":null}>
                                     <Text key={item.nomDeMur} style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 5 }}> {item.Type}</Text>
                                 </InputView>
                             </TouchableOpacity>
@@ -153,7 +153,7 @@ const PlancherHaut: () => Node = ({ setActiveSteps }) => {
 
                         await AsyncStorage.setItem(
                             'activeStep',
-                            JSON.stringify(11)
+                            JSON.stringify(12)
                         );
  
                     } catch (error) {
@@ -161,7 +161,7 @@ const PlancherHaut: () => Node = ({ setActiveSteps }) => {
                         // Error saving data
                     }
 
-                    setActiveSteps(11)
+                    setActiveSteps(12)
 
 
                 }} />

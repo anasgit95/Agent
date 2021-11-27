@@ -23,11 +23,14 @@ const Generaliter: () => Node = ({setActiveSteps}) => {
 
     const windowHeight = Dimensions.get('window').height;
     const [fullName, setFullName] = useState();
+    const [phone, setPhone] = useState();
+
     const [adresse, setAdresse] = useState();
     const [postalCode, setPostalCode] = useState();
     const [yearConstruction, setYearConstruction] = useState();
     const [occupantNumber, setOccupantNumber] = useState();
     const [adultNumber, setAdultNumber] = useState();
+    const [email, setEmail] = useState();
 
     const [open, setOpen] = useState(false);
     const [type, setType] = useState(null);
@@ -45,6 +48,9 @@ const Generaliter: () => Node = ({setActiveSteps}) => {
         try { 
             const  value = JSON.parse(await AsyncStorage.getItem('Generalite')) ;
              if (value !== null){
+                setEmail(value.email)
+                setPhone(value.phone)
+
                  setFullName(value.fullName)
                 setAdresse(value.adresse)
                 setPostalCode(value.postalCode)
@@ -126,7 +132,23 @@ const Generaliter: () => Node = ({setActiveSteps}) => {
                     placeholderTextColor="#003f5c"
                     onChangeText={setFullName} />
             </InputView>
-
+            <InputView>
+                <TextInput
+                    style={styles.inputText}
+                    value={email}
+                    placeholder="Email"
+                    placeholderTextColor="#003f5c"
+                    onChangeText={setEmail} />
+            </InputView>
+            <InputView>
+                <TextInput
+                    style={styles.inputText}
+                    value={phone}
+                    placeholder="Phone"
+                    keyboardType="number-pad"
+                    placeholderTextColor="#003f5c"
+                    onChangeText={setPhone} />
+            </InputView>
             <InputView>
                 <Text style={{
                     height: 50,
@@ -210,6 +232,8 @@ const Generaliter: () => Node = ({setActiveSteps}) => {
                     occupantNumber,
                     adultNumber,
                     type,
+                    email,
+                    phone
                     
                    
               

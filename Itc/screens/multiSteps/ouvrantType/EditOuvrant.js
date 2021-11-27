@@ -69,7 +69,7 @@
     }
      const addOneMur = () => {
          let NewMur = {
-            Type:mur.Type,
+            nom:mur.nom,
             designation,
             typeDeParoi,
             typeDeMenuiserie,
@@ -94,7 +94,7 @@
              <View style={{ backgroundColor: "rgb(0,101,147)", textAlign: "center", justifyContent: "center", width: "100%", height: 80, display: "flex", position: "relative" }}>
  
                  <Text style={{ textAlign: "center", fontWeight: "bold", fontSize: 20, color: "white" }}>
-                    {mur.Type}
+                    {mur.name}
                  </Text>
                  <TouchableOpacity
                      onPress={() => setEdit(false)}

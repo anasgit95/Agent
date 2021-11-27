@@ -142,7 +142,7 @@ const RepartitionMur: () => Node = ({ setActiveSteps }) => {
                                 setEdit(true)
                             }
                         }> 
-                            <InputView>
+                            <InputView borderColor="red">
                                 <Text key={item.nomDeMur} style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 5 }}> {item.designationValue}-->{item.laison}</Text>
                             </InputView>
                             </TouchableOpacity>
@@ -165,14 +165,14 @@ const RepartitionMur: () => Node = ({ setActiveSteps }) => {
 
         await AsyncStorage.setItem(
             'activeStep',
-            JSON.stringify(6)
+            JSON.stringify(7)
         );
     } catch (error) {
         console.log("error", error)
         // Error saving data
     }
 
-    setActiveSteps(6)
+    setActiveSteps(7)
 
 
 }} />

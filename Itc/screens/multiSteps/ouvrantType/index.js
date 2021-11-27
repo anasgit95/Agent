@@ -24,9 +24,9 @@ const OuvrantType: () => Node = ({ setActiveSteps }) => {
 
 
     const [mur, setMur] = useState([
-        { Type: "F1", id: 1 },
-        { Type: "F2", id: 2 },
-        { Type: "F3", id: 3 }
+        { nom: "F1", id: 1 },
+        { nom: "F2", id: 2 },
+        { nom: "F3", id: 3 }
 
     ]);
     const [edit, setEdit] = useState(false);
@@ -131,8 +131,8 @@ const OuvrantType: () => Node = ({ setActiveSteps }) => {
                                     setEdit(true)
                                 }
                             }>
-                                <InputView>
-                                    <Text key={item.nomDeMur} style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 5 }}> {item.Type}</Text>
+                                <InputView borderColor={item.designation?"green":null}>
+                                    <Text key={item.nom} style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 5 }}> {item.nom}</Text>
                                 </InputView>
                             </TouchableOpacity>
                         )}
@@ -145,17 +145,20 @@ const OuvrantType: () => Node = ({ setActiveSteps }) => {
                 <NextStep onPress={async () => {
 
                     try {
-
+                        await AsyncStorage.setItem(
+                            'Ouvrant',
+                            JSON.stringify(mur)
+                        );
                         await AsyncStorage.setItem(
                             'activeStep',
-                            JSON.stringify(5)
+                            JSON.stringify(6)
                         );
                     } catch (error) {
                         console.log("error", error)
                         // Error saving data
                     }
 
-                    setActiveSteps(5)
+                    setActiveSteps(6)
 
 
                 }} />

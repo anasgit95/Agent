@@ -163,14 +163,14 @@ const RepartitionMur: () => Node = ({ setActiveSteps }) => {
   
         await AsyncStorage.setItem(
             'activeStep',
-            JSON.stringify(4)
+            JSON.stringify(5)
         );
     } catch (error) {
         console.log("error", error)
         // Error saving data
     }
 
-    setActiveSteps(4)
+    setActiveSteps(5)
 
 
 }} />

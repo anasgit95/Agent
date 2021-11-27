@@ -7,7 +7,7 @@
  */
 
  import React, { useState } from 'react';
- import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native';
+ import { StyleSheet, Text, View, TextInput,   ScrollView } from 'react-native';
  import Head from '../components/Head'
  import InputView from '../components/InputView';
  // import DropDownPicker from 'react-native-dropdown-picker';
@@ -23,12 +23,15 @@ import { useEffect } from 'react';
      const [lvlNumber, setLvlNumber] = useState();
      const [platFondLvl, setPlatFondLvl] = React.useState("Comble non aménagés");
      const [plancherBas, setPlancherBas] = React.useState("Sur terre plein");
+     const [sousSol, setSousSol] = useState();
+     const [rdc, setRdc] = useState();
+     const [r1, setR1] = useState();
+     const [r2, setR2] = useState();
 
      
  
 
-     const [date, setDate] = useState(new Date());
- 
+  
 
 
      async function fetchData() {
@@ -36,10 +39,16 @@ import { useEffect } from 'react';
             const value = JSON.parse(await AsyncStorage.getItem('Architecture'));
             
             if (value !== null) {
-                 setLvlNumber(value.lvlNumber)
+                setLvlNumber(value.lvlNumber)
                 setSurfaceHabtable(value.surfacehabtable)
                 setPlatFondLvl(value.platFondLvl)
                 setPlancherBas(value.plancherBas)
+                setSousSol(value.sousSol)
+                setR2(value.r2)
+                setR1(value.r1)
+                setRdc(value.rdc)
+
+
                
             }
         } catch (error) {
@@ -56,11 +65,6 @@ import { useEffect } from 'react';
 
 
     }, []);
-
-     const onChange = (event, selectedDate) => {
-         const currentDate = selectedDate || date;
-         setDate(currentDate);
-     };
  
  
      return (
@@ -110,7 +114,45 @@ import { useEffect } from 'react';
                              placeholderTextColor="#003f5c"
                              onChangeText={setLvlNumber} />
                      </InputView>
-                     <Text style={{ paddingTop: 10, fontWeight: "bold" }}>Niveau du plafond ?</Text>
+                     <Text style={{ paddingTop: 10, fontWeight: "bold",color:"black",}}>Hauteur par niveau?</Text>
+
+                     <InputView>
+                         <TextInput
+                             style={styles.inputText}
+                             placeholder="Sous sol"
+                             keyboardType="numeric"
+                             value={sousSol}
+                             placeholderTextColor="#003f5c"
+                             onChangeText={setSousSol} />
+                     </InputView>
+                     <InputView>
+                         <TextInput
+                             style={styles.inputText}
+                             placeholder="RDC"
+                             keyboardType="numeric"
+                             value={rdc}
+                             placeholderTextColor="#003f5c"
+                             onChangeText={setRdc} />
+                     </InputView>
+                     <InputView>
+                         <TextInput
+                             style={styles.inputText}
+                             placeholder="R+1"
+                             keyboardType="numeric"
+                             value={r1}
+                             placeholderTextColor="#003f5c"
+                             onChangeText={setR1} />
+                     </InputView>
+                     <InputView>
+                         <TextInput
+                             style={styles.inputText}
+                             placeholder="R+2"
+                             keyboardType="numeric"
+                             value={r2}
+                             placeholderTextColor="#003f5c"
+                             onChangeText={setR2} />
+                     </InputView>
+                     <Text style={{ paddingTop: 10, fontWeight: "bold",color:"black",}}>Nature du plafond ?</Text>
  
                      <RadioButton.Group onValueChange={setPlatFondLvl} value={platFondLvl}>
  
@@ -165,7 +207,7 @@ import { useEffect } from 'react';
 
 
          </View>
-         <View style={{ flexDirection: "row",flex:0.9 }}>
+         <View style={{ flexDirection: "row",flex:0.9,marginBottom:100}}>
              <RadioButton value="second" />
              <Text style={{ paddingTop: 10 }}>Sur sous sol</Text>
 
@@ -212,6 +254,10 @@ let gener = {
     lvlNumber,
     platFondLvl,
     plancherBas,
+    sousSol,
+    rdc,
+    r1,
+    r2
      
 
 }

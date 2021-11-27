@@ -42,7 +42,7 @@ const OuvrantType: () => Node = ({ setActiveSteps }) => {
                 setMur(value)
             }
             else  await AsyncStorage.setItem(
-                'Ouvrant',
+                'Porte',
                 JSON.stringify(mur)
             );
         } catch (error) {
@@ -131,7 +131,7 @@ const OuvrantType: () => Node = ({ setActiveSteps }) => {
                                     setEdit(true)
                                 }
                             }>
-                                <InputView>
+                                <InputView borderColor={item.nature?"green":null}>
                                     <Text key={item.nomDeMur} style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 5 }}> {item.Type}</Text>
                                 </InputView>
                             </TouchableOpacity>
@@ -148,14 +148,14 @@ const OuvrantType: () => Node = ({ setActiveSteps }) => {
 
                         await AsyncStorage.setItem(
                             'activeStep',
-                            JSON.stringify(7)
+                            JSON.stringify(8)
                         );
                     } catch (error) {
                         console.log("error", error)
                         // Error saving data
                     }
 
-                    setActiveSteps(7)
+                    setActiveSteps(8)
 
 
                 }} />

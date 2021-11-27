@@ -53,7 +53,7 @@ const AddRepartition: () => Node = ({ setAdd, setMur,mur }) => {
         try {
             const value = JSON.parse(await AsyncStorage.getItem('Ouvrant'));
             if (value !== null && value.length > 0) {
-                setDesignation(value.map(person => ({ label: person.Type, value: person.Type })))
+                setDesignation(value.map(person => ({ label: person.nom, value: person.nom })))
 
             }
             const mur = JSON.parse(await AsyncStorage.getItem('Repartition'));

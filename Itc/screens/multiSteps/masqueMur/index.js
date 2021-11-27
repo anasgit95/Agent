@@ -165,14 +165,14 @@ const MasqueMur: () => Node = ({ setActiveSteps }) => {
   
         await AsyncStorage.setItem(
             'activeStep',
-            JSON.stringify(9)
+            JSON.stringify(10)
         );
     } catch (error) {
         console.log("error", error)
         // Error saving data
     }
 
-    setActiveSteps(9)
+    setActiveSteps(10)
 
 
 }} />

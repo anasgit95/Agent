@@ -41,9 +41,9 @@
         const sousSol = JSON.parse(await AsyncStorage.getItem('sousSol'));
         const plancherHaut = JSON.parse(await AsyncStorage.getItem('PlancherHaut'));
         const linetique = JSON.parse(await AsyncStorage.getItem('Linetique'));
+        const dimension = JSON.parse(await AsyncStorage.getItem('dimension'));
         const user = JSON.parse(await AsyncStorage.getItem('user'));
         const images = JSON.parse(await AsyncStorage.getItem('images'));
-        console.log(user)
         axios.post('evaluation', {
             generaliter,
             context,
@@ -59,7 +59,8 @@
             plancherHaut,
             linetique,
             Creator: user._id,
-            images
+            images,
+            dimension
 
 
 
@@ -81,7 +82,9 @@
   await AsyncStorage.removeItem('PlancherHaut')
    await AsyncStorage.removeItem('Linetique')
    await AsyncStorage.removeItem('images')
+   await AsyncStorage.removeItem('dimension')
 
+   
    await AsyncStorage.setItem(
     'activeStep',
     JSON.stringify(0)

@@ -129,7 +129,7 @@
                                      setEdit(true)
                                  }
                              }>
-                                 <InputView>
+                                 <InputView borderColor={item.compositionPlancherBas?"green":null}>
                                      <Text key={item.nomDeMur} style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 5 }}> {item.Type}</Text>
                                  </InputView>
                              </TouchableOpacity>
@@ -226,7 +226,7 @@
  
                          await AsyncStorage.setItem(
                              'activeStep',
-                             JSON.stringify(10)
+                             JSON.stringify(11)
                          );
                          await AsyncStorage.setItem(
                              'sousSol',
@@ -237,7 +237,7 @@
                          // Error saving data
                      }
  
-                     setActiveSteps(10)
+                     setActiveSteps(11)
  
  
                  }} />

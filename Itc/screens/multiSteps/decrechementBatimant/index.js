@@ -145,7 +145,7 @@ const Decrechement: () => Node = ({ setActiveSteps }) => {
                                     setEdit(true)
                                 }
                             }>
-                                <InputView>
+                                <InputView borderColor={item.sousSol}>
                                     <Text key={item.nomDeMur} style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 5 }}> {item.Type}</Text>
                                 </InputView>
                             </TouchableOpacity>
@@ -163,7 +163,7 @@ const Decrechement: () => Node = ({ setActiveSteps }) => {
 
                         await AsyncStorage.setItem(
                             'activeStep',
-                            JSON.stringify(13)
+                            JSON.stringify(14)
                         );
  
                     } catch (error) {
@@ -171,7 +171,7 @@ const Decrechement: () => Node = ({ setActiveSteps }) => {
                         // Error saving data
                     }
 
-                    setActiveSteps(13)
+                    setActiveSteps(14)
 
 
                 }} />
