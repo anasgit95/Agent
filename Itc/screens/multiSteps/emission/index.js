@@ -7,7 +7,7 @@
  */
 
  import React, { useState } from 'react';
- import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native';
+ import { StyleSheet, Text, View, TextInput,ScrollView } from 'react-native';
  import InputView from '../../components/InputView';
  // import DropDownPicker from 'react-native-dropdown-picker';
  import NextStep from '../../components/NextSteps'
@@ -16,8 +16,7 @@
  import { useEffect } from 'react';
   import Head from '../../components/Head'
   import { Formik } from 'formik';
-  import AntDesign from 'react-native-vector-icons/AntDesign'
-
+ 
  const Emission: () => Node = ({ setActiveSteps }) => {
      const windowHeight = Dimensions.get('window').height;
      const windowWidth = Dimensions.get('window').width;
@@ -38,8 +37,7 @@
         poisition: "",
         annee:""
       });
-  console.log("mur",mur)
- 
+  
  
      async function fetchData() {
          try {

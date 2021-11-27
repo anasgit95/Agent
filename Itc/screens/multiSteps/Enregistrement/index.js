@@ -16,6 +16,9 @@
    import axios from '../../../utils/Api'
   import AntDesign from 'react-native-vector-icons/AntDesign'
  import Signature from './sign'
+ import { ToastAndroid } from 'react-native';
+
+
  DropDownPicker.setMode("BADGE");
  
  const Validation: () => Node = ({ setActiveSteps }) => {
@@ -44,7 +47,12 @@
         const dimension = JSON.parse(await AsyncStorage.getItem('dimension'));
         const user = JSON.parse(await AsyncStorage.getItem('user'));
         const images = JSON.parse(await AsyncStorage.getItem('images'));
+        const decrechement = JSON.parse(await AsyncStorage.getItem('Decrechement'));
+        const emission =JSON.parse(await AsyncStorage.getItem('emission'))
+        const emetteur = JSON.parse(await AsyncStorage.getItem('emetteur'));
+
         axios.post('evaluation', {
+
             generaliter,
             context,
             architecture,
@@ -60,30 +68,27 @@
             linetique,
             Creator: user._id,
             images,
-            dimension
+            dimension,
+            decrechement,
+            emission,
+            emetteur
 
 
 
         }).then(async response =>
 
 
-{
- await AsyncStorage.removeItem('Generalite')
- await AsyncStorage.removeItem('Context');
- await AsyncStorage.removeItem('Architecture')
- await AsyncStorage.removeItem('Repartition')
- await AsyncStorage.removeItem('Ouvrant')
- await AsyncStorage.removeItem('OuvrantTypeList')
-  await AsyncStorage.removeItem('Porte')
- await AsyncStorage.removeItem('PorteDesignation')
- await AsyncStorage.removeItem('MasqueMur')
- await AsyncStorage.removeItem('PlancherBas')
- await AsyncStorage.removeItem('sousSol')
-  await AsyncStorage.removeItem('PlancherHaut')
-   await AsyncStorage.removeItem('Linetique')
-   await AsyncStorage.removeItem('images')
-   await AsyncStorage.removeItem('dimension')
+{  
+    ToastAndroid.showWithGravityAndOffset("Votre projet a été bien enregistré",
+    ToastAndroid.LONG,
+    ToastAndroid.TOP, 0, 400)
 
+    const keys = await AsyncStorage.getAllKeys()
+    await AsyncStorage.multiRemove(keys)
+    await AsyncStorage.setItem(
+        'user',
+        JSON.stringify(user)
+    );
    
    await AsyncStorage.setItem(
     'activeStep',
