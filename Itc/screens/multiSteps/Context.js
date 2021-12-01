@@ -8,7 +8,7 @@
 
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native';
-import Head from '../components/Head'
+// import Head from '../components/Head'
 import InputView from '../components/InputView';
 // import DropDownPicker from 'react-native-dropdown-picker';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -17,6 +17,10 @@ import { Dimensions } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import { AsyncStorage } from 'react-native';
 import { useEffect } from 'react';
+import AntDesign from 'react-native-vector-icons/AntDesign'
+import Camera from './pickerImage/camera'
+import { ToastAndroid } from 'react-native';
+
 DropDownPicker.setMode("BADGE");
 
  const Context: () => Node = ({ setActiveSteps }) => {
@@ -32,18 +36,20 @@ DropDownPicker.setMode("BADGE");
     const [certificatEco, setCertificatEco] = React.useState('Oui');
     const [extensionBatimant, setExtensionBattimant] = React.useState('Oui');
     const [priority, setPriority] = useState(null);
+    const [preciser, setPreciser] = useState(null);
+
     const [valueTechnique, setValueTechnique] = useState(null);
     const [solution, setSolutions] = useState();
     const [open, setOpen] = useState(false);
     const [openTechnique, setOpenTechnique] = useState(false);
     const [items, setItems] = useState([
-        { label: 'Améliorer le confort thermique', value: 'MI' },
-        { label: 'Embellir le logement', value: 'Ap' },
-        { label: 'Faire des économies', value: 'Lc' },
-        { label: 'Augmenter la valeur du bien immobilier', value: 'T' },
-        { label: 'Adapter le logement ', value: 'Ts' },
-        { label: "Réduire l'empreinte environnementale ", value: 'Tsa' },
-        { label: "Résoudre une panne /une dégradation ", value: 'Tdqsdqs' },
+        { label: 'Améliorer le confort thermique', value: 'Améliorer le confort thermique' },
+        { label: 'Embellir le logement', value: 'Embellir le logement' },
+        { label: 'Faire des économies', value: 'Faire des économies' },
+        { label: 'Augmenter la valeur du bien immobilier', value: 'Augmenter la valeur du bien immobilier' },
+        { label: 'Adapter le logement', value: 'Adapter le logement ' },
+        { label: "Réduire l'empreinte environnementale", value: "Réduire l'empreinte environnementale" },
+        { label: "Résoudre une panne /une dégradation", value: 'Résoudre une panne /une dégradation' },
 
     ]);
     const [technique, setItemsTechnique] = useState([
@@ -56,10 +62,8 @@ DropDownPicker.setMode("BADGE");
     ]);
     const [date, setDate] = useState(new Date());
 
-    const onChange = (event, selectedDate) => {
-        const currentDate = selectedDate || date;
-        setDate(currentDate);
-    };
+    const [images, setImages] = useState([]);
+
     async function fetchData() {
         try {
             const value = JSON.parse(await AsyncStorage.getItem('Context'));
@@ -74,6 +78,11 @@ DropDownPicker.setMode("BADGE");
                 setPriority(value.priority)
                 setValueTechnique(value.valueTechnique)
                 setSolutions(value.solution)
+                setPreciser(value.preciser)
+                if(value.images)
+                setImages(value.images)
+
+
             }
         } catch (error) {
             console.log(error)
@@ -97,7 +106,24 @@ DropDownPicker.setMode("BADGE");
             position: "relative",
             paddingBottom: 40
         }}>
-            <Head title={"CONTEXTE"}  setActiveSteps={setActiveSteps}/>
+            <View style={{ backgroundColor: "rgb(0,101,147)", textAlign: "center", justifyContent: "center", width: "100%", height: 80, display: "flex", position: "relative" }}>
+                    <Text style={{ textAlign: "center", fontWeight: "bold", fontSize: 20, color: "white" }}>
+                        Context
+                    </Text>
+                    {/* <TouchableOpacity style={{ position: "absolute", right: 20 }} onPress={() => setAdd(true)}>
+
+                        <AntDesign name="plus" color="white" size={30} />
+
+                    </TouchableOpacity> */}
+                    <TouchableOpacity
+                    onPress={() => setActiveSteps(prev=>prev-1)}
+                    style={{ position: "absolute", left: 20, bottom: 20 }}>
+
+                    <AntDesign name="arrowleft" color="white" size={30} />
+
+                </TouchableOpacity>
+                </View>
+            {/* <Head title={"CONTEXTE"}  setActiveSteps={setActiveSteps}/> */}
             <ScrollView
 
                 horizontal={false}
@@ -145,7 +171,7 @@ DropDownPicker.setMode("BADGE");
                     </View>
                     <View style={{
  
-width:"80%"
+                        width:"80%"
 
                     }}>
                         <DropDownPicker
@@ -159,7 +185,7 @@ width:"80%"
                             open={openTechnique}
                             multiple={true}
                             value={valueTechnique}
-                            items={items}
+                            items={technique}
                             setOpen={setOpenTechnique}
                             setValue={setValueTechnique}
                             setItems={setItemsTechnique}
@@ -354,10 +380,26 @@ width:"80%"
                                 <Text style={{ paddingTop: 10 }}>{"Entre 36792 et 44124"}</Text>
 
                             </View>
-                            <View style={{ flexDirection: "row", flex: 1 }}>
+                            <View style={{  flex: 1 }}>
+                                <View style={{ flexDirection: "row" }}> 
                                 <RadioButton value="Préciser" />
                                 <Text style={{ paddingTop: 10 }}>Préciser</Text>
-
+                               
+                                </View>
+                                <View style={{width:"80%"}}>
+                                    {profond==="Préciser"?
+                                     <InputView>
+                                     <TextInput
+                                        style={styles.inputText}
+                                        placeholder="Préciser"
+                                        placeholderTextColor="#003f5c"
+                                        value={preciser}
+                                        onChangeText={setPreciser} />
+                                </InputView>
+                                :null
+                                    }
+                               
+                                    </View>
 
                             </View>
 
@@ -369,6 +411,9 @@ width:"80%"
 
 
                     <Text style={{ paddingTop: 10, fontWeight: "bold" }}>*/ Photo copie dernier d'imposition ?</Text>
+                    <Camera images={images} setImages={setImages} />
+
+                   
                     <Text style={{ paddingTop: 10, fontWeight: "bold" }}>Projet béneficiant des certificates d'économies d'énergie  ?</Text>
 
 
@@ -441,8 +486,8 @@ width:"80%"
             </ScrollView>
 
             <NextStep onPress={async () => {
-
-
+if(images && images.length>0)
+{
                 let gener = {
                     occupation,
                     logement,
@@ -455,6 +500,8 @@ width:"80%"
                     extensionBatimant,
                     valueTechnique,
                     solution,
+                    preciser,
+                    images
 
 
 
@@ -477,7 +524,10 @@ width:"80%"
 
                 setActiveSteps(2)
 
-
+}
+else  ToastAndroid.showWithGravityAndOffset("Vous devez ajouté des images",
+ToastAndroid.LONG,
+ToastAndroid.TOP, 0, 400)
             }} />
 
         </View>

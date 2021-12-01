@@ -226,7 +226,7 @@
  
                          await AsyncStorage.setItem(
                              'activeStep',
-                             JSON.stringify(11)
+                             JSON.stringify(12)
                          );
                          await AsyncStorage.setItem(
                              'sousSol',
@@ -237,7 +237,7 @@
                          // Error saving data
                      }
  
-                     setActiveSteps(11)
+                     setActiveSteps(12)
  
  
                  }} />

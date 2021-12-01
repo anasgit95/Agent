@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
         width: "80%",
         borderRadius: 5,
         position: "absolute",
-        bottom: 0,
+        bottom: 60,
         zIndex: 5000,
         left: "10%",
         marginBottom: 10,

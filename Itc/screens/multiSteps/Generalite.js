@@ -7,7 +7,7 @@
  */
 
 import React, { useState,useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TextInput,  ScrollView } from 'react-native';
 import Head from '../components/Head'
 import InputView from '../components/InputView';
 // import DropDownPicker from 'react-native-dropdown-picker';
@@ -34,16 +34,66 @@ const Generaliter: () => Node = ({setActiveSteps}) => {
 
     const [open, setOpen] = useState(false);
     const [type, setType] = useState(null);
+    const [typepreciser, setTypepreciser] = useState(null);
+
     const [items, setItems] = useState([
-        { label: 'Maison individuelle', value: 'MI' },
-        { label: 'Appartement', value: 'Ap' },
-        { label: 'Logement collectif', value: 'Lc' },
-        { label: 'Teritiare', value: 'T' },
+        { label: 'Maison individuelle', value: 'Maison individuelle' },
+        { label: 'Appartement', value: 'Appartement' },
+        { label: 'Logement collectif', value: 'Logement collectif' },
+        { label: 'Préciser', value: 'Préciser' },
 
 
 
     ]);
-  
+    const parseAddress = (components) => {
+         const result = {
+          line1: ["", "", ""], // Make line1 an arry so we an arr.join(' ').trim() and not have to worry about fields being there or not
+          suburb: "",
+          city: "",
+          county: "",
+          country: "",
+          postcode: "",
+        };
+    
+        components.forEach((component) => {
+          component.types.forEach((type) => {
+             if (type === "subpremise") {
+              result.line1[0] = component.long_name;
+            }
+            if (type === "street_number") {
+              result.line1[1] = component.long_name;
+            }
+            if (type === "route") {
+              result.line1[2] = component.long_name;
+            }
+            if (
+              ["neighborhood", "sublocality", "sublocality_level_2"].includes(type)
+            ) {
+              result.suburb = component.long_name;
+            }
+            if (
+              ["locality", "postal_town", "administrative_area_level_1"].includes(
+                type
+              )
+            ) {
+              result.city = component.long_name;
+            }
+            if (type === "administrative_area_level_2") {
+              result.county = component.long_name;
+            }
+            if (type === "country") {
+              result.country = component.long_name;
+            }
+    
+            if (type === "postal_code") {
+              result.postcode = component.long_name;
+            }
+          });
+        });
+
+        return result;
+    }
+
     async function fetchData() {
         try { 
             const  value = JSON.parse(await AsyncStorage.getItem('Generalite')) ;
@@ -58,10 +108,9 @@ const Generaliter: () => Node = ({setActiveSteps}) => {
                 setOccupantNumber(value.occupantNumber)
                 setAdultNumber(value.adultNumber)
                 setType(value.type)
-                 
+                 setTypepreciser(value.typepreciser )
               // We have data!!
-              console.log(value);
-            }
+             }
           } catch (error) {
               console.log(error)
             // Error retrieving data
@@ -80,9 +129,15 @@ const Generaliter: () => Node = ({setActiveSteps}) => {
         .then(location => {
  
              Geocoder.from(location).then(json => {
-         		// var addressComponent = json.results[0].address_components[2];
+          		// var addressComponent = json.results[0].address_components[2];
 			    // console.log(addressComponent);
-                setAdresse(json.results[0].address_components[2].short_name)
+                const parsedAddress = parseAddress(json.results[0].address_components);
+
+
+                console.log("parsedAddress",parsedAddress)
+                setAdresse(parsedAddress.city)
+                setPostalCode(parsedAddress.postcode)
+
             //    console.log(json.results[0].address_components[2].short_name)
 		})
 		.catch(error => console.log(error));;
@@ -192,6 +247,18 @@ const Generaliter: () => Node = ({setActiveSteps}) => {
                     setItems={setItems}
                 />
             </InputView>
+            {type==="Préciser"?
+                <InputView>
+                <TextInput
+                    style={styles.inputText}
+                    value={typepreciser}
+                     placeholder="Ajouter le type"
+                    placeholderTextColor="#003f5c"
+                    onChangeText={setTypepreciser} />
+            </InputView>
+            :null
+        }
+        
             <InputView>
                 <TextInput
                 value={yearConstruction}
@@ -233,7 +300,8 @@ const Generaliter: () => Node = ({setActiveSteps}) => {
                     adultNumber,
                     type,
                     email,
-                    phone
+                    phone,
+                    typepreciser
                     
                    
               

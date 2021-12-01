@@ -86,7 +86,7 @@
                    
                         await AsyncStorage.setItem(
                             'activeStep',
-                            JSON.stringify(16)
+                            JSON.stringify(18)
                         );
                         
                         await AsyncStorage.setItem(
@@ -100,7 +100,7 @@
                         // Error saving data
                     }
                    
-                    setActiveSteps(16)}
+                    setActiveSteps(step=>step+1)}
                    
                    
  

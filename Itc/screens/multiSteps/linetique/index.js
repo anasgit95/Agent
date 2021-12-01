@@ -75,6 +75,7 @@ const linetique: () => Node = ({ setActiveSteps }) => {
                 horizontal={false}
                 style={{
                     flex: 1,
+                    width:"100%"
                 }}
                 contentContainerStyle={{
                     flexGrow: 1,
@@ -86,13 +87,13 @@ const linetique: () => Node = ({ setActiveSteps }) => {
 
                         alignItems: 'center',
                         justifyContent: 'center',
-                        width: "88%"
+                   
                     }}>
 
 
 
 
-                    <Text style={{ paddingTop: 10, fontWeight: "bold",color:"black",fontSize:15 }}>Type Mur refend? ?</Text>
+                    <Text style={{ paddingTop: 10, fontWeight: "bold",color:"black",fontSize:20 }}>Type Mur refend? ?</Text>
 
                     <RadioButton.Group onValueChange={newValue => setDetail(newValue)} value={detail}>
 
@@ -144,7 +145,7 @@ const linetique: () => Node = ({ setActiveSteps }) => {
 
 
 
-                    <Text style={{paddingTop: 10, fontWeight: "bold",color:"black",fontSize:15 }}>Isolation poutres plancher bas ?</Text>
+                    <Text style={{paddingTop: 10, fontWeight: "bold",color:"black",fontSize:20 }}>Isolation poutres plancher bas ?</Text>
 
                     <RadioButton.Group onValueChange={newValue => setIsolationPoutres(newValue)} value={isolationPoutrse}>
 
@@ -190,7 +191,7 @@ const linetique: () => Node = ({ setActiveSteps }) => {
                     </View>
 
 
-                    <Text style={{ paddingTop: 10, fontWeight: "bold",color:"black",fontSize:15 }}>Plancher intermédiaire   ?</Text>
+                    <Text style={{ paddingTop: 10, fontWeight: "bold",color:"black",fontSize:20 }}>Plancher intermédiaire   ?</Text>
 
 
                     <RadioButton.Group
@@ -223,7 +224,7 @@ const linetique: () => Node = ({ setActiveSteps }) => {
 
                     </RadioButton.Group>
 
-                    <Text style={{paddingTop: 10, fontWeight: "bold",color:"black",fontSize:15 }}>Comble aménagé    ?</Text>
+                    <Text style={{paddingTop: 10, fontWeight: "bold",color:"black",fontSize:20 }}>Comble aménagé    ?</Text>
 
 
                     <RadioButton.Group
@@ -309,14 +310,14 @@ const linetique: () => Node = ({ setActiveSteps }) => {
                     );
                     await AsyncStorage.setItem(
                         'activeStep',
-                        JSON.stringify(13)
+                        JSON.stringify(14)
                     );
                 } catch (error) {
                     console.log("error", error)
                     // Error saving data
                 }
 
-                setActiveSteps(13)
+                setActiveSteps(14)
 
 
             }} />

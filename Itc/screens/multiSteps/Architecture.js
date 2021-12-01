@@ -189,7 +189,7 @@ import { useEffect } from 'react';
  
                    
  
-                     <Text style={{ paddingTop: 10, fontWeight: "bold" }}>Nature du plancher bas ?</Text>
+                     <Text style={{ paddingTop: 10, fontWeight: "bold",color:"black" }}>Nature du plancher bas ?</Text>
  
  <RadioButton.Group onValueChange={setPlancherBas} value={plancherBas}>
 
@@ -207,7 +207,7 @@ import { useEffect } from 'react';
 
 
          </View>
-         <View style={{ flexDirection: "row",flex:0.9,marginBottom:100}}>
+         <View style={{ flexDirection: "row",flex:0.6,marginBottom:100}}>
              <RadioButton value="second" />
              <Text style={{ paddingTop: 10 }}>Sur sous sol</Text>
 

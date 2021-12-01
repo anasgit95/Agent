@@ -29,6 +29,8 @@ import Decrechement from './decrechementBatimant';
 import Emission from './emission';
 import Emetteur from './emetteur';
 import Demission from './demension'
+import PlanMasse from './planMasse';
+import RepartitionLinetique from './repartitionLinetique'
 const App: () => Node = () => {
 
     const [activeStep, setActiveSteps] = useState(0);
@@ -78,13 +80,13 @@ const App: () => Node = () => {
         // ...
     }
     useEffect(() => {
-
+        if(activeStep===0)
         fetUser();
 
 
 
 
-    }, []);
+    }, [activeStep]);
     return (
         loading?
         <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
@@ -102,37 +104,41 @@ const App: () => Node = () => {
 
                         <Architecture setActiveSteps={setActiveSteps} />
                         :activeStep===3?
-                        <Demission setActiveSteps={setActiveSteps} />
+                        <PlanMasse  setActiveSteps={setActiveSteps} />
+                        :activeStep===4?
+                       <Demission setActiveSteps={setActiveSteps} />
 
-                         :activeStep===4?
+                         :activeStep===5?
                          <Repartion setActiveSteps={setActiveSteps} />
 
-
-                     :activeStep===5?
+                         :activeStep===6?
+                         <Porte setActiveSteps={setActiveSteps} />
+                         :activeStep===7?
+ 
+                         <PorteDesignation setActiveSteps={setActiveSteps} />
+                     :activeStep===8?
 
                          <OuvrantType setActiveSteps={setActiveSteps} />
-                         :activeStep===6?
+                         :activeStep===9?
                          <OuvrantTypeRelation setActiveSteps={setActiveSteps} />
-                         :activeStep===7?
-                        <Porte setActiveSteps={setActiveSteps} />
-                        :activeStep===8?
-
-                        <PorteDesignation setActiveSteps={setActiveSteps} />
-                        :activeStep===9?
-                        <MasqueMur setActiveSteps={setActiveSteps} />
+                       
                         :activeStep===10?
-                        <PlancherBas setActiveSteps={setActiveSteps}/>
+                        <MasqueMur setActiveSteps={setActiveSteps} />
                         :activeStep===11?
-                        <PlancherHaut setActiveSteps={setActiveSteps}/>
+                        <PlancherBas setActiveSteps={setActiveSteps}/>
                         :activeStep===12?
-                        <Linetique setActiveSteps={setActiveSteps}/>
+                        <PlancherHaut setActiveSteps={setActiveSteps}/>
                         :activeStep===13?
-                        <Decrechement setActiveSteps={setActiveSteps}/>
+                        <Linetique setActiveSteps={setActiveSteps}/>
                         :activeStep===14?
-                        <Emission setActiveSteps={setActiveSteps}/>
+                        <RepartitionLinetique setActiveSteps={setActiveSteps}/>
                         :activeStep===15?
-                        <Emetteur setActiveSteps={setActiveSteps}/>
+                        <Decrechement setActiveSteps={setActiveSteps}/>
                         :activeStep===16?
+                        <Emission setActiveSteps={setActiveSteps}/>
+                        :activeStep===17?
+                        <Emetteur setActiveSteps={setActiveSteps}/>
+                        :activeStep===18?
                         <Picker setActiveSteps={setActiveSteps}/>
                         :<Valider setActiveSteps={setActiveSteps}/>
 

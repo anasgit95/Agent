@@ -114,6 +114,10 @@ const Decrechement: () => Node = ({ setActiveSteps }) => {
             }}>
                 <Head title={"Décrochement du batiment"} setActiveSteps={setActiveSteps} />
 
+<Image
+style={styles.stretch}
+source={require('../../../assets/architecture.png')}
+/>
 
                 <ScrollView
 
@@ -125,7 +129,6 @@ const Decrechement: () => Node = ({ setActiveSteps }) => {
                     contentContainerStyle={{
                         flexGrow: 1,
                     }}>
-
 
                     <View
                         style={{
@@ -163,7 +166,7 @@ const Decrechement: () => Node = ({ setActiveSteps }) => {
 
                         await AsyncStorage.setItem(
                             'activeStep',
-                            JSON.stringify(14)
+                            JSON.stringify(16)
                         );
  
                     } catch (error) {
@@ -171,7 +174,7 @@ const Decrechement: () => Node = ({ setActiveSteps }) => {
                         // Error saving data
                     }
 
-                    setActiveSteps(14)
+                    setActiveSteps(16)
 
 
                 }} />

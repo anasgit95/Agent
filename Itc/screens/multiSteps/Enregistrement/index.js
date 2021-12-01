@@ -6,7 +6,8 @@
  * @flow strict-local
  */
 
- import React from 'react';
+ import React, { useState,useEffect } from 'react';
+ 
  import { StyleSheet, Text, View, ScrollView,TouchableOpacity } from 'react-native';
  import Head from '../../components/Head'
   // import DropDownPicker from 'react-native-dropdown-picker';
@@ -20,9 +21,38 @@
 
 
  DropDownPicker.setMode("BADGE");
- 
+
  const Validation: () => Node = ({ setActiveSteps }) => {
-     const windowHeight = Dimensions.get('window').height;
+  const windowHeight = Dimensions.get('window').height;
+  const [fullName, setFullName] = useState();
+  const [adresse, setAdresse] = useState();
+  useEffect(() => {
+      
+    fetchData();
+
+     
+   
+
+
+},[]);
+  async function fetchData() {
+    try { 
+        const  value = JSON.parse(await AsyncStorage.getItem('Generalite')) ;
+         if (value !== null){
+            
+
+             setFullName(value.fullName)
+            setAdresse(value.adresse)
+           
+          // We have data!!
+         }
+      } catch (error) {
+          console.log(error)
+        // Error retrieving data
+      }
+    // ...
+  }
+  
   
  const valider= async()=>{
     try {
@@ -85,16 +115,17 @@
 
     const keys = await AsyncStorage.getAllKeys()
     await AsyncStorage.multiRemove(keys)
-    await AsyncStorage.setItem(
-        'user',
-        JSON.stringify(user)
-    );
+    setActiveSteps(0)
+
+    // await AsyncStorage.setItem(
+    //     'user',
+    //     JSON.stringify(user)
+    // );
    
-   await AsyncStorage.setItem(
-    'activeStep',
-    JSON.stringify(0)
-);
-setActiveSteps(0)
+//    await AsyncStorage.setItem(
+//     'activeStep',
+//     JSON.stringify(0)
+// );
 
  }
 
@@ -123,21 +154,39 @@ setActiveSteps(0)
              width: "100%",
              flex: 1
          }}>
-             <Head title={"Validation"} setActiveSteps={setActiveSteps} />
+             <Head title={"Attestation de passage"} setActiveSteps={setActiveSteps} />
              <ScrollView
  
                  horizontal={false}
                  style={{
-                      width:250,
-                     marginTop:10
+                      marginTop:10,
+                      padding:20
                  }}
                  contentContainerStyle={{
                      flexGrow: 1,
                  }}>
-           <Signature/>
+                     <Text style={{fontWeight:"bold",color:"black",fontSize:20}}>
+                     Par la présente, nous confirmons le passage d'un technicien mandaté par ITC ENGINEERING pour réaliser la visite préalable à l'établissement de l'audit énergétique de mon logement" Ce document n'engage à aucun travaux ni la validation d'aucun devis.
+                         </Text>
+                         <Text style={{fontWeight:"bold",color:"black",fontSize:20}}>
+                           Date et heure : Le  <Text style={{color:"red"}}> {new Date().toISOString().slice(0, 10)  }</Text>
+                         </Text>
+                         <Text style={{fontWeight:"bold",color:"black",fontSize:20}}>
+                           Lieu :  <Text style={{color:"red"}}>   {adresse }</Text>
+                         </Text>
+                         <Text style={{fontWeight:"bold",color:"black",fontSize:20}}>
+                          Nom et prénom du bénificiaire <Text style={{color:"red"}}> {fullName }</Text>                         </Text>
+                         <View style={{display:"flex",flexDirection:"row",marginTop:40,height:100,width:"100%",flex:1}}>
+                         <Signature title={"Signature du bénificiaire"}/>
+                         <Signature title={"Signature de l'inspecteur"}/>
+
+                       
+                             </View>
+                
 
            
              </ScrollView>
+             
              <TouchableOpacity
                 style={styles.validateButton}
                 onPress={valider}

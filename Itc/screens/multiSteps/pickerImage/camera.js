@@ -1,5 +1,5 @@
 import ActionSheet from 'react-native-actions-sheet';
-import React, { createRef, useState, useEffect } from 'react';
+import React, { createRef } from 'react';
 import { StyleSheet, View, Text,TextInput, TouchableOpacity, PermissionsAndroid ,Image} from 'react-native';
 import Icon from 'react-native-vector-icons/Entypo';
 // import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -13,7 +13,8 @@ import InputView from '../../components/InputView';
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 const actionSheetRefs = createRef();
 let options = {
-   includeBase64: true //add this in the option to include base64 value in the response
+   includeBase64: true,
+   includeExtra:true//add this in the option to include base64 value in the response
 }
 const App = ({images,setImages}) => {
 
@@ -22,12 +23,13 @@ const App = ({images,setImages}) => {
    NewImages[index].name=text
   setImages(NewImages )
  }
-  const save = async (photo) => {
+  const save = async (photo,timestamp) => {
     try {
       let NewImages = [...images] 
           NewImages.push({
             photo,
-            name:""
+            name:"",
+            timestamp,
           })
           setImages(NewImages )
  
@@ -85,7 +87,8 @@ const App = ({images,setImages}) => {
                       );
                     } else {
                       try {
-                        save(response.assets[0].base64)
+                        console.log(response.assets[0])
+                        save(response.assets[0].base64,response.assets[0].timestamp)
 
                       } catch (error) {
                         console.log(error)
@@ -168,8 +171,8 @@ const App = ({images,setImages}) => {
                         response.customButton,
                       );
                     } else {
-                       save(response.assets[0].base64)
-
+                      save(response.assets[0].base64,response.assets[0].timestamp)
+ 
                     }
 
                     // Same code as in above section!
@@ -229,12 +232,12 @@ const App = ({images,setImages}) => {
       {images.map((pic,index)=>
   <View> 
        <Image
-       style={{widht:"100%" , height:250}}
+       style={{  height:250}}
        source={{
          uri: "data:image/png;base64,"+pic.photo,
        }}
      />
-     
+     <View style={{display:"flex",flexDirection:"row",width:"80%"}}> 
      <InputView>
                                 <TextInput
                                     style={styles.inputText}
@@ -243,8 +246,12 @@ const App = ({images,setImages}) => {
                                      value={pic.name}
                                      onChangeText={text => handleChange(text,index)} />
 
-                                      
                             </InputView>
+                            {/* <TouchableOpacity > 
+                            <Text style={{color:"red",paddingTop:20,paddingLeft:10,fontWeight:"bold",fontSize:18}}> Effacer</Text>
+                            </TouchableOpacity> */}
+                            </View>
+
      </View>
     
     )}

@@ -153,7 +153,7 @@ const PlancherHaut: () => Node = ({ setActiveSteps }) => {
 
                         await AsyncStorage.setItem(
                             'activeStep',
-                            JSON.stringify(12)
+                            JSON.stringify(13)
                         );
  
                     } catch (error) {
@@ -161,7 +161,7 @@ const PlancherHaut: () => Node = ({ setActiveSteps }) => {
                         // Error saving data
                     }
 
-                    setActiveSteps(12)
+                    setActiveSteps(13)
 
 
                 }} />

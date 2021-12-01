@@ -15,8 +15,7 @@ import NextStep from '../../components/NextSteps'
 import { Dimensions } from 'react-native';
 import { AsyncStorage } from 'react-native';
 import Camera from './camera'
- import axios from '../../../utils/Api'
-DropDownPicker.setMode("BADGE");
+ DropDownPicker.setMode("BADGE");
 
 const AddImage: () => Node = ({ setActiveSteps }) => {
     const windowHeight = Dimensions.get('window').height;
@@ -83,7 +82,7 @@ const AddImage: () => Node = ({ setActiveSteps }) => {
                     // );
                     await AsyncStorage.setItem(
                         'activeStep',
-                        JSON.stringify(17)
+                        JSON.stringify(19)
                     );
                     await AsyncStorage.setItem(
                         'images',
@@ -97,7 +96,7 @@ const AddImage: () => Node = ({ setActiveSteps }) => {
                     // Error saving data
                 }
 
-                setActiveSteps(17)
+                setActiveSteps(active=>active+1)
 
 
             }} />

@@ -164,14 +164,14 @@ const PorteDesignation: () => Node = ({ setActiveSteps }) => {
 
         await AsyncStorage.setItem(
             'activeStep',
-            JSON.stringify(9)
+            JSON.stringify(8)
         );
     } catch (error) {
         console.log("error", error)
         // Error saving data
     }
 
-    setActiveSteps(9)
+    setActiveSteps(8)
 
 
 }} />

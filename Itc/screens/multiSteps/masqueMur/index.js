@@ -7,7 +7,7 @@
  */
 
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import InputView from '../../components/InputView';
 // import DropDownPicker from 'react-native-dropdown-picker';
 import NextStep from '../../components/NextSteps'
@@ -165,14 +165,14 @@ const MasqueMur: () => Node = ({ setActiveSteps }) => {
   
         await AsyncStorage.setItem(
             'activeStep',
-            JSON.stringify(10)
+            JSON.stringify(11)
         );
     } catch (error) {
         console.log("error", error)
         // Error saving data
     }
 
-    setActiveSteps(10)
+    setActiveSteps(11)
 
 
 }} />

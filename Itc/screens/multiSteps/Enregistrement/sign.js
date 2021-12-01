@@ -10,8 +10,8 @@ import SignatureCapture from 'react-native-signature-capture';
 export default class RNSignatureExample extends Component {
     render() {
         return (
-            <View style={{ flex: 1, flexDirection: "column" }}>
-                <Text style={{alignItems:"center",justifyContent:"center",fontWeight:"bold",marginTop:20,marginBottom:20}}>Signature </Text>
+            <View style={{ flex: 1, flexDirection: "column",marginLeft:20}}>
+                <Text style={{alignItems:"center",justifyContent:"center",fontWeight:"bold",marginTop:20,marginBottom:20,fontSize:20,color:"black"}}>{this.props.title} </Text>
                 <SignatureCapture
                     style={[{flex:1},styles.signature]}
                     ref="sign"
@@ -64,10 +64,11 @@ export default class RNSignatureExample extends Component {
 
 const styles = StyleSheet.create({
     signature: {
-        flex: 1,
+        flex: 0.2,
         borderColor: '#000033',
         borderWidth: 1,
-    },
+        width:"100%"
+     },
     buttonStyle: {
         flex: 1, justifyContent: "center", alignItems: "center", height: 50,
         backgroundColor: "#eeeeee",

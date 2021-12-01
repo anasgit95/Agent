@@ -151,14 +151,14 @@ const OuvrantType: () => Node = ({ setActiveSteps }) => {
                         );
                         await AsyncStorage.setItem(
                             'activeStep',
-                            JSON.stringify(6)
+                            JSON.stringify(9)
                         );
                     } catch (error) {
                         console.log("error", error)
                         // Error saving data
                     }
 
-                    setActiveSteps(6)
+                    setActiveSteps(9)
 
 
                 }} />
