@@ -17,6 +17,7 @@ import { Dimensions } from 'react-native';
  import { AsyncStorage } from 'react-native';
 import GetLocation from 'react-native-get-location'
 import Geocoder from 'react-native-geocoding';
+import { ToastAndroid } from 'react-native';
 
 const Generaliter: () => Node = ({setActiveSteps}) => {
     Geocoder.init("AIzaSyCk8E3zVDItAxwOTYuzQW29k_m_aE0luQk"); 
@@ -291,7 +292,20 @@ const Generaliter: () => Node = ({setActiveSteps}) => {
             </View>
             </ScrollView>
             <NextStep onPress={async()=>{
-                let gener = {
+ 
+              if(
+
+                fullName&&
+                    adresse&&
+                    postalCode&&
+                    yearConstruction&&
+                    occupantNumber&&
+                    adultNumber&&
+                    type&&
+                    email&&
+                    phone
+               )
+          {      let gener = {
                     fullName,
                     adresse,
                     postalCode,
@@ -320,9 +334,11 @@ const Generaliter: () => Node = ({setActiveSteps}) => {
                     // Error saving data
                   }
                 
-                setActiveSteps(1)
+                setActiveSteps(1)}
                 
-                
+                else  ToastAndroid.showWithGravityAndOffset("Vous devez remplir tous les champs",
+ToastAndroid.LONG,
+ToastAndroid.TOP, 0, 400) 
                 }}
                 />
 

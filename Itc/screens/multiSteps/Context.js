@@ -486,7 +486,7 @@ DropDownPicker.setMode("BADGE");
             </ScrollView>
 
             <NextStep onPress={async () => {
-if(images && images.length>0)
+if(images && images.length>0 && images.filter(item=>!item.name).length===0)
 {
                 let gener = {
                     occupation,
@@ -525,7 +525,7 @@ if(images && images.length>0)
                 setActiveSteps(2)
 
 }
-else  ToastAndroid.showWithGravityAndOffset("Vous devez ajouté des images",
+else  ToastAndroid.showWithGravityAndOffset("Vous devez ajouter des images avec leurs noms",
 ToastAndroid.LONG,
 ToastAndroid.TOP, 0, 400)
             }} />

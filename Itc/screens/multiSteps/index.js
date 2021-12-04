@@ -68,10 +68,9 @@ const App: () => Node = () => {
         try {
             const value = JSON.parse(await AsyncStorage.getItem('user'));
             setLoading(false)
-            if (value !== null) {
-                setUser(value)
+                 setUser(value)
 
-            }
+            
             
         } catch (error) {
             console.log(error)
@@ -87,12 +86,12 @@ const App: () => Node = () => {
 
 
     }, [activeStep]);
-    return (
+     return (
         loading?
         <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
         <ActivityIndicator size="large"/>
         </View>
-        :!user?
+        :!user ?
         <SignInScreen  setUser={setUser} />
         :<View>
             {activeStep === 0 ?
