@@ -30,7 +30,12 @@ import Emission from './emission';
 import Emetteur from './emetteur';
 import Demission from './demension'
 import PlanMasse from './planMasse';
+import Reseau from './reseau'
 import RepartitionLinetique from './repartitionLinetique'
+import  EauSanitaire from './eauSanitaire'
+import Refroidissement from './refroidissement';
+import Ventilation from './ventilation';
+import Equipement from './equipement';
 const App: () => Node = () => {
 
     const [activeStep, setActiveSteps] = useState(0);
@@ -138,7 +143,17 @@ const App: () => Node = () => {
                         :activeStep===17?
                         <Emetteur setActiveSteps={setActiveSteps}/>
                         :activeStep===18?
-                        <Picker setActiveSteps={setActiveSteps}/>
+                        <Reseau setActiveSteps={setActiveSteps}/>
+                      :activeStep===19?
+                      <EauSanitaire setActiveSteps={setActiveSteps}/>
+                      :activeStep===20?
+                      <Refroidissement setActiveSteps={setActiveSteps}/>
+                      :activeStep===21?
+                      <Ventilation setActiveSteps={setActiveSteps}/>
+                      :activeStep===22?
+                      <Equipement setActiveSteps={setActiveSteps}/>
+                      :activeStep===23?
+                      <Picker setActiveSteps={setActiveSteps}/>
                         :<Valider setActiveSteps={setActiveSteps}/>
 
 
