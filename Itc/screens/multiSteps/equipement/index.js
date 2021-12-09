@@ -33,9 +33,43 @@ const Equipement: () => Node = ({ setActiveSteps }) => {7
 
 
     ]);
-    const [priority, setPriority] = useState(null);
+    const [cuisson, setCuisson] = useState(null);
+
+    const [itemsBureau, setItemsBueau] = useState([
+        { label: 'Box internet', value: 'Box internet' },
+        { label: 'Ordinateur fixe', value: 'Odinateur fixe' },
+        { label: 'Ordinateur portable', value: 'Ordinateur portable' },
+        { label: 'Tv écran plat', value: 'Tv écran plat' },
+        { label: 'Tv cathodique', value: 'Tv cathodique' },
+        
+
+
+    ]);
+    const [bureatique, setBuriquetique] = useState(null);
+    const [itemsElectromenage, setItemsElectromenge] = useState([
+        { label: 'Bouilloire', value: 'Bouilloire' },
+        { label: 'Cafetière', value: 'Cafetière' },
+        { label: 'Fer à repasser', value: 'Fer à repasser' },
+        { label: 'Micro-onde', value: 'Micro-onde' },
+        { label: 'Mixeur', value: 'Mixeur' },
+        
+
+
+    ]);
+    const [electromenager, setElectromenager] = useState(null);
+
+
+    const [itemDiver, setItemDIver] = useState([
+        { label: 'Bouilloire', value: 'Bouilloire' },
+
+    ]);
+    const [diver, setDiver] = useState(null);
 
     const [open, setOpen] = useState(false);
+    const [openBureau, setOpenBureau] = useState(false);
+    const [openElectro, setOpenElectro] = useState(false);
+    const [openDiver, setOpenDiver] = useState(false);
+    const [consomation, setConsomation] = useState();
 
     const windowHeight = Dimensions.get('window').height;
     const windowWidth = Dimensions.get('window').width;
@@ -69,6 +103,20 @@ const Equipement: () => Node = ({ setActiveSteps }) => {7
     async function fetchData() {
         try {
             const value = JSON.parse(await AsyncStorage.getItem('eclairage'));
+            const cuissonD = JSON.parse(await AsyncStorage.getItem('cuisson'));
+            const bueauD = JSON.parse(await AsyncStorage.getItem('bureautique'));
+            const elect = JSON.parse(await AsyncStorage.getItem('electromenager'));
+            const diverA = JSON.parse(await AsyncStorage.getItem('diver'));
+            const consomatioNA = JSON.parse(await AsyncStorage.getItem('consomation'));
+
+
+            await setCuisson(cuissonD)
+            await setBuriquetique(bueauD)
+            await setElectromenager(elect)
+            await setConsomation(consomatioNA)
+            await setDiver(diverA)
+
+
             if (value !== null) {
                 await setEclaire(value)
                 setLoading(false)
@@ -398,17 +446,201 @@ Cuisson
                             placeholder="Préciser le nombre d'appareils"
                             open={open}
                             multiple={true}
-                            value={priority}
+                            value={cuisson}
                             items={items}
                             setOpen={setOpen}
-                            setValue={setPriority}
-                            setItems={priority}
+                            setValue={setCuisson}
+                            setItems={setItems}
                         />
                     </View>
 </View>
 
+<View style={{ textAlign: "center", justifyContent: "center", width: "100%", height: 80, display: "flex", position: "relative" }}>
+
+<Text style={{ textAlign: "center", fontWeight: "bold", fontSize: 20, color: "black" }}>
+Gros électroménager
+(Préciser le nombre d'appareils)
+
+
+
+</Text>
+
+</View>
+
+<View
+                     style={{
+ 
+                         alignItems: 'center',
+                         justifyContent: 'center',
+                         width: "80%",
+                         marginLeft:"10%"
+                     }}>
+
+
+
+
+                    <View style={{
+                        width: "100%",
+
+
+
+                    }}>
+                        <DropDownPicker
+                            listMode="SCROLLVIEW"
+                            scrollViewProps={{
+                                nestedScrollEnabled: true,
+                                zIndex: 5000
+                            }}
+                            style={{ marginTop: 10, borderColor: "#006593" }}
+                            placeholder="Bureautique et audiovisuel (Préciser le nombre d'apperiels"
+                            open={openBureau}
+                            multiple={true}
+                            value={bureatique}
+                            items={itemsBureau}
+                            setOpen={setOpenBureau}
+                            setValue={setBuriquetique}
+                            setItems={setItemsBueau}
+                        />
+                    </View>
+</View>
+
+
+
+
+
+<View
+                     style={{
+ 
+                         alignItems: 'center',
+                         justifyContent: 'center',
+                         width: "80%",
+                         marginLeft:"10%"
+                     }}>
+
+
+
+
+                    <View style={{
+                        width: "100%",
+
+
+
+                    }}>
+                        <DropDownPicker
+                            listMode="SCROLLVIEW"
+                            scrollViewProps={{
+                                nestedScrollEnabled: true,
+                                zIndex: 5000
+                            }}
+                            style={{ marginTop: 10, borderColor: "#006593" }}
+                            placeholder="Petit électroménager"
+                            open={openElectro}
+                            multiple={true}
+                            value={electromenager}
+                            items={itemsElectromenage}
+                            setOpen={setOpenElectro}
+                            setValue={setElectromenager}
+                            setItems={setItemsElectromenge}
+                        />
+                    </View>
+</View>
+
+                   
+
+
+
+
+
+
+<View
+                     style={{
+ 
+                         alignItems: 'center',
+                         justifyContent: 'center',
+                         width: "80%",
+                         marginLeft:"10%"
+                     }}>
+
+
+
+
+                    <View style={{
+                        width: "100%",
+
+
+
+                    }}>
+                        <DropDownPicker
+                            listMode="SCROLLVIEW"
+                            scrollViewProps={{
+                                nestedScrollEnabled: true,
+                                zIndex: 5000
+                            }}
+                            style={{ marginTop: 10, borderColor: "#006593" }}
+                            placeholder="Divers"
+                            open={openDiver}
+                             value={diver}
+                            items={itemDiver}
+                            setOpen={setOpenDiver}
+                            setValue={setDiver}
+                            setItems={setItemDIver}
+                        />
+                    </View>
+
+                    
+</View>
+<View style={{justifyContent:"center",paddingLeft:"10%",width:"110%"}}> 
+<InputView>
+                        <TextInput
+                            style={styles.inputText}
+                            placeholder="Consommation Moyenne 
+                            Annuelle estimé"
+                            placeholderTextColor="#003f5c"
+                            keyboardType="number-pad"
+
+                            value={consomation}
+                            onChangeText={setConsomation} />
+                    </InputView>
+                    
+                    </View>
                     <NextStep
-                        onPress={() => console.log(eclairage)}
+                        onPress={async () =>
+                              {
+                                await AsyncStorage.setItem(
+                                    'eclairage',
+                                    JSON.stringify(eclairage)
+                                )
+                                await AsyncStorage.setItem(
+                                    'cuisson',
+                                    JSON.stringify(cuisson)
+                                )
+                                await AsyncStorage.setItem(
+                                    'bureautique',
+                                    JSON.stringify(bureatique)
+                                )
+                                await AsyncStorage.setItem(
+                                    'electromenager',
+                                    JSON.stringify(electromenager)
+                                )
+                                await AsyncStorage.setItem(
+                                    'consomation',
+                                    JSON.stringify(consomation)
+                                )
+                                await AsyncStorage.setItem(
+                                    'diver',
+                                    JSON.stringify(diver)
+                                )
+                                const nextStep = JSON.parse(await AsyncStorage.getItem('activeStep'));
+
+                                await AsyncStorage.setItem(
+                                    'activeStep',
+                                    JSON.stringify(nextStep+1)
+                                );
+                                setActiveSteps(active=>active+1)
+
+                              }
+                            
+                            }
 
                     />
 
