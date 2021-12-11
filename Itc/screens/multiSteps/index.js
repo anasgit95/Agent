@@ -38,6 +38,7 @@ import Ventilation from './ventilation';
 import Equipement from './equipement';
 import Caracteristique from './caracteristique';
 import Consomation from './consomation';
+import PhotVoltaique from './photovoltaique';
 const App: () => Node = () => {
 
     const [activeStep, setActiveSteps] = useState(0);
@@ -159,6 +160,8 @@ const App: () => Node = () => {
                                                                                                                     : activeStep === 24 ?
                                                                                                                         <Consomation setActiveSteps={setActiveSteps} />
                                                                                                                         : activeStep === 25 ?
+                                                                                                                        <PhotVoltaique setActiveSteps={setActiveSteps} />
+                                                                                                                           :activeStep===26?
                                                                                                                             <Picker setActiveSteps={setActiveSteps} />
                                                                                                                             : <Valider setActiveSteps={setActiveSteps} />
 

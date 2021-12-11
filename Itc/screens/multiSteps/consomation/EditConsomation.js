@@ -7,7 +7,7 @@
  */
 
  import React, { useState } from 'react';
- import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native';
+ import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView } from 'react-native';
  import InputView from '../../components/InputView';
  // import DropDownPicker from 'react-native-dropdown-picker';
   import { Dimensions } from 'react-native';
