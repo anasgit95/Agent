@@ -7,13 +7,13 @@
  */
 
 import React, { useState } from 'react';
-import { View ,ActivityIndicator} from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 import Generaliter from './Generalite';
 import Context from './Context'
 import Architecture from './Architecture';
 import Repartion from './RepartitionMur/index'
-import OuvrantType  from './ouvrantType';
-import OuvrantTypeRelation  from './ouvrantTypeRelation';
+import OuvrantType from './ouvrantType';
+import OuvrantTypeRelation from './ouvrantTypeRelation';
 import Porte from './porte'
 import PorteDesignation from './porteDesignation'
 import MasqueMur from './masqueMur'
@@ -32,10 +32,12 @@ import Demission from './demension'
 import PlanMasse from './planMasse';
 import Reseau from './reseau'
 import RepartitionLinetique from './repartitionLinetique'
-import  EauSanitaire from './eauSanitaire'
+import EauSanitaire from './eauSanitaire'
 import Refroidissement from './refroidissement';
 import Ventilation from './ventilation';
 import Equipement from './equipement';
+import Caracteristique from './caracteristique';
+import Consomation from './consomation';
 const App: () => Node = () => {
 
     const [activeStep, setActiveSteps] = useState(0);
@@ -73,10 +75,10 @@ const App: () => Node = () => {
         try {
             const value = JSON.parse(await AsyncStorage.getItem('user'));
             setLoading(false)
-                 setUser(value)
+            setUser(value)
 
-            
-            
+
+
         } catch (error) {
             console.log(error)
             // Error retrieving data
@@ -84,81 +86,85 @@ const App: () => Node = () => {
         // ...
     }
     useEffect(() => {
-        if(activeStep===0)
-        fetUser();
+        if (activeStep === 0)
+            fetUser();
 
 
 
 
     }, [activeStep]);
-     return (
-        loading?
-        <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-        <ActivityIndicator size="large"/>
-        </View>
-        :!user ?
-        <SignInScreen  setUser={setUser} />
-        :<View>
-            {activeStep === 0 ?
-                <Generaliter setActiveSteps={setActiveSteps} />
-                : activeStep === 1 ?
+    return (
+        loading ?
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <ActivityIndicator size="large" />
+            </View>
+            : !user ?
+                <SignInScreen setUser={setUser} />
+                : <View>
+                    {activeStep === 0 ?
+                        <Generaliter setActiveSteps={setActiveSteps} />
+                        : activeStep === 1 ?
 
-                    <Context setActiveSteps={setActiveSteps} />
-                    : activeStep === 2 ?
+                            <Context setActiveSteps={setActiveSteps} />
+                            : activeStep === 2 ?
 
-                        <Architecture setActiveSteps={setActiveSteps} />
-                        :activeStep===3?
-                        <PlanMasse  setActiveSteps={setActiveSteps} />
-                        :activeStep===4?
-                       <Demission setActiveSteps={setActiveSteps} />
+                                <Architecture setActiveSteps={setActiveSteps} />
+                                : activeStep === 3 ?
+                                    <PlanMasse setActiveSteps={setActiveSteps} />
+                                    : activeStep === 4 ?
+                                        <Demission setActiveSteps={setActiveSteps} />
 
-                         :activeStep===5?
-                         <Repartion setActiveSteps={setActiveSteps} />
+                                        : activeStep === 5 ?
+                                            <Repartion setActiveSteps={setActiveSteps} />
 
-                         :activeStep===6?
-                         <Porte setActiveSteps={setActiveSteps} />
-                         :activeStep===7?
- 
-                         <PorteDesignation setActiveSteps={setActiveSteps} />
-                     :activeStep===8?
+                                            : activeStep === 6 ?
+                                                <Porte setActiveSteps={setActiveSteps} />
+                                                : activeStep === 7 ?
 
-                         <OuvrantType setActiveSteps={setActiveSteps} />
-                         :activeStep===9?
-                         <OuvrantTypeRelation setActiveSteps={setActiveSteps} />
-                       
-                        :activeStep===10?
-                        <MasqueMur setActiveSteps={setActiveSteps} />
-                        :activeStep===11?
-                        <PlancherBas setActiveSteps={setActiveSteps}/>
-                        :activeStep===12?
-                        <PlancherHaut setActiveSteps={setActiveSteps}/>
-                        :activeStep===13?
-                        <Linetique setActiveSteps={setActiveSteps}/>
-                        :activeStep===14?
-                        <RepartitionLinetique setActiveSteps={setActiveSteps}/>
-                        :activeStep===15?
-                        <Decrechement setActiveSteps={setActiveSteps}/>
-                        :activeStep===16?
-                        <Emission setActiveSteps={setActiveSteps}/>
-                        :activeStep===17?
-                        <Emetteur setActiveSteps={setActiveSteps}/>
-                        :activeStep===18?
-                        <Reseau setActiveSteps={setActiveSteps}/>
-                      :activeStep===19?
-                      <EauSanitaire setActiveSteps={setActiveSteps}/>
-                      :activeStep===20?
-                      <Refroidissement setActiveSteps={setActiveSteps}/>
-                      :activeStep===21?
-                      <Ventilation setActiveSteps={setActiveSteps}/>
-                      :activeStep===22?
-                      <Equipement setActiveSteps={setActiveSteps}/>
-                      :activeStep===23?
-                      <Picker setActiveSteps={setActiveSteps}/>
-                        :<Valider setActiveSteps={setActiveSteps}/>
+                                                    <PorteDesignation setActiveSteps={setActiveSteps} />
+                                                    : activeStep === 8 ?
+
+                                                        <OuvrantType setActiveSteps={setActiveSteps} />
+                                                        : activeStep === 9 ?
+                                                            <OuvrantTypeRelation setActiveSteps={setActiveSteps} />
+
+                                                            : activeStep === 10 ?
+                                                                <MasqueMur setActiveSteps={setActiveSteps} />
+                                                                : activeStep === 11 ?
+                                                                    <PlancherBas setActiveSteps={setActiveSteps} />
+                                                                    : activeStep === 12 ?
+                                                                        <PlancherHaut setActiveSteps={setActiveSteps} />
+                                                                        : activeStep === 13 ?
+                                                                            <Linetique setActiveSteps={setActiveSteps} />
+                                                                            : activeStep === 14 ?
+                                                                                <RepartitionLinetique setActiveSteps={setActiveSteps} />
+                                                                                : activeStep === 15 ?
+                                                                                    <Decrechement setActiveSteps={setActiveSteps} />
+                                                                                    : activeStep === 16 ?
+                                                                                        <Emission setActiveSteps={setActiveSteps} />
+                                                                                        : activeStep === 17 ?
+                                                                                            <Emetteur setActiveSteps={setActiveSteps} />
+                                                                                            : activeStep === 18 ?
+                                                                                                <Reseau setActiveSteps={setActiveSteps} />
+                                                                                                : activeStep === 19 ?
+                                                                                                    <EauSanitaire setActiveSteps={setActiveSteps} />
+                                                                                                    : activeStep === 20 ?
+                                                                                                        <Refroidissement setActiveSteps={setActiveSteps} />
+                                                                                                        : activeStep === 21 ?
+                                                                                                            <Ventilation setActiveSteps={setActiveSteps} />
+                                                                                                            : activeStep === 22 ?
+                                                                                                                <Equipement setActiveSteps={setActiveSteps} />
+                                                                                                                : activeStep === 23 ?
+                                                                                                                    <Caracteristique setActiveSteps={setActiveSteps} />
+                                                                                                                    : activeStep === 24 ?
+                                                                                                                        <Consomation setActiveSteps={setActiveSteps} />
+                                                                                                                        : activeStep === 25 ?
+                                                                                                                            <Picker setActiveSteps={setActiveSteps} />
+                                                                                                                            : <Valider setActiveSteps={setActiveSteps} />
 
 
-            }
-        </View>
+                    }
+                </View>
     );
 };
 

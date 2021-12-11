@@ -60,7 +60,7 @@ const Equipement: () => Node = ({ setActiveSteps }) => {7
 
 
     const [itemDiver, setItemDIver] = useState([
-        { label: 'Bouilloire', value: 'Bouilloire' },
+        { label: 'Pompe de piscine', value: 'Pompe de piscine' },
 
     ]);
     const [diver, setDiver] = useState(null);
