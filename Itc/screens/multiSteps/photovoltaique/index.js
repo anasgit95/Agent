@@ -37,10 +37,13 @@
      ]);
      const [pose, setPose] = useState(null);
      const [open, setOpen] = useState(false);
-    
+     const [openElectro, setOpenElectro] = useState(false);
+
+     
      const [surfaceDuModule, setSurfaceDuModule] = useState();
      const [capeteurNombre, setCapteurNombre] = useState();
      const [orientation, setOrientation] = useState();
+     const [inclinaison, setInclinaison] = useState();
 
      const [loading, setLoading] = useState(false);
  
@@ -48,16 +51,18 @@
  
      async function fetchData() {
          try {
-              const electric = JSON.parse(await AsyncStorage.getItem('electriciter'));
-             const gazGenral = JSON.parse(await AsyncStorage.getItem('gazGenral'));
-             const prog = JSON.parse(await AsyncStorage.getItem('programmation'));
-             const puiss = JSON.parse(await AsyncStorage.getItem('puissance'));
-
- 
-             await setGazGeneral(gazGenral)
-             await setProgrammation(prog)
-             await setElectriciter(electric)
-             await setPuissance(puiss)
+              const photovoltaique = JSON.parse(await AsyncStorage.getItem('photovoltaique'));
+               
+                if(photovoltaique)
+     {       
+             await setModuleType(photovoltaique.moduleType)
+             await setPose(photovoltaique.pose)
+             await setSurfaceDuModule(photovoltaique.surfaceDuModule)
+             await setCapteurNombre(photovoltaique.capeteurNombre)
+             await setOrientation(photovoltaique.orientation)
+             await setInclinaison(photovoltaique.inclinaison)
+            
+            }
 
  
   
@@ -128,11 +133,11 @@
                              }}
                              style={{ marginTop: 10, borderColor: "#006593",zIndex:5000 }}
                              placeholder="Type de module "
-                             open={openBureau}
+                             open={open}
                              multiple={true}
                              value={moduleType}
                              items={itemsType}
-                             setOpen={setOpenBureau}
+                             setOpen={setOpen}
                              setValue={setModuleType}
                              setItems={setItemsType }
                          />
@@ -206,65 +211,44 @@
                     
                     </View>
                     <View style={{justifyContent:"center",paddingLeft:"10%",width:"110%"}}> 
-<InputView>
+                    <InputView>
                         <TextInput
                             style={styles.inputText}
                             placeholder="Orienatation"
                             placeholderTextColor="#003f5c"
-                            keyboardType="number-pad"
-
+ 
                             value={orientation}
                             onChangeText={setOrientation} />
                     </InputView>
                     
-                    <View style={{justifyContent:"center",paddingLeft:"10%",width:"110%"}}> 
-<InputView>
+      
+                    
+                    <InputView>
                         <TextInput
                             style={styles.inputText}
-                            placeholder="Orienatation"
+                            placeholder="Inclinaison"
                             placeholderTextColor="#003f5c"
-                            keyboardType="number-pad"
-
-                            value={orientation}
-                            onChangeText={setOrientation} />
+ 
+                            value={inclinaison}
+                            onChangeText={setInclinaison} />
                     </InputView>
-                    
-                    </View>
-                    
-                    <View style={{justifyContent:"center",paddingLeft:"10%",width:"110%"}}> 
-<InputView>
-                        <TextInput
-                            style={styles.inputText}
-                            placeholder="Orienatation"
-                            placeholderTextColor="#003f5c"
-                            keyboardType="number-pad"
-
-                            value={orientation}
-                            onChangeText={setOrientation} />
-                    </InputView>
-                    
-                    </View>
                                         </View>
                      <NextStep
                          onPress={async () =>
                                {
-                      
+                         
                                  await AsyncStorage.setItem(
-                                     'electriciter',
-                                     JSON.stringify(electriciter)
+                                     'photovoltaique',
+                                     JSON.stringify({
+                                        moduleType,
+                                        pose,
+                                        surfaceDuModule,
+                                        capeteurNombre,
+                                        orientation,
+                                        inclinaison,
+                                     })
                                  )
-                                 await AsyncStorage.setItem(
-                                     'gazGenral',
-                                     JSON.stringify(gazGeneral)
-                                 )
-                                 await AsyncStorage.setItem(
-                                     'programmation',
-                                     JSON.stringify(programmation)
-                                 )
-                                 await AsyncStorage.setItem(
-                                    'puissance',
-                                    JSON.stringify(puissance)
-                                )
+                            
                                  const nextStep = JSON.parse(await AsyncStorage.getItem('activeStep'));
  
                                  await AsyncStorage.setItem(

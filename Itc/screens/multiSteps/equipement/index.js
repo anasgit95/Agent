@@ -18,7 +18,38 @@ import { Checkbox } from 'react-native-paper';
 import Head from '../../components/Head'
 import DropDownPicker from 'react-native-dropdown-picker';
 
-const Equipement: () => Node = ({ setActiveSteps }) => {7
+const Equipement: () => Node = ({ setActiveSteps }) => {
+    const [itemsGros, setItemsGros] = useState([
+        { label: 'Réfigérateur 75L ancien', value: 'Réfigérateur 75L ancien' },
+        { label: 'Réfigérateur 75L A+++', value: 'Réfigérateur 75L A+++' },
+        { label: 'Réfigérateur 360L ancien', value: 'Réfigérateur 360L ancien' },
+        { label: 'Réfigérateur 360L A+++', value: 'Réfigérateur 360L A+++' },
+        { label: 'Lave-vaisselle ancien', value: 'Lave-vaisselle ancien' },
+        { label: 'Lave-vaisselle A++', value: 'Lave-vaisselle A++' },
+        { label: "Séche-linge ancien", value: "Séche-linge ancien" },
+        { label: "Séche-linge A++", value: "Séche-linge A++" },
+        { label: "Climatiseur performant ", value: 'Climatiseur performant' },
+        { label: "Climatiseur mobile", value: 'Climatiseur mobile' },
+        { label: 'Réfigérateur congélateur ancien', value: 'Réfigérateur congélateur ancien' },
+        { label: 'Réfigérateur congélateur A+++', value: 'Réfigérateur congélateur A+++' },
+        { label: 'Congélateur ancien', value: 'Congélateur ancien' },
+        { label: 'Congélateur A+++', value: 'Congélateur A+++' },
+        { label: 'Lave-linge ancien', value: 'Lave-ligne ancien' },
+        { label: 'Lave-linge A+++', value: 'Lave-linge A+++' },
+        { label: 'Aspirateur', value: 'Aspirateur' },
+
+
+ 
+
+
+
+
+    ]);
+    const [grosElectromenegaer, setGrosElectromenegaer] = useState(null);
+
+
+
+
     const [items, setItems] = useState([
         { label: 'Cuisinére électrique', value: 'Cuisinére électrique' },
         { label: 'Cuisinére à Gaz', value: 'Cuisinére à Gaz' },
@@ -46,6 +77,8 @@ const Equipement: () => Node = ({ setActiveSteps }) => {7
 
     ]);
     const [bureatique, setBuriquetique] = useState(null);
+    const [openGros, setOpenGros] = useState(false);
+
     const [itemsElectromenage, setItemsElectromenge] = useState([
         { label: 'Bouilloire', value: 'Bouilloire' },
         { label: 'Cafetière', value: 'Cafetière' },
@@ -489,9 +522,43 @@ Gros électroménager
                             listMode="SCROLLVIEW"
                             scrollViewProps={{
                                 nestedScrollEnabled: true,
-                                zIndex: 5000
-                            }}
-                            style={{ marginTop: 10, borderColor: "#006593" }}
+                             }}
+                            style={{ marginTop: 10, borderColor: "#006593",zIndex:1 }}
+                            placeholder="Gros électroménager"
+                            open={openGros}
+                            multiple={true}
+                            value={grosElectromenegaer}
+                            items={itemsGros}
+                            setOpen={setOpenGros}
+                            setValue={setGrosElectromenegaer}
+                            setItems={setItemsGros}
+                        />
+                    </View>
+</View>
+<View
+                     style={{
+ 
+                         alignItems: 'center',
+                         justifyContent: 'center',
+                         width: "80%",
+                         marginLeft:"10%"
+                     }}>
+
+
+
+
+                    <View style={{
+                        width: "100%",
+
+
+
+                    }}>
+                        <DropDownPicker
+                            listMode="SCROLLVIEW"
+                            scrollViewProps={{
+                                nestedScrollEnabled: true,
+                             }}
+                            style={{ marginTop: 10, borderColor: "#006593" ,zIndex:1}}
                             placeholder="Bureautique et audiovisuel (Préciser le nombre d'apperiels"
                             open={openBureau}
                             multiple={true}
@@ -530,9 +597,8 @@ Gros électroménager
                             listMode="SCROLLVIEW"
                             scrollViewProps={{
                                 nestedScrollEnabled: true,
-                                zIndex: 5000
-                            }}
-                            style={{ marginTop: 10, borderColor: "#006593" }}
+                             }}
+                            style={{ marginTop: 10, borderColor: "#006593",zIndex:1 }}
                             placeholder="Petit électroménager"
                             open={openElectro}
                             multiple={true}
@@ -574,9 +640,8 @@ Gros électroménager
                             listMode="SCROLLVIEW"
                             scrollViewProps={{
                                 nestedScrollEnabled: true,
-                                zIndex: 5000
-                            }}
-                            style={{ marginTop: 10, borderColor: "#006593" }}
+                             }}
+                            style={{ marginTop: 10, borderColor: "#006593",zIndex:1 }}
                             placeholder="Divers"
                             open={openDiver}
                              value={diver}
