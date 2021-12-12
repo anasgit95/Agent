@@ -1,0 +1,16 @@
+.tableClassname  th {
+  border: 1px solid black;
+}
+.tableClassname  td {
+  border: 1px solid black;
+}
+
+ 
+.tableClassname th {
+    font-size: 12px;
+    text-align: inherit;
+}
+.tableClassname {
+  width: 100%;
+  border-collapse: collapse;
+}

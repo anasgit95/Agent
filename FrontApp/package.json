@@ -40,6 +40,7 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.1",
     "react-select": "^4.3.0",
+    "react-to-pdf": "0.0.14",
     "react-to-print": "^2.14.1",
     "react-toast-notifications": "^2.4.3",
     "shards-react": "^1.0.0",

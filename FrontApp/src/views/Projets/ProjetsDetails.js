@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 
 
 import { Container, Row,  Col,Button} from "shards-react";
- 
+ import './style.css'
 class ProjetDetails extends React.PureComponent {
     render(){ 
 
@@ -17,21 +17,36 @@ class ProjetDetails extends React.PureComponent {
             
             <Row  >
             <Col lg={8}>
-                <h2> Généralité </h2>
+                <h2 style={{color:"green"}}> Généralité </h2>
                 <h6> Type : {data.generaliter.type} </h6>
                 <h6> Année de construction  : {data.generaliter.yearConstruction} </h6>
                 <h6> Nombre des occupants  : {data.generaliter.occupantNumber} </h6>
                 <h6> Nombre d'adultes : {data.generaliter.adultNumber} </h6>
  </Col>
  <Col lg={4}  >
+     <h2 style={{color:"green"}}> Client </h2>
                 <h6>Nom : {data.generaliter.fullName} </h6>
                 <h6>Téléphone : {data.generaliter.phone} </h6>
                 <h6>Email :  {data.generaliter.email} </h6>
                 <h6>Adresse : {data.generaliter.adresse} </h6>
 
  </Col>
+ {/* <table>
+  <tr>
+    <th>Firstname</th>
+    <th>Lastname</th>
+  </tr>
+  <tr>
+    <td>Peter</td>
+    <td>Griffin</td>
+  </tr>
+  <tr>
+    <td>Lois</td>
+    <td>Griffin</td>
+  </tr>
+</table> */}
  <Col lg={8}>
-                <h2> Contexte  </h2>
+                <h2 style={{color:"green"}}> Contexte  </h2>
                 <h6> Priorités du client : {data.context && data.context.priority && data.context.priority.map(item=><p> {item}</p>)} </h6>
                 <h6> Solution technique  : {data.context.valueTechnique} </h6>
                 <h6> Occupation du logement  : {data.context.logement} </h6>
@@ -52,7 +67,7 @@ class ProjetDetails extends React.PureComponent {
 
 
  <Col lg={8}>
-                <h2> Architecture  </h2>
+                <h2 style={{color:"green"}}> Architecture  </h2>
  
  
                  <h6> Surface habitable du batiment : {data.architecture.surfacehabtable}  </h6>
@@ -74,224 +89,191 @@ class ProjetDetails extends React.PureComponent {
   
  <Col lg={12}>
                 <h2> Répartition mur   </h2>
+                <table   className="tableClassname">
+  <tr>
+    <th>nom De mur</th>
+    <th>Composition</th>
+    <th>Epaisseur</th>
+<th> epaisseur-Isolation</th>
+<th> hauteur</th>
+<th> isolation</th>
+<th> longeur</th>
+<th> orientation</th>
+<th> position</th>
+<th> resistance Isolation</th>
+<th> type Isolation</th>
+
+  </tr>
+  {data.repartissant.map(reparti=>
+               
+               <tr>
+
+                 <td>{reparti.nomDeMur}</td>
+                  <td>{reparti.composition}</td>
+                  <td>{reparti.epaisseur}</td>
+                  <td>{reparti.epaisseurIsolation}</td>
+                  <td>{reparti.hauteur}</td>   
+                  <td>{reparti.isolation}</td>
  
-                <Row>
-                             <Col lg="1"
-                 >    
-                 <h6>nom De mur </h6>
- 
-                     </Col>  
-                 <Col lg="1.4"
-                 >    
-                 <h6>Composition</h6>
- 
-                     </Col>
-                     <Col lg="1"
-                 > 
-           
-                 <h6>epaisseur</h6>
- 
-                     </Col>
-                     <Col lg="1.3"
-                 >    
-                 <h6>epaisseur-Isolation</h6>
- 
-                     </Col>
-                     <Col lg="0.9"
-                 >    
-                 <h6>hauteur</h6>
- 
-                     </Col>
-                     <Col lg="1"
-                 >    
-                 <h6>isolation</h6>
- 
-                     </Col>
-                     <Col lg="1"
-                 >    
-                 <h6>longeur</h6>
- 
-                     </Col>
-                   
-                     <Col lg="1"
-                 >    
-                 <h6>orientation</h6>
- 
-                     </Col>
-                     <Col lg="1"
-                 >    
-                 <h6>position</h6>
- 
-                     </Col>
-                     <Col lg="1.3"
-                 >    
-                 <h6>resistanceIsolation</h6>
- 
-                     </Col>
-                     <Col lg="1"
-                 >    
-                 <h6>typeIsolation</h6>
- 
-                     </Col>
+                  <td>{reparti.longeur}</td>
+     
+                  <td>{reparti.orientation}</td>
+    
+                  <td>{reparti.position}</td>
+
                      
-                </Row>
-                {data.repartissant.map(reparti=>
-                <Row>
-                             <Col lg="1 "
-                 >    
-                  <p>{reparti.nomDeMur}</p>
-
-                     </Col>  
-                 <Col lg="1.4"
-                 >    
-                  <p>{reparti.composition}</p>
-
-                     </Col>
-                     <Col lg="1"
-                 > 
-           
-                  <p>{reparti.epaisseur}</p>
-
-                     </Col>
-                     <Col lg="1.3"
-                 >    
-                  <p>{reparti.epaisseurIsolation}</p>
-
-                     </Col>
-                     <Col lg="0.9"
-                 >    
-                  <p>{reparti.hauteur}</p>
-
-                     </Col>
-                     <Col lg="1"
-                 >    
-                  <p>{reparti.isolation}</p>
-
-                     </Col>
-                     <Col lg="1"
-                 >    
-                  <p>{reparti.longeur}</p>
-
-                     </Col>
-                   
-                     <Col lg="1"
-                 >    
-                  <p>{reparti.orientation}</p>
-
-                     </Col>
-                     <Col lg="1"
-                 >    
-                  <p>{reparti.position}</p>
-
-                     </Col>
-                     <Col lg="1.3"
-                 >    
-                  <p>{reparti.resistanceIsolation}</p>
-
-                     </Col>
-                     <Col lg="1"
-                 >    
-                  <p>{reparti.typeIsolation}</p>
-
-                     </Col>
-                     
-                </Row>
-                )
+                  <td>{reparti.resistanceIsolation}</td>
+   
+                  <td>{reparti.typeIsolation}</td>
+                  </tr>
+  )
                 }
-               
-
-               
-                   
-
- </Col>
- <Col lg={12}>
-                <h2> Ouvrant type   </h2>
-                <Row>
-                             <Col lg="2"
-                 >    
-
+ 
                  
-
  
-                 <h6>Nom</h6>
+               
  
-                     </Col>  
-                     <Col lg="2"
-                 >    
-                 <h6>Designation</h6>
  
-                     </Col>
-                     <Col lg="2"
-                 > 
-           
-                 <h6>materiaux</h6>
- 
-                     </Col>
-                     <Col lg="2"
-                 >    
-                 <h6>Type De Viltrage</h6>
- 
-                     </Col>
-                     <Col lg="2"
-                 >    
-                 <h6>Type de paroi</h6>
- 
-                     </Col>
-                    
-                    
-                   
-                  
-             
-                     
-                     
-                </Row>
- 
-                {data.ouvrantType.map(reparti=>
-                <Row>
-                             <Col lg="2"
-                 >    
-
+</table> 
                  
-
  
-                  <p>{reparti.nom}</p>
+                
+                
+<h2>  Ouvrant type   </h2>
 
-                     </Col>  
-                     <Col lg="2"
-                 >    
-                  <p>{reparti.designation}</p>
+<table style={{marginTop:20}} className="tableClassname">
+  <tr>
+    <th>Ouvrant type </th>
+    <th>Nom</th>
+    <th>Designation</th>
+<th> materiaux</th>
+<th> Type De Viltrage</th>
+<th> Type de paroi</th>
+<th> longeur</th>
+<th> orientation</th>
+<th> position</th>
+<th> resistance Isolation</th>
+<th> type Isolation</th>
 
-                     </Col>
-                     <Col lg="2"
-                 > 
-           
-                  <p>{reparti.materiaux}</p>
+  </tr>
+  {data.ouvrantType.map(reparti=>
+                <tr>
+<td> {reparti.nom}</td>
+<td> {reparti.designation}</td>
+<td> {reparti.materiaux} </td>
+<td> {reparti.TypeDeViltrage}</td>
+<td>{reparti.typeDeParoi}</td> 
+<td>{}</td> 
+<td>{}</td> 
+<td>{}</td> 
+<td>{}</td> 
+<td>{}</td> 
+<td>{}</td> 
 
-                     </Col>
-                     <Col lg="2"
-                 >    
-                  <p>{reparti.TypeDeViltrage}</p>
-
-                     </Col>
-                     <Col lg="2"
-                 >    
-                  <p>{reparti.typeDeParoi}</p>
-
-                     </Col>
-                    
-                    
-                   
-                  
-             
-                     
-                     
-                </Row>
+                </tr>
+         
                 )
+               
                 }
+  </table>  
+                 
+  
+               
+                
                
 
                
-                   
+     
+<table style={{marginTop:20}} className="tableClassname">
+  <tr>
+    <th>Désignation  Type</th>
+    <th>Largeur (m)</th>
+    <th>Hauteur (m)</th>
+<th> Nombre d'ouvrants</th>
+<th> Orientation</th>
+<th> Liason Mur/toit </th>
+<th> Protection (N) </th>
+<th> Masque</th>
+ 
+
+  </tr>
+  {data.ouvrantTypeRelation.map(reparti=>
+                <tr>
+<td> {reparti.designationValue}</td>
+<td> {reparti.logneur}</td>
+<td> {reparti.hauteur} </td>
+<td> {reparti.ouvrantNumber}</td>
+<td>{reparti.orientation}</td> 
+<td>{reparti.laison}</td> 
+<td>{reparti.protection}</td> 
+<td>{reparti.masque}</td> 
+
+                </tr>
+         
+                )
+               
+                }
+  </table>  
+                 
+  
+               
+  <h2>  Porte   </h2>
+                          
+<table style={{marginTop:20}} className="tableClassname">
+  <tr>
+    <th>Type</th>
+    <th>Nature de la menuiserie</th>
+    <th>Type de porte</th>
+<th> Coefficient</th>
+ 
+ 
+
+  </tr>
+  {data.porte.map(reparti=>
+                <tr>
+<td> {reparti.Type}</td>
+<td> {reparti.nature}</td>
+<td> {reparti.typeDePorte} </td>
+<td> {reparti.coefficient}</td>
+ 
+                </tr>
+         
+                )
+               
+                }
+  </table>  
+
+
+
+
+
+                         
+  <table style={{marginTop:20}} className="tableClassname">
+  <tr>
+    <th>Désignation (Type P1 OU P2) </th>
+    <th>Longeur (m)</th>
+    <th>Hauteur (m)</th>
+<th> Nombre</th>
+<th> Orientation</th>
+<th> Laison mur </th>
+
+ 
+ 
+
+  </tr>
+  {data.porteDesignation &&data.porteDesignation.map(reparti=>
+                <tr>
+<td> {reparti.Type}</td>
+<td> {reparti.nature}</td>
+<td> {reparti.typeDePorte} </td>
+<td> {reparti.coefficient}</td>
+ 
+                </tr>
+         
+                )
+               
+                }
+  </table>  
 
  </Col>
 
@@ -311,3 +293,6 @@ class ProjetDetails extends React.PureComponent {
    
 }
 export default ProjetDetails   
+
+
+
