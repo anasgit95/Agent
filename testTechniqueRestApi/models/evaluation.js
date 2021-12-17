@@ -84,12 +84,12 @@ const evaluationSchema = new Schema({
   programmation: [String],
   puissance: String,
   cuisson: [String],
-  consomationenergie:{
+  consomationenergie:[{
     chauffage: String,
     ecs: String,
     refroidissement: String,
     eclairage: String,
-  },
+  }],
   photovoltaique:{
     moduleType:[String],
     pose:[String],
