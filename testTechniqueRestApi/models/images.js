@@ -5,6 +5,7 @@ const { Schema } = mongoose;
 const userSchema = new Schema({
 photo:String,
 name:String,
+timestamp:String,
 evaluation: { type: mongoose.Schema.Types.ObjectId, ref: 'evaluation' },
 
 },
