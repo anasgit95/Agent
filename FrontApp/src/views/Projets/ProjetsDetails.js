@@ -86,7 +86,19 @@ class ProjetDetails extends React.PureComponent {
                    
 
  </Col>
-  
+ <Col lg={8}>
+                <h2 style={{color:"green"}}> Forme Batiment  </h2>
+ 
+ 
+                 <h6> Longeur : {data.dimension.longeur}  </h6>
+                     <h6> largeur : {data.dimension.largeur}</h6>
+                    <h6> Hauteur {data.dimension.hauteur}</h6>
+                    <h6> Orientation facade principale  : {data.dimension.orientationPrincipale}</h6>
+ 
+               
+                   
+
+ </Col>
  <Col lg={12}>
                 <h2> Répartition mur   </h2>
                 <table   className="tableClassname">
@@ -178,12 +190,7 @@ class ProjetDetails extends React.PureComponent {
   </table>  
                  
   
-               
-                
-               
-
-               
-     
+ 
 <table style={{marginTop:20}} className="tableClassname">
   <tr>
     <th>Désignation  Type</th>
@@ -197,7 +204,7 @@ class ProjetDetails extends React.PureComponent {
  
 
   </tr>
-  {data.ouvrantTypeRelation.map(reparti=>
+  {data.ouvrantTypeRelation && data.ouvrantTypeRelation.map(reparti=>
                 <tr>
 <td> {reparti.designationValue}</td>
 <td> {reparti.logneur}</td>
@@ -217,7 +224,7 @@ class ProjetDetails extends React.PureComponent {
                  
   
                
-  <h2>  Porte   </h2>
+  <h2 style={{color:"green"}}>  Porte   </h2>
                           
 <table style={{marginTop:20}} className="tableClassname">
   <tr>
@@ -242,12 +249,7 @@ class ProjetDetails extends React.PureComponent {
                
                 }
   </table>  
-
-
-
-
-
-                         
+   
   <table style={{marginTop:20}} className="tableClassname">
   <tr>
     <th>Désignation (Type P1 OU P2) </th>
@@ -256,18 +258,17 @@ class ProjetDetails extends React.PureComponent {
 <th> Nombre</th>
 <th> Orientation</th>
 <th> Laison mur </th>
-
  
- 
-
   </tr>
   {data.porteDesignation &&data.porteDesignation.map(reparti=>
                 <tr>
-<td> {reparti.Type}</td>
-<td> {reparti.nature}</td>
-<td> {reparti.typeDePorte} </td>
-<td> {reparti.coefficient}</td>
- 
+<td> {reparti.designationValue}</td>
+<td> {reparti.longeur}</td>
+<td> {reparti.hauteur} </td>
+<td> {reparti.ouvrantNumber}</td>
+<td> {reparti.orienation}</td>
+<td> {reparti.laison}</td>
+
                 </tr>
          
                 )
@@ -278,8 +279,159 @@ class ProjetDetails extends React.PureComponent {
  </Col>
 
 
+ <h2 style={{color:"green"}}>  Masque mur   </h2>
+                          
+                          <table style={{marginTop:20}} className="tableClassname">
+                            <tr>
+                              <th>Désignation des murs avec orientation et niveau</th>
+                              <th>Masque proche </th>
+                              <th>Masque lointain</th>
+                          <th> Distance moyenne</th>
+                          <th> Hauteur moyenne</th>
 
+                           
+                          
+                            </tr>
+                            {data.masqueMur.map(reparti=>
+                                          <tr>
+                          <td> {reparti.designation}</td>
+                          <td> {reparti.masqueProche}</td>
+                          <td> {reparti.masqueLoitin} </td>
+                          <td> {reparti.distanceMoyenne}</td>
+                          <td> {reparti.hauteurMoyenne}</td>
 
+                          
+                                          </tr>
+                                   
+                                          )
+                                         
+                                          }
+                            </table> 
+ 
+                            <h2 style={{color:"green"}}>  Plancher bas   </h2>
+                          
+                          <table style={{marginTop:20}} className="tableClassname">
+                            <tr>
+                              <th>Type</th>
+                              <th>Composition plancher bas </th>
+                              <th>Position du plancher base ( sur terre-plein LNC)</th>
+                          <th> Epaisseur du plancher bas (cm) </th>
+                          <th> Plancher bas isolé ( oui/non )</th>
+                          <th> Type d'isolant Epaisseur de l'isolant ( cm ) </th>
+                          <th> Résistance d'isolant  </th>
+
+                           
+                          
+                            </tr>
+                            {data.plancherBas.map((reparti,index)=>
+                                          <tr>
+                        <td> {index}</td>
+                          <td> {reparti.compositionPlancherBas}</td>
+                          <td> {reparti.positionPlancherBas} </td>
+                          <td> {reparti.EpaisseurPlancher}</td>
+                          <td> {reparti.PlancherBasIsoler}</td>
+                          <td> {reparti.TypeIsolant}</td> 
+                          <td> {reparti.ResistanceIsolant}</td>
+                                          </tr>
+                                   
+                                          )
+                                         
+                                          }
+                            </table> 
+                            <Col lg={12}>
+                <h2 style={{color:"green"}}> Sous sol  </h2>
+ 
+ 
+                 <h6> Type  : {data.sousSol.typeSousSol}  </h6>
+                     <h6> Surface  : {data.sousSol.surface}</h6>
+                    <h6> Hauteur : {data.sousSol.hauteur}</h6>
+  
+               
+                   
+
+ </Col>
+ 
+ <h2 style={{color:"green"}}>  Plancher haut   </h2>
+                          
+                          <table style={{marginTop:20}} className="tableClassname">
+                            <tr>
+                              <th>Type</th>
+                              <th>Composition plancher haut </th>
+                              <th>Position du plancher haut ( terrase comble aménagé)</th>
+                          <th> Epaisseur du plancher bas (cm) </th>
+                          <th> Plancher bas isolé ( oui/non )</th>
+                          <th> Type d'isolant Epaisseur de l'isolant ( cm ) </th>
+                          <th> Résistance d'isolant  </th>
+
+                           
+                          
+                            </tr>
+                            {data.plancherHaut.map((reparti,index)=>
+                                          <tr>
+                          <td> {index}</td>
+                          <td> {reparti.compositionPlancherBas}</td>
+                          <td> {reparti.positionPlancherBas} </td>
+                          <td> {reparti.EpaisseurPlancher}</td>
+                          <td> {reparti.PlancherBasIsoler}</td>
+                          <td> {reparti.TypeIsolant}</td> 
+                          <td> {reparti.ResistanceIsolant}</td>
+                          
+                                          </tr>
+                                   
+                                          )
+                                         
+                                          }
+                            </table> 
+                            <Col lg={12}>
+                <h2 style={{color:"green"}}> Linétique  </h2>
+ 
+                 <h4>  Type mur refend  </h4>
+                 <h6> Détail  {data.linetique.detail}  </h6>
+                     <h6> longeur liason Mur ext/Mur refend : {data.linetique.liasonLongeur}</h6>
+                     <h4>  Isolation poutres plancher bas   </h4>
+                     <h6>  {data.linetique.isolationPoutrse}</h6> 
+                     <h6> longeur: {data.dimension.largeur}</h6>
+                     <h4>  Plancher Intermédiare :  {data.linetique.plancherIntermediare}   </h4>
+                     <h6> Comble aménagé  : {data.linetique.comble}</h6>
+                     <h6> Surface plancher bas comble  : {data.linetique.surfaceComble} m²</h6>
+                     <h6> Hauteur moyenne sous plafond  : {data.linetique.hauteurMoyenne}m²</h6>
+
+ 
+               
+                   
+
+ </Col>
+
+ 
+ <h2 style={{color:"green"}}>  Répartition   </h2>
+                          
+                          <table style={{marginTop:20}} className="tableClassname">
+                            <tr>
+                              <th>L</th>
+                              <th>L2 </th>
+                              <th>L3</th>
+                          <th> L4 </th>
+                          <th> H1</th>
+                          <th> H2</th>
+
+                            </tr>
+                            {data.plancherHaut.map((reparti,index)=>
+                                          <tr>
+                          <td> {index}</td>
+                          <td> {reparti.compositionPlancherBas}</td>
+                          <td> {reparti.positionPlancherBas} </td>
+                          <td> {reparti.EpaisseurPlancher}</td>
+                          <td> {reparti.PlancherBasIsoler}</td>
+                          <td> {reparti.TypeIsolant}</td> 
+                          <td> {reparti.ResistanceIsolant}</td>
+                          
+                                          </tr>
+                                   
+                                          )
+                                         
+                                          }
+                            </table> 
+ 
             </Row>
           {/* {
              Object.keys(data).map((key) => {
