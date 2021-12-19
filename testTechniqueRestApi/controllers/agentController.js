@@ -16,7 +16,7 @@ exports.creatAgent = async (req, res) => {
 };
 exports.login = async (req, res) => { 
   try {
-      const current_user = await User.findOne({ Email: req.body.Email, Hash_Password: req.body.Password }).lean();
+      const current_user = await User.findOne({ Email: req.body.Email, Hash_Password: req.body.Password,Active:true }).lean();
      if (!current_user) {
           return res.status(400).end()
 

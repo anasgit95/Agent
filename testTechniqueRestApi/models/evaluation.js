@@ -26,6 +26,11 @@ const evaluationSchema = new Schema({
     nombreDeGenerateur: String,
     systemDappoint: String,
     annee: String,
+    images:[{
+      photo:String,
+      name:String,
+      timestamp:String,
+    }]
   },
   emission: {
     energieDeChuaffage: String,
@@ -34,6 +39,11 @@ const evaluationSchema = new Schema({
     nombreDeGenerateur: String,
     poisition: String,
     annee: String,
+    images:[{
+      photo:String,
+      name:String,
+      timestamp:String,
+    }]
 
   },
   reseau: {
@@ -41,10 +51,20 @@ const evaluationSchema = new Schema({
     distrubtionDesReseau: String,
     regulationTemperature: String,
     circulateur: String,
+    images:[{
+      photo:String,
+      name:String,
+      timestamp:String,
+    }]
 
   },
   emplacementduballon: {
     emplacementduballon: String,
+    images:[{
+      photo:String,
+      name:String,
+      timestamp:String,
+    }]
 
   },
 
@@ -52,9 +72,19 @@ const evaluationSchema = new Schema({
   refroidissement: {
     systemeRefroidissement: String,
     surfacesRefroidie: String,
+    images:[{
+      photo:String,
+      name:String,
+      timestamp:String,
+    }]
 
   },
   eclairage: {
+    images:[{
+      photo:String,
+      name:String,
+      timestamp:String,
+    }],
     induction: {
       checked: Boolean,
       nombre: String,
@@ -82,8 +112,16 @@ const evaluationSchema = new Schema({
   electriciter: [String],
   gazGenral: [String],
   programmation: [String],
-  puissance: String,
+  puissance: {
+    puissance:String,
+    images:[{
+      photo:String,
+      name:String,
+      timestamp:String,
+    }]
+  },
   cuisson: [String],
+
   consomationenergie:[{
     chauffage: String,
     ecs: String,
@@ -97,9 +135,19 @@ const evaluationSchema = new Schema({
     capeteurNombre:String,
     orientation:String,
     inclinaison:String,
+    images:[{
+      photo:String,
+      name:String,
+      timestamp:String,
+    }]
   },
  
   ventilation: {
+    images:[{
+      photo:String,
+      name:String,
+      timestamp:String,
+    }],
     typeventilation: String,
     systemventilation: String,
     nombreDePiece: {
@@ -120,6 +168,11 @@ const evaluationSchema = new Schema({
     capacityBallon: String,
     nombreBallon: String,
     anneGenerator: String,
+    images:[{
+      photo:String,
+      name:String,
+      timestamp:String,
+    }]
   },
 
 
@@ -195,6 +248,11 @@ const evaluationSchema = new Schema({
     typeSousSol: String,
     surface: String,
     hauteur: String,
+    images:[{
+      photo:String,
+      name:String,
+      timestamp:String,
+    }]
   },
   linetique: {
     liason: String,
@@ -205,10 +263,19 @@ const evaluationSchema = new Schema({
     comble: String,
     hauteurMoyenne: String,
     surfaceComble: String,
+    images:[{
+      photo:String,
+      name:String,
+      timestamp:String,
+    }]
 
   },
   dimension: {
-
+    images:[{
+      photo:String,
+      name:String,
+      timestamp:String,
+    }],
     longeur: String,
     largeur: String,
     hauteur: String,
@@ -223,7 +290,24 @@ const evaluationSchema = new Schema({
     sousSol: String,
     rdc: String,
     r1: String,
-    r2: String
+    r2: String,
+    images:[{
+      photo:String,
+      name:String,
+      timestamp:String,
+    }]
+  },
+  planMasse:{
+    images:[{
+      photo:String,
+      name:String,
+      timestamp:String,
+    }],
+    longeur: String,
+    largeur:  String,
+    hauteur:  String,
+    orientationPrincipale:  String,
+    image:String
   },
   plancherHaut: [{
     compositionPlancherBas: String,
@@ -245,7 +329,12 @@ const evaluationSchema = new Schema({
     extensionBatimant: [String],
     valueTechnique: [String],
     solution: String,
-    logement: String
+    logement: String,
+    images:[{
+      photo:String,
+      name:String,
+      timestamp:String,
+    }]
   },
   generaliter: {
     email: { type: String, trim: true, required: true },
@@ -272,6 +361,8 @@ const evaluationSchema = new Schema({
   createdAt: { type: Date, default: Date.now },
   updatedAt: Date,
   deletedAt: Date,
+  signatureBenefique:String,
+  signatureInspecteur:String,
 
 
 },

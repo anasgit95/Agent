@@ -70,11 +70,11 @@ exports.deleteElement = async (req, res) => {
 exports.getAllList = async (req, res) => {
   
   try {
-    const lists  =  await Evaluation.find({}).populate("Creator").sort({'createdAt': -1});
+     const lists  =  await Evaluation.find({}).populate("Creator").sort({'createdAt': -1});
      res.send(lists);
   } catch (e) {
     console.log(e);
-    // res.status(400).end()
+      res.status(400).end()
   }
 };
 
