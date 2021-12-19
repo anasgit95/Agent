@@ -45,8 +45,7 @@
          try {
              const value = JSON.parse(await AsyncStorage.getItem('eauSanitaire'));
              if (value !== null && value.length > 0) {
-                 console.log(value)
-                 setMur(value)
+                  setMur(value)
              }
              else await AsyncStorage.setItem(
                  'eauSanitaire',

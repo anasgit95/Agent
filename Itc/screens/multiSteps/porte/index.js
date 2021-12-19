@@ -16,10 +16,13 @@ import { Dimensions } from 'react-native';
 import { useEffect } from 'react';
 import EditPorte from './EditPorte';
 import Head from '../../components/Head';
+import Camera from '../pickerImage/camera'
+
 const OuvrantType: () => Node = ({ setActiveSteps }) => {
     const windowHeight = Dimensions.get('window').height;
     const windowWidth = Dimensions.get('window').width;
 
+    const [images, setImages] = useState([]);
 
 
 
@@ -38,7 +41,8 @@ const OuvrantType: () => Node = ({ setActiveSteps }) => {
         try {
             const value = JSON.parse(await AsyncStorage.getItem('Porte'));
             if (value !== null && value.length > 0) {
-                console.log(value)
+                if(value.images)
+                setImages(value.images)
                 setMur(value)
             }
             else  await AsyncStorage.setItem(
@@ -138,6 +142,7 @@ const OuvrantType: () => Node = ({ setActiveSteps }) => {
                         )}
 
 
+{/* <Camera images={images} setImages={setImages} /> */}
 
                     </View>
                 </ScrollView>
@@ -145,7 +150,11 @@ const OuvrantType: () => Node = ({ setActiveSteps }) => {
                 <NextStep onPress={async () => {
 
                     try {
-
+                        // mur.images=image ;
+                        await AsyncStorage.setItem(
+                            'dimension',
+                            JSON.stringify(mur)
+                        );
                         await AsyncStorage.setItem(
                             'activeStep',
                             JSON.stringify(7)

@@ -17,10 +17,13 @@ import AddMasque from './AddMasque';
 import { AsyncStorage } from 'react-native';
 import { useEffect } from 'react';
 import EditMasque from './EditMasque';
+import Camera from '../pickerImage/camera'
+
 const MasqueMur: () => Node = ({ setActiveSteps }) => {
     const windowHeight = Dimensions.get('window').height;
     const windowWidth = Dimensions.get('window').width;
 
+    const [images, setImages] = useState([]);
 
 
 
@@ -37,6 +40,7 @@ const MasqueMur: () => Node = ({ setActiveSteps }) => {
             const value = JSON.parse(await AsyncStorage.getItem('MasqueMur'));
             if (value !== null) {
                 setMur(value)
+                
             }
             else setMur([])
 
@@ -153,6 +157,7 @@ const MasqueMur: () => Node = ({ setActiveSteps }) => {
 
 
 
+<Camera images={images} setImages={setImages} />
 
 
 

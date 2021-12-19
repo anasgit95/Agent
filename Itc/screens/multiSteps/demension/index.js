@@ -16,7 +16,7 @@
  import { useEffect } from 'react';
   import Head from '../../components/Head'
   import { Formik } from 'formik';
-  import AntDesign from 'react-native-vector-icons/AntDesign'
+  import Camera from '../pickerImage/camera'
 
  const Emission: () => Node = ({ setActiveSteps }) => {
      const windowHeight = Dimensions.get('window').height;
@@ -24,11 +24,8 @@
      
  
      const [loading, setLoading] = useState(true)
-
- 
- 
-     
-     
+     const [images, setImages] = useState([]);
+    
       const [mur, setMur] = useState({
 
         longeur: "",
@@ -44,6 +41,8 @@
              const value = JSON.parse(await AsyncStorage.getItem('dimension'));
               if (value !== null ) {
                   setMur(value)
+                  if(value.images)
+                  setImages(value.images)
              }
              setLoading(false)
            
@@ -93,6 +92,7 @@
                             'activeStep',
                             JSON.stringify(5)
                         );
+                        values.images=images;
                         
                         await AsyncStorage.setItem(
                             'dimension',
@@ -203,8 +203,10 @@ Dimension
                                 />
                             </InputView>
                              
+                            <Camera images={images} setImages={setImages} />
 
                         </View>
+
                     </ScrollView>
                     <NextStep onPress={handleSubmit} />
 

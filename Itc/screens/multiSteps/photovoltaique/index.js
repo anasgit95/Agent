@@ -11,15 +11,15 @@
  import InputView from '../../components/InputView';
  // import DropDownPicker from 'react-native-dropdown-picker';
  import { Dimensions } from 'react-native';
- import AntDesign from 'react-native-vector-icons/AntDesign'
- import { AsyncStorage } from 'react-native';
+  import { AsyncStorage } from 'react-native';
  import NextStep from '../../components/NextSteps'
- import { Checkbox } from 'react-native-paper';
- import Head from '../../components/Head'
+  import Head from '../../components/Head'
  import DropDownPicker from 'react-native-dropdown-picker';
- 
+ import Camera from '../pickerImage/camera'
+
  const PhotVoltaique: () => Node = ({ setActiveSteps }) => {
-      
+    const [images, setImages] = useState([]);
+
     const windowHeight = Dimensions.get('window').height;
     const windowWidth = Dimensions.get('window').width;
      const [itemsType, setItemsType] = useState([
@@ -61,7 +61,8 @@
              await setCapteurNombre(photovoltaique.capeteurNombre)
              await setOrientation(photovoltaique.orientation)
              await setInclinaison(photovoltaique.inclinaison)
-            
+             if(photovoltaique.images)
+             setImages(photovoltaique.images)
             }
 
  
@@ -232,7 +233,17 @@
                             value={inclinaison}
                             onChangeText={setInclinaison} />
                     </InputView>
+
                                         </View>
+                                        <View
+                            style={{
+
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                width: "100%"
+                            }}>
+                                        <Camera images={images} setImages={setImages} />
+</View>
                      <NextStep
                          onPress={async () =>
                                {
@@ -246,6 +257,7 @@
                                         capeteurNombre,
                                         orientation,
                                         inclinaison,
+                                        images
                                      })
                                  )
                             

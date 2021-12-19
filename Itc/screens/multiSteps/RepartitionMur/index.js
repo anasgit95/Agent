@@ -17,12 +17,15 @@ import AddRepartition from './AddRepartition';
 import { AsyncStorage } from 'react-native';
 import { useEffect } from 'react';
 import EditRepartition from './EditRepartition';
+import Camera from '../pickerImage/camera'
+
 const RepartitionMur: () => Node = ({ setActiveSteps }) => {
     const windowHeight = Dimensions.get('window').height;
     const windowWidth = Dimensions.get('window').width;
 
 
 
+    const [images, setImages] = useState([]);
 
     const [mur, setMur] = useState([]);
     const [edit, setEdit] = useState(false);
@@ -37,6 +40,8 @@ const RepartitionMur: () => Node = ({ setActiveSteps }) => {
             const value = JSON.parse(await AsyncStorage.getItem('Repartition'));
             if (value !== null) {
                 setMur(value)
+                if(value.images)
+                setImages(value.images)
             }
         } catch (error) {
             console.log(error)
@@ -153,6 +158,7 @@ const RepartitionMur: () => Node = ({ setActiveSteps }) => {
 
 
 
+{/* <Camera images={images} setImages={setImages} /> */}
 
                     </View>
                 </ScrollView>
@@ -160,8 +166,13 @@ const RepartitionMur: () => Node = ({ setActiveSteps }) => {
 <NextStep onPress={async () => {
  
     try {
-  
+        // mur.images=images;
+                        
         await AsyncStorage.setItem(
+            'Repartition',
+            JSON.stringify(mur)
+        );
+         await AsyncStorage.setItem(
             'activeStep',
             JSON.stringify(6)
         );

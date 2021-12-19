@@ -50,10 +50,10 @@ export default class RNSignatureExample extends Component {
        this.refs["sign"].resetImage();
    }
 
-   _onSaveEvent(result) {
+    _onSaveEvent=(result) =>{
        //result.encoded - for the base64 encoded png
        //result.pathName - for the file path name
-       console.log(result);
+        this.props.saveImage(result.encoded)
    }
    _onDragEvent() {
         // This callback will be called when the user enters signature

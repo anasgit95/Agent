@@ -16,12 +16,14 @@
  import { useEffect } from 'react';
   import Head from '../../components/Head'
   import { Formik } from 'formik';
- 
+  import Camera from '../pickerImage/camera'
+
  const Reseau: () => Node = ({ setActiveSteps }) => {
      const windowHeight = Dimensions.get('window').height;
      const windowWidth = Dimensions.get('window').width;
      
- 
+     const [images, setImages] = useState([]);
+
      const [loading, setLoading] = useState(true)
 
  
@@ -39,6 +41,8 @@
              const value = JSON.parse(await AsyncStorage.getItem('reseau'));
               if (value !== null ) {
                   setMur(value)
+                  if(value.images)
+                  setImages(value.images)
              }
              setLoading(false)
            
@@ -81,6 +85,7 @@
              }}
             onSubmit={async values => 
   {
+                    values.images=images
                     try {
                    
                         await AsyncStorage.setItem(
@@ -192,7 +197,8 @@ Réseau de distrubution
                             </InputView>
                              
                              
-                            
+                            <Camera images={images} setImages={setImages} />
+
                              
 
 

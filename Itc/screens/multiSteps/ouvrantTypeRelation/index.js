@@ -17,9 +17,12 @@ import AddOuvrantRelation from './AddOuvrantRelation';
 import { AsyncStorage } from 'react-native';
 import { useEffect } from 'react';
 import EditRepartition from './EditOuvrant';
+import Camera from '../pickerImage/camera'
+
 const RepartitionMur: () => Node = ({ setActiveSteps }) => {
     const windowHeight = Dimensions.get('window').height;
     const windowWidth = Dimensions.get('window').width;
+    const [images, setImages] = useState([]);
 
 
 
@@ -36,7 +39,8 @@ const RepartitionMur: () => Node = ({ setActiveSteps }) => {
         try {
             const value = JSON.parse(await AsyncStorage.getItem('OuvrantTypeList'));
             if (value !== null) {
-                console.log("c",value)
+                if(value.images)
+                setImages(value.images)
                 setMur(value)
             }
         } catch (error) {
@@ -152,6 +156,7 @@ const RepartitionMur: () => Node = ({ setActiveSteps }) => {
 
 
 
+{/* <Camera images={images} setImages={setImages} /> */}
 
 
 
@@ -162,7 +167,11 @@ const RepartitionMur: () => Node = ({ setActiveSteps }) => {
 <NextStep onPress={async () => {
 
     try {
-
+        // mur.images=images
+        await AsyncStorage.setItem(
+            'OuvrantTypeList',
+            JSON.stringify(mur)
+        );
         await AsyncStorage.setItem(
             'activeStep',
             JSON.stringify(10)

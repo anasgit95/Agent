@@ -17,6 +17,8 @@ import { Dimensions } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import { AsyncStorage } from 'react-native';
 import { useEffect } from 'react';
+import Camera from '../pickerImage/camera'
+
 DropDownPicker.setMode("BADGE");
 
 const linetique: () => Node = ({ setActiveSteps }) => {
@@ -31,7 +33,8 @@ const linetique: () => Node = ({ setActiveSteps }) => {
     const [comble, setComble] = React.useState('Isolation totale');
     const [hauteurMoyenne, setHauteurMoyenne] = React.useState();
     const [surfaceComble, setSurfaceComble] = useState(null);
-   
+    const [images, setImages] = useState([]);
+
     async function fetchData() {
         try {
             const value = JSON.parse(await AsyncStorage.getItem('Linetique'));
@@ -44,6 +47,8 @@ const linetique: () => Node = ({ setActiveSteps }) => {
                 setComble(value.comble)
                 setHauteurMoyenne(value.hauteurMoyenne)
                 setSurfaceComble(value.surfaceComble)
+                if(value.images)
+                setImages(value.images)
 
 
             }
@@ -280,8 +285,10 @@ const linetique: () => Node = ({ setActiveSteps }) => {
                             onChangeText={text => setHauteurMoyenne(text)} />
                     </InputView>
 
+                    <Camera images={images} setImages={setImages} />
 
                 </View>
+
             </ScrollView>
 
             <NextStep onPress={async () => {
@@ -296,6 +303,7 @@ const linetique: () => Node = ({ setActiveSteps }) => {
                     comble,
                     hauteurMoyenne,
                     surfaceComble,
+                    images
                 
 
 

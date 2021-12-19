@@ -17,12 +17,14 @@
  import EditPlancher from './EditPlancher';
  import Head from '../../components/Head'
  import { RadioButton } from 'react-native-paper';
- 
+ import Camera from '../pickerImage/camera'
+
  const PlancherBas: () => Node = ({ setActiveSteps }) => {
      const windowHeight = Dimensions.get('window').height;
      const windowWidth = Dimensions.get('window').width;
  
- 
+     const [images, setImages] = useState([]);
+
  
  
      const [mur, setMur] = useState([
@@ -48,14 +50,16 @@
              const value = JSON.parse(await AsyncStorage.getItem('PlancherBas'));
              if (value !== null && value.length > 0) {
                  console.log(value)
-                 setMur(value)
-             }
+                 if(value.images)
+                 setImages(value.images)             }
              else await AsyncStorage.setItem(
                  'PlancherBas',
                  JSON.stringify(mur)
              );
              const valueOfSoous = JSON.parse(await AsyncStorage.getItem('sousSol'));
              if (valueOfSoous !== null ) {
+                if(valueOfSoous.images)
+                setImages(valueOfSoous.images)
                   setSousSol(valueOfSoous)
              }
              else await AsyncStorage.setItem(
@@ -216,7 +220,10 @@
  
                                  />
                              </InputView>
+                             <Camera images={images} setImages={setImages} />
+
                          </View>
+                         
                      </View>
                  </ScrollView>
  
@@ -228,6 +235,7 @@
                              'activeStep',
                              JSON.stringify(12)
                          );
+                         sousSol.images=images
                          await AsyncStorage.setItem(
                              'sousSol',
                              sousSol

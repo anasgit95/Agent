@@ -60,13 +60,14 @@ DropDownPicker.setMode("BADGE");
 
 
     ]);
-    const [date, setDate] = useState(new Date());
+    // const [date, setDate] = useState(new Date());
 
     const [images, setImages] = useState([]);
 
     async function fetchData() {
         try {
             const value = JSON.parse(await AsyncStorage.getItem('Context'));
+           console.log(value)
             if (value !== null) {
                 setOccupation(value.occupation)
                 setLogement(value.logement)

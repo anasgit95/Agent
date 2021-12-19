@@ -17,8 +17,11 @@ import NextStep from '../../components/NextSteps'
 import { Checkbox } from 'react-native-paper';
 import Head from '../../components/Head'
 import DropDownPicker from 'react-native-dropdown-picker';
+import Camera from '../pickerImage/camera'
 
 const Equipement: () => Node = ({ setActiveSteps }) => {
+    const [images, setImages] = useState([]);
+
     const [itemsGros, setItemsGros] = useState([
         { label: 'Réfigérateur 75L ancien', value: 'Réfigérateur 75L ancien' },
         { label: 'Réfigérateur 75L A+++', value: 'Réfigérateur 75L A+++' },
@@ -39,16 +42,13 @@ const Equipement: () => Node = ({ setActiveSteps }) => {
         { label: 'Aspirateur', value: 'Aspirateur' },
 
 
- 
+
 
 
 
 
     ]);
     const [grosElectromenegaer, setGrosElectromenegaer] = useState(null);
-
-
-
 
     const [items, setItems] = useState([
         { label: 'Cuisinére électrique', value: 'Cuisinére électrique' },
@@ -72,7 +72,7 @@ const Equipement: () => Node = ({ setActiveSteps }) => {
         { label: 'Ordinateur portable', value: 'Ordinateur portable' },
         { label: 'Tv écran plat', value: 'Tv écran plat' },
         { label: 'Tv cathodique', value: 'Tv cathodique' },
-        
+
 
 
     ]);
@@ -85,7 +85,7 @@ const Equipement: () => Node = ({ setActiveSteps }) => {
         { label: 'Fer à repasser', value: 'Fer à repasser' },
         { label: 'Micro-onde', value: 'Micro-onde' },
         { label: 'Mixeur', value: 'Mixeur' },
-        
+
 
 
     ]);
@@ -129,7 +129,7 @@ const Equipement: () => Node = ({ setActiveSteps }) => {
         },
     });
 
-    const [loading, setLoading] = useState(true);
+    // const [loading, setLoading] = useState(true);
 
 
 
@@ -141,8 +141,7 @@ const Equipement: () => Node = ({ setActiveSteps }) => {
             const elect = JSON.parse(await AsyncStorage.getItem('electromenager'));
             const diverA = JSON.parse(await AsyncStorage.getItem('diver'));
             const consomatioNA = JSON.parse(await AsyncStorage.getItem('consomation'));
-
-
+     
             await setCuisson(cuissonD)
             await setBuriquetique(bueauD)
             await setElectromenager(elect)
@@ -151,8 +150,10 @@ const Equipement: () => Node = ({ setActiveSteps }) => {
 
 
             if (value !== null) {
+                if (value.images)
+                setImages(value.images)
                 await setEclaire(value)
-                setLoading(false)
+                // setLoading(false)
 
             }
             else {
@@ -188,7 +189,7 @@ const Equipement: () => Node = ({ setActiveSteps }) => {
         }}>
 
             <Head title={"EQUIPEMENTS ELECTRIQUES"} setActiveSteps={setActiveSteps} />
-            {!loading ?
+            {!false ?
 
 
 
@@ -215,7 +216,7 @@ const Equipement: () => Node = ({ setActiveSteps }) => {
                     </View>
 
                     <View style={{ display: "flex", flexDirection: "row", justifyContent: "flex-start", width: "100%", marginLeft: "10%", marginTop: 10 }}>
- 
+
 
 
 
@@ -227,39 +228,39 @@ const Equipement: () => Node = ({ setActiveSteps }) => {
                                 <Checkbox
                                     status={eclairage.induction.checked ? 'checked' : 'unchecked'}
                                     onPress={() => {
-                                        let newEcalaire = eclairage ;
-                                        newEcalaire.induction.checked=!newEcalaire.induction.checked
+                                        let newEcalaire = eclairage;
+                                        newEcalaire.induction.checked = !newEcalaire.induction.checked
                                         console.log(newEcalaire)
 
-                                        setEclaire({...newEcalaire})
+                                        setEclaire({ ...newEcalaire })
                                     }}
-                                />                               
-                                     <Text style={{ paddingTop: 10 }}>Ampoule à induction</Text>
+                                />
+                                <Text style={{ paddingTop: 10 }}>Ampoule à induction</Text>
 
 
                             </View>
                             {eclairage.induction.checked ?
-                                     <InputView>
+                                <InputView>
 
-                                  <TextInput
-                                  style={styles.inputText}
-                                  placeholder="Nombre des ampoules"
-                                  placeholderTextColor="#003f5c"
-                                  keyboardType="number-pad"
-                                  onChangeText={text=>{
-                                     let newEcalaire = eclairage ;
-                                     newEcalaire.induction.nombre=text
-                         
-                                     setEclaire({...newEcalaire})
-                                  }}
-                                  value={eclairage.induction.nombre}
-                              />
-                              </InputView>
+                                    <TextInput
+                                        style={styles.inputText}
+                                        placeholder="Nombre des ampoules"
+                                        placeholderTextColor="#003f5c"
+                                        keyboardType="number-pad"
+                                        onChangeText={text => {
+                                            let newEcalaire = eclairage;
+                                            newEcalaire.induction.nombre = text
+
+                                            setEclaire({ ...newEcalaire })
+                                        }}
+                                        value={eclairage.induction.nombre}
+                                    />
+                                </InputView>
                                 : null
                             }
                         </View>
 
-                        
+
 
                         <View style={{ flex: 1 }}>
 
@@ -268,39 +269,39 @@ const Equipement: () => Node = ({ setActiveSteps }) => {
                                 <Checkbox
                                     status={eclairage.fluorescent.checked ? 'checked' : 'unchecked'}
                                     onPress={() => {
-                                        let newEcalaire = eclairage ;
-                                        newEcalaire.fluorescent.checked=!newEcalaire.fluorescent.checked
+                                        let newEcalaire = eclairage;
+                                        newEcalaire.fluorescent.checked = !newEcalaire.fluorescent.checked
                                         console.log(newEcalaire)
 
-                                        setEclaire({...newEcalaire})
+                                        setEclaire({ ...newEcalaire })
                                     }}
-                                />                               
-                                     <Text style={{ paddingTop: 10 }}>Linéaire fluoréscent</Text>
+                                />
+                                <Text style={{ paddingTop: 10 }}>Linéaire fluoréscent</Text>
 
 
                             </View>
                             {eclairage.fluorescent.checked ?
-                                     <InputView>
+                                <InputView>
 
-                            <TextInput
-                            style={styles.inputText}
-                            placeholder="Nombre des ampoules"
-                            placeholderTextColor="#003f5c"
-                            keyboardType="number-pad"
-                            onChangeText={text=>{
-                               let newEcalaire = eclairage ;
-                               newEcalaire.fluorescent.nombre=text
-                   
-                               setEclaire({...newEcalaire})
-                            }}
-                            value={eclairage.fluorescent.nombre}
-                        />
-                        </InputView>
+                                    <TextInput
+                                        style={styles.inputText}
+                                        placeholder="Nombre des ampoules"
+                                        placeholderTextColor="#003f5c"
+                                        keyboardType="number-pad"
+                                        onChangeText={text => {
+                                            let newEcalaire = eclairage;
+                                            newEcalaire.fluorescent.nombre = text
+
+                                            setEclaire({ ...newEcalaire })
+                                        }}
+                                        value={eclairage.fluorescent.nombre}
+                                    />
+                                </InputView>
                                 : null
                             }
                         </View>
 
-                        
+
 
                         <View style={{ flex: 1 }}>
 
@@ -309,34 +310,34 @@ const Equipement: () => Node = ({ setActiveSteps }) => {
                                 <Checkbox
                                     status={eclairage.halogene.checked ? 'checked' : 'unchecked'}
                                     onPress={() => {
-                                        let newEcalaire = eclairage ;
-                                        newEcalaire.halogene.checked=!newEcalaire.halogene.checked
+                                        let newEcalaire = eclairage;
+                                        newEcalaire.halogene.checked = !newEcalaire.halogene.checked
                                         console.log(newEcalaire)
 
-                                        setEclaire({...newEcalaire})
+                                        setEclaire({ ...newEcalaire })
                                     }}
-                                />                               
-                                     <Text style={{ paddingTop: 10 }}>Ampoule Halogénes</Text>
+                                />
+                                <Text style={{ paddingTop: 10 }}>Ampoule Halogénes</Text>
 
 
                             </View>
                             {eclairage.halogene.checked ?
-                                     <InputView>
+                                <InputView>
 
-                                     <TextInput
-                                     style={styles.inputText}
-                                     placeholder="Nombre des ampoules"
-                                     placeholderTextColor="#003f5c"
-                                     keyboardType="number-pad"
-                                     onChangeText={text=>{
-                                        let newEcalaire = eclairage ;
-                                        newEcalaire.halogene.nombre=text
-                            
-                                        setEclaire({...newEcalaire})
-                                     }}
-                                     value={eclairage.halogene.nombre}
-                                 />
-                                 </InputView>
+                                    <TextInput
+                                        style={styles.inputText}
+                                        placeholder="Nombre des ampoules"
+                                        placeholderTextColor="#003f5c"
+                                        keyboardType="number-pad"
+                                        onChangeText={text => {
+                                            let newEcalaire = eclairage;
+                                            newEcalaire.halogene.nombre = text
+
+                                            setEclaire({ ...newEcalaire })
+                                        }}
+                                        value={eclairage.halogene.nombre}
+                                    />
+                                </InputView>
                                 : null
                             }
                         </View>
@@ -352,360 +353,355 @@ const Equipement: () => Node = ({ setActiveSteps }) => {
 
 
                     <View style={{ display: "flex", flexDirection: "row", justifyContent: "flex-start", width: "100%", marginLeft: "20%", marginTop: 10 }}>
- 
 
 
 
 
- 
 
- <View style={{ flex: 1 }}>
 
-     <View style={{ flexDirection: "row", flex: 1 }}>
 
-         <Checkbox
-             status={eclairage.fluo.checked ? 'checked' : 'unchecked'}
-             onPress={() => {
-                 let newEcalaire = eclairage ;
-                 newEcalaire.fluo.checked=!newEcalaire.fluo.checked
-                 console.log(newEcalaire)
+                        <View style={{ flex: 1 }}>
 
-                 setEclaire({...newEcalaire})
-             }}
-         />                               
-              <Text style={{ paddingTop: 10 }}>Linéaire fluo compact</Text>
+                            <View style={{ flexDirection: "row", flex: 1 }}>
 
+                                <Checkbox
+                                    status={eclairage.fluo.checked ? 'checked' : 'unchecked'}
+                                    onPress={() => {
+                                        let newEcalaire = eclairage;
+                                        newEcalaire.fluo.checked = !newEcalaire.fluo.checked
+                                        console.log(newEcalaire)
 
-     </View>
-     {eclairage.fluo.checked ?
-              <InputView>
+                                        setEclaire({ ...newEcalaire })
+                                    }}
+                                />
+                                <Text style={{ paddingTop: 10 }}>Linéaire fluo compact</Text>
 
-         <TextInput
-         style={styles.inputText}
-         placeholder="Nombre des ampoules"
-         placeholderTextColor="#003f5c"
-         keyboardType="number-pad"
-         onChangeText={text=>{
-            let newEcalaire = eclairage ;
-            newEcalaire.fluo.nombre=text
 
-            setEclaire({...newEcalaire})
-         }}
-         value={eclairage.fluo.nombre}
-     />
-     </InputView>
-         : null
-     }
- </View>
+                            </View>
+                            {eclairage.fluo.checked ?
+                                <InputView>
 
- 
+                                    <TextInput
+                                        style={styles.inputText}
+                                        placeholder="Nombre des ampoules"
+                                        placeholderTextColor="#003f5c"
+                                        keyboardType="number-pad"
+                                        onChangeText={text => {
+                                            let newEcalaire = eclairage;
+                                            newEcalaire.fluo.nombre = text
 
- <View style={{ flex: 1 }}>
+                                            setEclaire({ ...newEcalaire })
+                                        }}
+                                        value={eclairage.fluo.nombre}
+                                    />
+                                </InputView>
+                                : null
+                            }
+                        </View>
 
-     <View style={{ flexDirection: "row", flex: 1 }}>
 
-         <Checkbox
-             status={eclairage.led.checked ? 'checked' : 'unchecked'}
-             onPress={() => {
-                 let newEcalaire = eclairage ;
-                 newEcalaire.led.checked=!newEcalaire.led.checked
- 
-                 setEclaire({...newEcalaire})
-             }}
-         />                               
-              <Text style={{ paddingTop: 10 }}>Led</Text>
 
+                        <View style={{ flex: 1 }}>
 
-     </View>
-     {eclairage.led.checked ?
-         <InputView>
-         <TextInput
-             style={styles.inputText}
-             placeholder="Nombre des ampoules"
-             placeholderTextColor="#003f5c"
-             keyboardType="number-pad"
-             onChangeText={text=>{
-                let newEcalaire = eclairage ;
-                newEcalaire.led.nombre=text
+                            <View style={{ flexDirection: "row", flex: 1 }}>
 
-                setEclaire({...newEcalaire})
-             }}
-             value={eclairage.led.nombre}
-         />
-     </InputView>
-         : null
-     }
- </View>
-</View>
+                                <Checkbox
+                                    status={eclairage.led.checked ? 'checked' : 'unchecked'}
+                                    onPress={() => {
+                                        let newEcalaire = eclairage;
+                                        newEcalaire.led.checked = !newEcalaire.led.checked
 
+                                        setEclaire({ ...newEcalaire })
+                                    }}
+                                />
+                                <Text style={{ paddingTop: 10 }}>Led</Text>
 
-<View style={{ textAlign: "center", justifyContent: "center", width: "100%", height: 80, display: "flex", position: "relative" }}>
 
-<Text style={{ textAlign: "center", fontWeight: "bold", fontSize: 20, color: "black" }}>
-Cuisson
+                            </View>
+                            {eclairage.led.checked ?
+                                <InputView>
+                                    <TextInput
+                                        style={styles.inputText}
+                                        placeholder="Nombre des ampoules"
+                                        placeholderTextColor="#003f5c"
+                                        keyboardType="number-pad"
+                                        onChangeText={text => {
+                                            let newEcalaire = eclairage;
+                                            newEcalaire.led.nombre = text
 
-
-
-
-</Text>
-
-</View>
-
-<View
-                     style={{
- 
-                         alignItems: 'center',
-                         justifyContent: 'center',
-                         width: "80%",
-                         marginLeft:"10%"
-                     }}>
-
-
-
-
-                    <View style={{
-                        width: "100%",
-
-
-
-                    }}>
-                        <DropDownPicker
-                            listMode="SCROLLVIEW"
-                            scrollViewProps={{
-                                nestedScrollEnabled: true,
-                                zIndex: 5000
-                            }}
-                            style={{ marginTop: 10, borderColor: "#006593" }}
-                            placeholder="Préciser le nombre d'appareils"
-                            open={open}
-                            multiple={true}
-                            value={cuisson}
-                            items={items}
-                            setOpen={setOpen}
-                            setValue={setCuisson}
-                            setItems={setItems}
-                        />
-                    </View>
-</View>
-
-<View style={{ textAlign: "center", justifyContent: "center", width: "100%", height: 80, display: "flex", position: "relative" }}>
-
-<Text style={{ textAlign: "center", fontWeight: "bold", fontSize: 20, color: "black" }}>
-Gros électroménager
-(Préciser le nombre d'appareils)
-
-
-
-</Text>
-
-</View>
-
-<View
-                     style={{
- 
-                         alignItems: 'center',
-                         justifyContent: 'center',
-                         width: "80%",
-                         marginLeft:"10%"
-                     }}>
-
-
-
-
-                    <View style={{
-                        width: "100%",
-
-
-
-                    }}>
-                        <DropDownPicker
-                            listMode="SCROLLVIEW"
-                            scrollViewProps={{
-                                nestedScrollEnabled: true,
-                             }}
-                            style={{ marginTop: 10, borderColor: "#006593",zIndex:1 }}
-                            placeholder="Gros électroménager"
-                            open={openGros}
-                            multiple={true}
-                            value={grosElectromenegaer}
-                            items={itemsGros}
-                            setOpen={setOpenGros}
-                            setValue={setGrosElectromenegaer}
-                            setItems={setItemsGros}
-                        />
-                    </View>
-</View>
-<View
-                     style={{
- 
-                         alignItems: 'center',
-                         justifyContent: 'center',
-                         width: "80%",
-                         marginLeft:"10%"
-                     }}>
-
-
-
-
-                    <View style={{
-                        width: "100%",
-
-
-
-                    }}>
-                        <DropDownPicker
-                            listMode="SCROLLVIEW"
-                            scrollViewProps={{
-                                nestedScrollEnabled: true,
-                             }}
-                            style={{ marginTop: 10, borderColor: "#006593" ,zIndex:1}}
-                            placeholder="Bureautique et audiovisuel (Préciser le nombre d'apperiels"
-                            open={openBureau}
-                            multiple={true}
-                            value={bureatique}
-                            items={itemsBureau}
-                            setOpen={setOpenBureau}
-                            setValue={setBuriquetique}
-                            setItems={setItemsBueau}
-                        />
-                    </View>
-</View>
-
-
-
-
-
-<View
-                     style={{
- 
-                         alignItems: 'center',
-                         justifyContent: 'center',
-                         width: "80%",
-                         marginLeft:"10%"
-                     }}>
-
-
-
-
-                    <View style={{
-                        width: "100%",
-
-
-
-                    }}>
-                        <DropDownPicker
-                            listMode="SCROLLVIEW"
-                            scrollViewProps={{
-                                nestedScrollEnabled: true,
-                             }}
-                            style={{ marginTop: 10, borderColor: "#006593",zIndex:1 }}
-                            placeholder="Petit électroménager"
-                            open={openElectro}
-                            multiple={true}
-                            value={electromenager}
-                            items={itemsElectromenage}
-                            setOpen={setOpenElectro}
-                            setValue={setElectromenager}
-                            setItems={setItemsElectromenge}
-                        />
-                    </View>
-</View>
-
-                   
-
-
-
-
-
-
-<View
-                     style={{
- 
-                         alignItems: 'center',
-                         justifyContent: 'center',
-                         width: "80%",
-                         marginLeft:"10%"
-                     }}>
-
-
-
-
-                    <View style={{
-                        width: "100%",
-
-
-
-                    }}>
-                        <DropDownPicker
-                            listMode="SCROLLVIEW"
-                            scrollViewProps={{
-                                nestedScrollEnabled: true,
-                             }}
-                            style={{ marginTop: 10, borderColor: "#006593",zIndex:1 }}
-                            placeholder="Divers"
-                            open={openDiver}
-                             value={diver}
-                            items={itemDiver}
-                            setOpen={setOpenDiver}
-                            setValue={setDiver}
-                            setItems={setItemDIver}
-                        />
+                                            setEclaire({ ...newEcalaire })
+                                        }}
+                                        value={eclairage.led.nombre}
+                                    />
+                                </InputView>
+                                : null
+                            }
+                        </View>
                     </View>
 
-                    
-</View>
-<View style={{justifyContent:"center",paddingLeft:"10%",width:"110%"}}> 
-<InputView>
-                        <TextInput
-                            style={styles.inputText}
-                            placeholder="Consommation Moyenne 
+
+                    <View style={{ textAlign: "center", justifyContent: "center", width: "100%", height: 80, display: "flex", position: "relative" }}>
+
+                        <Text style={{ textAlign: "center", fontWeight: "bold", fontSize: 20, color: "black" }}>
+                            Cuisson
+
+
+
+
+                        </Text>
+
+                    </View>
+
+                    <View
+                        style={{
+
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            width: "80%",
+                            marginLeft: "10%"
+                        }}>
+
+
+
+
+                        <View style={{
+                            width: "100%",
+
+
+
+                        }}>
+                            <DropDownPicker
+                                listMode="SCROLLVIEW"
+                                scrollViewProps={{
+                                    nestedScrollEnabled: true,
+                                    zIndex: 5000
+                                }}
+                                style={{ marginTop: 10, borderColor: "#006593" }}
+                                placeholder="Préciser le nombre d'appareils"
+                                open={open}
+                                multiple={true}
+                                value={cuisson}
+                                items={items}
+                                setOpen={setOpen}
+                                setValue={setCuisson}
+                                setItems={setItems}
+                            />
+                        </View>
+                    </View>
+
+                    <View style={{ textAlign: "center", justifyContent: "center", width: "100%", height: 80, display: "flex", position: "relative" }}>
+
+                        <Text style={{ textAlign: "center", fontWeight: "bold", fontSize: 20, color: "black" }}>
+                            Gros électroménager
+                            (Préciser le nombre d'appareils)
+                        </Text>
+
+                    </View>
+
+                    <View
+                        style={{
+
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            width: "80%",
+                            marginLeft: "10%"
+                        }}>
+                        <View style={{
+                            width: "100%",
+                        }}>
+                            <DropDownPicker
+                                listMode="SCROLLVIEW"
+                                scrollViewProps={{
+                                    nestedScrollEnabled: true,
+                                }}
+                                style={{ marginTop: 10, borderColor: "#006593", zIndex: 1 }}
+                                placeholder="Gros électroménager"
+                                open={openGros}
+                                multiple={true}
+                                value={grosElectromenegaer}
+                                items={itemsGros}
+                                setOpen={setOpenGros}
+                                setValue={setGrosElectromenegaer}
+                                setItems={setItemsGros}
+                            />
+                        </View>
+                    </View>
+                    <View
+                        style={{
+
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            width: "80%",
+                            marginLeft: "10%"
+                        }}>
+                        <View style={{
+                            width: "100%",
+                       }}>
+                            <DropDownPicker
+                                listMode="SCROLLVIEW"
+                                scrollViewProps={{
+                                    nestedScrollEnabled: true,
+                                }}
+                                style={{ marginTop: 10, borderColor: "#006593", zIndex: 1 }}
+                                placeholder="Bureautique et audiovisuel (Préciser le nombre d'apperiels"
+                                open={openBureau}
+                                multiple={true}
+                                value={bureatique}
+                                items={itemsBureau}
+                                setOpen={setOpenBureau}
+                                setValue={setBuriquetique}
+                                setItems={setItemsBueau}
+                            />
+                        </View>
+                    </View>
+
+
+
+
+
+                    <View
+                        style={{
+
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            width: "80%",
+                            marginLeft: "10%"
+                        }}>
+
+
+
+
+                        <View style={{
+                            width: "100%",
+
+
+
+                        }}>
+                            <DropDownPicker
+                                listMode="SCROLLVIEW"
+                                scrollViewProps={{
+                                    nestedScrollEnabled: true,
+                                }}
+                                style={{ marginTop: 10, borderColor: "#006593", zIndex: 1 }}
+                                placeholder="Petit électroménager"
+                                open={openElectro}
+                                multiple={true}
+                                value={electromenager}
+                                items={itemsElectromenage}
+                                setOpen={setOpenElectro}
+                                setValue={setElectromenager}
+                                setItems={setItemsElectromenge}
+                            />
+                        </View>
+                    </View>
+
+
+
+
+
+
+
+
+                    <View
+                        style={{
+
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            width: "80%",
+                            marginLeft: "10%"
+                        }}>
+
+
+
+
+                        <View style={{
+                            width: "100%",
+
+
+
+                        }}>
+                            <DropDownPicker
+                                listMode="SCROLLVIEW"
+                                scrollViewProps={{
+                                    nestedScrollEnabled: true,
+                                }}
+                                style={{ marginTop: 10, borderColor: "#006593", zIndex: 1 }}
+                                placeholder="Divers"
+                                open={openDiver}
+                                value={diver}
+                                items={itemDiver}
+                                setOpen={setOpenDiver}
+                                setValue={setDiver}
+                                setItems={setItemDIver}
+                            />
+                        </View>
+
+
+                    </View>
+                    <View style={{ justifyContent: "center", paddingLeft: "10%", width: "110%" }}>
+                        <InputView>
+                            <TextInput
+                                style={styles.inputText}
+                                placeholder="Consommation Moyenne 
                             Annuelle estimé"
-                            placeholderTextColor="#003f5c"
-                            keyboardType="number-pad"
+                                placeholderTextColor="#003f5c"
+                                keyboardType="number-pad"
 
-                            value={consomation}
-                            onChangeText={setConsomation} />
-                    </InputView>
-                    
+                                value={consomation}
+                                onChangeText={setConsomation} />
+                        </InputView>
+
+                    </View>
+                    <View
+                        style={{
+
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            width: "100%"
+                        }}>
+                        <Camera images={images} setImages={setImages} />
+
                     </View>
                     <NextStep
-                        onPress={async () =>
-                              {
-                                await AsyncStorage.setItem(
-                                    'eclairage',
-                                    JSON.stringify(eclairage)
-                                )
-                                await AsyncStorage.setItem(
-                                    'cuisson',
-                                    JSON.stringify(cuisson)
-                                )
-                                await AsyncStorage.setItem(
-                                    'bureautique',
-                                    JSON.stringify(bureatique)
-                                )
-                                await AsyncStorage.setItem(
-                                    'electromenager',
-                                    JSON.stringify(electromenager)
-                                )
-                                await AsyncStorage.setItem(
-                                    'consomation',
-                                    JSON.stringify(consomation)
-                                )
-                                await AsyncStorage.setItem(
-                                    'diver',
-                                    JSON.stringify(diver)
-                                )
-                                const nextStep = JSON.parse(await AsyncStorage.getItem('activeStep'));
+                        onPress={async () => {
 
-                                await AsyncStorage.setItem(
-                                    'activeStep',
-                                    JSON.stringify(nextStep+1)
-                                );
-                                setActiveSteps(active=>active+1)
+                            let ec = eclairage;
+                            ec.images = images;
+                            await AsyncStorage.setItem(
+                                'eclairage',
+                                JSON.stringify(ec)
+                            )
+                            await AsyncStorage.setItem(
+                                'cuisson',
+                                JSON.stringify(cuisson)
+                            )
+                            await AsyncStorage.setItem(
+                                'bureautique',
+                                JSON.stringify(bureatique)
+                            )
+                            await AsyncStorage.setItem(
+                                'electromenager',
+                                JSON.stringify(electromenager)
+                            )
+                            await AsyncStorage.setItem(
+                                'consomation',
+                                JSON.stringify(consomation)
+                            )
+                            await AsyncStorage.setItem(
+                                'diver',
+                                JSON.stringify(diver)
+                            )
+                            const nextStep = JSON.parse(await AsyncStorage.getItem('activeStep'));
 
-                              }
-                            
-                            }
+                            await AsyncStorage.setItem(
+                                'activeStep',
+                                JSON.stringify(nextStep + 1)
+                            );
+                            setActiveSteps(active => active + 1)
+
+                        }
+
+                        }
 
                     />
 

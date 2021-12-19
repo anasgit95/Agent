@@ -17,10 +17,13 @@
  import NextStep from '../../components/NextSteps'
  import { RadioButton } from 'react-native-paper';
  import Head from '../../components/Head'
- 
+ import Camera from '../pickerImage/camera'
+
  const Ventilation: () => Node = ({setActiveSteps}) => {
     const windowHeight = Dimensions.get('window').height;
     const windowWidth = Dimensions.get('window').width;
+    const [images, setImages] = useState([]);
+
     const [ventilation, setVentilation] = useState({
         typeventilation: "Mécanique simple flux",
         systemventilation:" auto réglable avant 1982",
@@ -47,6 +50,8 @@
              if (value !== null  ) {
                 await setVentilation(value)
                 setLoading(false)
+                if(value.images)
+                setImages(value.images)
  
             }   
             else {
@@ -93,7 +98,7 @@
              onSubmit={async (values) => {
  
                 try {
-               
+               values.images=images
                     await AsyncStorage.setItem(
                         'activeStep',
                         JSON.stringify(20)
@@ -380,7 +385,8 @@ Systéme de ventilation
                              </InputView>
 
                              
-                             
+                             <Camera images={images} setImages={setImages} />
+
                              </View>
                              <NextStep onPress={handleSubmit} />
 

@@ -20,8 +20,8 @@ export default class RNSignatureExample extends Component {
                     saveImageFileInExtStorage={false}
                     showNativeButtons={false}
                     showTitleLabel={false}
-                    backgroundColor="#006593"   
-                    strokeColor="#ffffff"
+                    backgroundColor="white"   
+                    strokeColor="black"
                     minStrokeWidth={4}
                     maxStrokeWidth={4}
                     viewMode={"portrait"}/>
@@ -45,16 +45,18 @@ export default class RNSignatureExample extends Component {
 
     saveSign() {
         this.refs["sign"].saveImage();
+
     }
 
     resetSign() {
         this.refs["sign"].resetImage();
     }
 
-    _onSaveEvent(result) {
+     _onSaveEvent=(result)=> {
         //result.encoded - for the base64 encoded png
         //result.pathName - for the file path name
         console.log(result);
+        this.props.saveImage(result.encoded)
     }
     _onDragEvent() {
          // This callback will be called when the user enters signature

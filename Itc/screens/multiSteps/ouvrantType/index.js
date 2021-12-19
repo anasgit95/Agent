@@ -16,9 +16,12 @@ import { Dimensions } from 'react-native';
 import { useEffect } from 'react';
 import EditOuvrant from './EditOuvrant';
 import Head from '../../components/Head'
+import Camera from '../pickerImage/camera'
+
 const OuvrantType: () => Node = ({ setActiveSteps }) => {
     const windowHeight = Dimensions.get('window').height;
     const windowWidth = Dimensions.get('window').width;
+    const [images, setImages] = useState([]);
 
 
 
@@ -41,6 +44,8 @@ const OuvrantType: () => Node = ({ setActiveSteps }) => {
             if (value !== null && value.length > 0) {
                 console.log(value)
                 setMur(value)
+                if(value.images)
+                setImages(value.images)
             }
             else  await AsyncStorage.setItem(
                 'Ouvrant',
@@ -138,6 +143,7 @@ const OuvrantType: () => Node = ({ setActiveSteps }) => {
                         )}
 
 
+{/* <Camera images={images} setImages={setImages} /> */}
 
                     </View>
                 </ScrollView>
@@ -145,6 +151,7 @@ const OuvrantType: () => Node = ({ setActiveSteps }) => {
                 <NextStep onPress={async () => {
 
                     try {
+                        // mur.images=images
                         await AsyncStorage.setItem(
                             'Ouvrant',
                             JSON.stringify(mur)

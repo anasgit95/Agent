@@ -16,18 +16,16 @@
  import { useEffect } from 'react';
   import Head from '../../components/Head'
   import { Formik } from 'formik';
- 
+  import Camera from '../pickerImage/camera'
+
  const Emission: () => Node = ({ setActiveSteps }) => {
      const windowHeight = Dimensions.get('window').height;
      const windowWidth = Dimensions.get('window').width;
      
  
      const [loading, setLoading] = useState(true)
+     const [images, setImages] = useState([]);
 
- 
- 
-     
-     
       const [mur, setMur] = useState({
 
         energieDeChuaffage: "",
@@ -44,6 +42,8 @@
              const value = JSON.parse(await AsyncStorage.getItem('emission'));
               if (value !== null ) {
                   setMur(value)
+                  if(value.images)
+                  setImages(value.images)
              }
              setLoading(false)
            
@@ -89,6 +89,7 @@
             onSubmit={async values => 
   {
                     try {
+                        values.images=images
                    
                         await AsyncStorage.setItem(
                             'activeStep',
@@ -251,6 +252,7 @@
                             </InputView>
 
 
+                            <Camera images={images} setImages={setImages} />
 
                         </View>
                     </ScrollView>

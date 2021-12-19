@@ -14,12 +14,15 @@
  import AntDesign from 'react-native-vector-icons/AntDesign'
  import { AsyncStorage } from 'react-native';
  import NextStep from '../../components/NextSteps'
- import { Checkbox } from 'react-native-paper';
+ import Camera from '../pickerImage/camera'
  import Head from '../../components/Head'
  import DropDownPicker from 'react-native-dropdown-picker';
  
  const Carecteristique: () => Node = ({ setActiveSteps }) => {7
-     const [itemsElectriciter, setItemsElectriciter] = useState([
+    const [images, setImages] = useState([]);
+
+    
+    const [itemsElectriciter, setItemsElectriciter] = useState([
          { label: 'Tarif option creux', value: 'Tarif option creux' },
          { label: 'Tarif option creuses', value: 'Tarif option creuses' },
          { label: 'Tarif option EJP', value: 'Tarif option EJP' },
@@ -80,12 +83,12 @@
              const prog = JSON.parse(await AsyncStorage.getItem('programmation'));
              const puiss = JSON.parse(await AsyncStorage.getItem('puissance'));
 
- 
-             await setGazGeneral(gazGenral)
+              await setGazGeneral(gazGenral)
              await setProgrammation(prog)
              await setElectriciter(electric)
-             await setPuissance(puiss)
-
+             await setPuissance(puiss?puiss.puissance:null)
+             if(puiss.images)
+             setImages(puiss.images)
  
   
  
@@ -259,7 +262,8 @@
                              setItems={setItemsProgrammation}
                          />
                      </View>
- 
+                     <Camera images={images} setImages={setImages} />
+
                      
  </View>
 
@@ -280,9 +284,14 @@
                                      'programmation',
                                      JSON.stringify(programmation)
                                  )
+                                 let newItem ={
+                                    puissance,
+                                    images
+                                };
+                                  
                                  await AsyncStorage.setItem(
                                     'puissance',
-                                    JSON.stringify(puissance)
+                                    JSON.stringify(newItem)
                                 )
                                  const nextStep = JSON.parse(await AsyncStorage.getItem('activeStep'));
  

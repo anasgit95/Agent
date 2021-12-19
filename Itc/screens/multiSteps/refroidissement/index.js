@@ -17,7 +17,8 @@
  import NextStep from '../../components/NextSteps'
  import { RadioButton } from 'react-native-paper';
  import Head from '../../components/Head'
- 
+ import Camera from '../pickerImage/camera'
+
  const Refroidissement: () => Node = ({setActiveSteps}) => {
     const windowHeight = Dimensions.get('window').height;
     const windowWidth = Dimensions.get('window').width;
@@ -28,15 +29,15 @@
      });
      const [loading, setLoading] = useState(true);
 
-      
- 
+     const [images, setImages] = useState([]);
      async function fetchData() {
         try {
             const value = JSON.parse(await AsyncStorage.getItem('refroidissement'));
              if (value !== null  ) {
                 await setRefroidissement(value)
                 setLoading(false)
- 
+                if(value.images)
+                setImages(value.images)
             }
             else {
                 await AsyncStorage.setItem(
@@ -61,8 +62,7 @@
 
 
     }, []);
-console.log("refroidissement",refroidissement,loading)
-     return (
+      return (
       
         <View style={{
             alignItems: 'center',
@@ -82,7 +82,7 @@ console.log("refroidissement",refroidissement,loading)
              onSubmit={async (values) => {
  
                 try {
-               
+                    values.images=images
                     await AsyncStorage.setItem(
                         'activeStep',
                         JSON.stringify(20)
@@ -177,7 +177,8 @@ Système de Refroidissement
  
                          </RadioButton.Group>
  
- 
+                         <Camera images={images} setImages={setImages} />
+
                          </View>
                          <NextStep onPress={handleSubmit} />
 

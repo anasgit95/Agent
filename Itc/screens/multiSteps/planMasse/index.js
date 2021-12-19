@@ -17,6 +17,7 @@
   import Head from '../../components/Head'
   import { Formik } from 'formik';
   import Design from './design'
+  import { ToastAndroid } from 'react-native';
 
  const PlanMasse: () => Node = ({ setActiveSteps }) => {
      const windowHeight = Dimensions.get('window').height;
@@ -32,7 +33,11 @@
         orientationPrincipale:  "",
   
       });
-  
+  const saveImage=(img)=>{
+       let newMur = mur ; 
+      newMur.image=img;
+      setMur(newMur);
+  }
  
      async function fetchData() {
          try {
@@ -82,24 +87,31 @@
             onSubmit={async values => 
   {
                     try {
-                   
+                   if(mur.image){
                         await AsyncStorage.setItem(
                             'activeStep',
                             JSON.stringify(4)
                         );
-                        
+                        values.image=mur.image;
                         await AsyncStorage.setItem(
                             'planMasse',
                             JSON.stringify(values)
                         );
+                        setActiveSteps(4)
+                    }
+                    else {
                         
-                   
+                        ToastAndroid.showWithGravityAndOffset("Vous devez enregistrer l'image",
+                    ToastAndroid.LONG,
+                    ToastAndroid.TOP, 0, 400) 
+
+                    }
                     } catch (error) {
                         console.log("error", error)
                         // Error saving data
                     }
                    
-                    setActiveSteps(4)}
+                   }
                    
                    
  
@@ -180,7 +192,7 @@ Relevés de température
                         Plan masse (Croquis avec l'indication des orientations)
  
 </Text>
-                        <Design/>
+                        <Design  saveImage={saveImage}/>
                      </ScrollView>
                     <NextStep onPress={handleSubmit} />
 

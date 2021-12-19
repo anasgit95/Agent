@@ -16,8 +16,7 @@
  import { useEffect } from 'react';
  import EditEau from './EditConsomation';
  import Head from '../../components/Head'
- import { RadioButton } from 'react-native-paper';
- 
+  
  const Consomation: () => Node = ({ setActiveSteps }) => {
      const windowHeight = Dimensions.get('window').height;
      const windowWidth = Dimensions.get('window').width;

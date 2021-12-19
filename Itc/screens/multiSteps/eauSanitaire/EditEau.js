@@ -42,8 +42,9 @@
              }}
              onSubmit={values => 
          
-           {      let mursAll = murs
-             values.Type=mur.Type
+           {      
+                 let mursAll = murs
+                 values.Type=mur.Type
                  mursAll[index] = values
                  setMur(mursAll);
                  setOuvrant(mursAll)

@@ -17,10 +17,13 @@ import AddOuvrantRelation from './AddPorteDesignation';
 import { AsyncStorage } from 'react-native';
 import { useEffect } from 'react';
 import EditRepartition from './EditPorteDesignation';
+import Camera from '../pickerImage/camera'
+
 const PorteDesignation: () => Node = ({ setActiveSteps }) => {
     const windowHeight = Dimensions.get('window').height;
     const windowWidth = Dimensions.get('window').width;
 
+    const [images, setImages] = useState([]);
 
 
 
@@ -37,6 +40,8 @@ const PorteDesignation: () => Node = ({ setActiveSteps }) => {
             const value = JSON.parse(await AsyncStorage.getItem('PorteDesignation'));
             if (value !== null) {
                  setMur(value)
+                 if(value.images)
+                 setImages(value.images)
             }
         } catch (error) {
             console.log(error)
@@ -152,6 +157,7 @@ const PorteDesignation: () => Node = ({ setActiveSteps }) => {
 
 
 
+<Camera images={images} setImages={setImages} />
 
 
 
@@ -161,7 +167,11 @@ const PorteDesignation: () => Node = ({ setActiveSteps }) => {
 <NextStep onPress={async () => {
 
     try {
-
+         
+        await AsyncStorage.setItem(
+            'PorteDesignation',
+            JSON.stringify(mur)
+        );
         await AsyncStorage.setItem(
             'activeStep',
             JSON.stringify(8)

@@ -25,6 +25,9 @@
  const Validation: () => Node = ({ setActiveSteps }) => {
   const windowHeight = Dimensions.get('window').height;
   const [fullName, setFullName] = useState();
+  const [signatureBenefique, setSignateurBenefique] = useState();
+  const [signatureInspecteur, setSignatureInspecteur] = useState();
+
   const [adresse, setAdresse] = useState();
   useEffect(() => {
       
@@ -55,11 +58,9 @@
   
   
  const valider= async()=>{
-    try {
-        // await AsyncStorage.setItem(
-        //     'Linetique',
-        //     JSON.stringify(gener)
-        // );
+     if(signatureBenefique && signatureInspecteur)
+{    try {
+      
      
         const generaliter = JSON.parse(await AsyncStorage.getItem('Generalite'));
         const context = JSON.parse(await AsyncStorage.getItem('Context'));
@@ -71,6 +72,8 @@
         const porteDesignation = JSON.parse(await AsyncStorage.getItem('PorteDesignation'));
         const masqueMur = JSON.parse(await AsyncStorage.getItem('MasqueMur'));
         const plancherBas = JSON.parse(await AsyncStorage.getItem('PlancherBas'));
+        const   planMasse = JSON.parse(await AsyncStorage.getItem('planMasse'));
+
         const sousSol = JSON.parse(await AsyncStorage.getItem('sousSol'));
         const plancherHaut = JSON.parse(await AsyncStorage.getItem('PlancherHaut'));
         const linetique = JSON.parse(await AsyncStorage.getItem('Linetique'));
@@ -80,9 +83,27 @@
         const decrechement = JSON.parse(await AsyncStorage.getItem('Decrechement'));
         const emission =JSON.parse(await AsyncStorage.getItem('emission'))
         const emetteur = JSON.parse(await AsyncStorage.getItem('emetteur'));
+        const repartitionLinetique = JSON.parse(await AsyncStorage.getItem('RepartitionLinetique'));
+        const reseau = JSON.parse(await AsyncStorage.getItem('reseau'));
+        const emplacementduballon = JSON.parse(await AsyncStorage.getItem('emplacementduballon'));
+        const eauSanitaire = JSON.parse(await AsyncStorage.getItem('eauSanitaire'));
+        const refroidissement = JSON.parse(await AsyncStorage.getItem('refroidissement'));
+        const ventilation = JSON.parse(await AsyncStorage.getItem('ventilation'));
+         const eclairage = JSON.parse(await AsyncStorage.getItem('eclairage'));
+          const cuisson = JSON.parse(await AsyncStorage.getItem('cuisson'));
+          const bureautique = JSON.parse(await AsyncStorage.getItem('bureautique'));
+          const electromenager = JSON.parse(await AsyncStorage.getItem('electromenager'));
+          const diver = JSON.parse(await AsyncStorage.getItem('diver'));
+          const consomation = JSON.parse(await AsyncStorage.getItem('consomation'));
+          const gazGenral = JSON.parse(await AsyncStorage.getItem('gazGenral'));
+          const electriciter = JSON.parse(await AsyncStorage.getItem('electriciter'));
+          const programmation = JSON.parse(await AsyncStorage.getItem('programmation'));
+           const puissance = JSON.parse(await AsyncStorage.getItem('puissance'));
+           const consomationenergie = JSON.parse(await AsyncStorage.getItem('consomationenergie'));
+           const photovoltaique = JSON.parse(await AsyncStorage.getItem('photovoltaique'));
 
-        axios.post('evaluation', {
-
+           
+           axios.post('evaluation', {
             generaliter,
             context,
             architecture,
@@ -101,7 +122,30 @@
             dimension,
             decrechement,
             emission,
-            emetteur
+            emetteur,
+            repartitionLinetique,
+            reseau,
+            eauSanitaire,
+            emplacementduballon,
+            refroidissement,
+            ventilation,
+            eclairage,
+            cuisson,
+            bureautique,
+            electromenager,
+            diver,
+            consomation,
+            electriciter,
+            gazGenral,
+            programmation,
+            puissance,
+            consomationenergie,
+            photovoltaique,
+            planMasse,
+            signatureInspecteur,
+            signatureBenefique
+
+
 
 
 
@@ -143,8 +187,10 @@
         // Error saving data
     }
 
-
-
+}
+else   ToastAndroid.showWithGravityAndOffset("Il faut enregistrer les deux signatures",
+ToastAndroid.LONG,
+ToastAndroid.TOP, 0, 400)
  }
      return (
          <View style={{
@@ -177,8 +223,8 @@
                          <Text style={{fontWeight:"bold",color:"black",fontSize:20}}>
                           Nom et prénom du bénificiaire <Text style={{color:"red"}}> {fullName }</Text>                         </Text>
                          <View style={{display:"flex",flexDirection:"row",marginTop:40,height:100,width:"100%",flex:1}}>
-                         <Signature title={"Signature du bénificiaire"}/>
-                         <Signature title={"Signature de l'inspecteur"}/>
+                         <Signature title={"Signature du bénificiaire"} saveImage={setSignateurBenefique}/>
+                         <Signature title={"Signature de l'inspecteur"} saveImage={setSignatureInspecteur}/>
 
                        
                              </View>
