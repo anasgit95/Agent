@@ -8,6 +8,8 @@ import ReactToPrint from 'react-to-print';
 
 import ProjetDetails from './ProjetsDetails'
 import PageTitle from "../../components/common/PageTitle";
+import Attestation from './Attestation'
+
 class Example extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -38,21 +40,29 @@ componentDidMount (){
             // to the root node of the returned component as it will be overwritten.
             return <Button style={{height:40}}   theme="accent" size="sm" className="ml-auto"  >
         <i className="material-icons">library_add</i> 
+        Imprimer l'attestation
+      </Button>;
+          }}
+          content={() => this.componentRefAttestation}
+        />
+ 
+            <ReactToPrint
+          trigger={() => {
+
+            // NOTE: could just as easily return <SomeComponent />. Do NOT pass an `onClick` prop
+            // to the root node of the returned component as it will be overwritten.
+            return <Button style={{height:40}}   theme="accent" size="sm" className="ml-auto"  >
+        <i className="material-icons">library_add</i> 
         Imprimer
       </Button>;
           }}
-          content={() => this.componentRef}
+          content={() => this.componentRefAttestation}
         />
-{/*            
-            <ReactToPrint
-        trigger={() =>  <Button style={{height:40}}   theme="accent" size="sm" className="ml-auto"  >
-        <i className="material-icons">library_add</i> 
-        Imprimer
-      </Button>}
-          content={() => this.componentRef}
-          /> */}
+         
             </Row>
              <ProjetDetails data={this.state.data} ref={el => (this.componentRef = el)}/>
+             <Attestation data={this.state.data} ref={el => (this.componentRefAttestation = el)}/>
+
           </Container>
         :null
         );

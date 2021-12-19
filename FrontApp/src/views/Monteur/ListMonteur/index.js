@@ -68,34 +68,35 @@ const [data, setData] = useState([]);
 
   const RemoveItem =async (item)=>{
     item.Active=false
-    item.Deleted=true
-    delete item.Modifier;
-    delete item.__typename;
-       await BANNIRUSER({ variables: { id: item._id } }).then(({ data }) => {
+     axios.put("/agent/"+item._id,item).then(response=>
+      axios.get('/agent').then(response=>
+        {    
+          setLoading(false)
+          setData(response.data)
+        }   
+          )      )
+    // delete item.Modifier;
+    // delete item.__typename;
+    //    await BANNIRUSER({ variables: { id: item._id } }).then(({ data }) => {
   
-         // props.history.push('/dashboard')
-     })
-         .catch(e => {
-             addToast(e.message, { appearance: 'warning' });
+    //      // props.history.push('/dashboard')
+    //  })
+    //      .catch(e => {
+    //          addToast(e.message, { appearance: 'warning' });
 
  
-         })
+    //      })
    }
 
    const activate =async (item)=>{
     item.Active=true
-    item.Deleted=false
-    delete item.Modifier;
-    delete item.__typename;
-       await BANNIRUSER({ variables: { id: item._id } }).then(({ data }) => {
-  
-         // props.history.push('/dashboard')
-     })
-         .catch(e => {
-             addToast(e.message, { appearance: 'warning' });
-  
-  
-         })
+    axios.put("/agent/"+item._id,item).then(response=>
+     axios.get('/agent').then(response=>
+       {    
+         setLoading(false)
+         setData(response.data)
+       }   
+         )      )
    }
   const getColumnSearchProps = dataIndex => ({
     filterDropdown: ({

@@ -3,6 +3,7 @@ import React, { useEffect, useState, useRef } from "react";
 
 import { Container, Row, Col, Button } from "shards-react";
 import './style.css'
+
 class ProjetDetails extends React.PureComponent {
   render() {
 
@@ -62,6 +63,12 @@ class ProjetDetails extends React.PureComponent {
 
             <h6> Projet bénéficiant des certificats d'économie d'énergie : {data.context.certificatEco} </h6>
             <h6> Extension Effectuée au bâtiment  :{data.context.certificatEco} </h6>
+              {data.context.images.map(item=>
+              <div> 
+              <img src={"data:image/png;base64,"+item.photo}  style={{height:250,width:250}}/>
+              <h6>{item.name}</h6>
+              </div>
+              )}
 
           </Col>
 
@@ -83,8 +90,16 @@ class ProjetDetails extends React.PureComponent {
             <h6> Nature du plafond  : {data.architecture.platFondLvl} </h6>
             <h6> Nature du plancher base  : {data.architecture.plancherBas} </h6>
 
+           {data.architecture.images.map(item=><img src={"data:image/png;base64,"+item} /> )}
+            
+          </Col>
+          <Col lg={12}>
+            <h2 style={{ color: "green" }}>           Plan masse (Croquis avec l'indication des orientations)  </h2>
 
 
+ 
+           <img src={"data:image/png;base64,"+data.planMasse.image} />
+            
           </Col>
           <Col lg={8}>
             <h2 style={{ color: "green" }}> Forme Batiment  </h2>
@@ -811,7 +826,7 @@ class ProjetDetails extends React.PureComponent {
           <Col lg={12} ></Col>
           <h2 style={{ color: "green" }}>  Cuisson (Préciser le nombre d'appareils) </h2>
           <Col lg={12} ></Col>
-          {data.cuisson.map((item, index) =>
+          {data.cuisson && data.cuisson.map((item, index) =>
             <> <Col lg={12} ></Col><h6> {index + 1}){item}</h6> </>
           )}
 
@@ -820,7 +835,7 @@ class ProjetDetails extends React.PureComponent {
           <h2 style={{ color: "green" }}>  Gros électroménager
             (Préciser le nombre d'appareils ) </h2>
           <Col lg={12} ></Col>
-          {data.electromenager.map((item, index) =>
+          {data.electromenager && data.electromenager.map((item, index) =>
             <> <Col lg={12} ></Col><h6> {index + 1}){item}</h6> </>
           )}
 
@@ -829,14 +844,14 @@ class ProjetDetails extends React.PureComponent {
             (Préciser le nombre d'appareils)
           </h2>
           <Col lg={12} ></Col>
-          {data.bureautique.map((item, index) =>
+          {data.bureautique && data.bureautique.map((item, index) =>
             <> <Col lg={12} ></Col><h6> {index + 1}){item}</h6> </>
           )}
           <Col lg={12} ></Col>
           <h2 style={{ color: "green" }}> Divers
           </h2>
           <Col lg={12} ></Col>
-          <h6>{data.bureautique.diver}</h6>
+          <h6>{data.diver}</h6>
           <Col lg={12} ></Col>
 
           <h2 style={{ color: "green" }}> Caractéristique d'abonnement
@@ -845,7 +860,7 @@ class ProjetDetails extends React.PureComponent {
           <h4 style={{ color: "green" }}> Abonnement d'électicité
           </h4>
           <Col lg={12} ></Col>
-          {data.electriciter.map((item, index) =>
+          {data.electriciter && data.electriciter.map((item, index) =>
             <> <Col lg={12} ></Col><h6> {index + 1}){item}</h6> </>
           )}
 
@@ -853,7 +868,7 @@ class ProjetDetails extends React.PureComponent {
           <h4 style={{ color: "green" }}> Tarif Gaz  géneral
           </h4>
           <Col lg={12} ></Col>
-          {data.gazGenral.map((item, index) =>
+          {data.gazGenral && data.gazGenral.map((item, index) =>
             <> <Col lg={12} ></Col><h6> {index + 1}){item}</h6> </>
           )}
 
@@ -861,7 +876,7 @@ class ProjetDetails extends React.PureComponent {
           <h4 style={{ color: "green" }}> Tarif  d'électicité  géneral
           </h4>
           <Col lg={12} ></Col>
-          {data.electriciter.map((item, index) =>
+          {data.electriciter&& data.electriciter.map((item, index) =>
             <> <Col lg={12} ></Col><h6> {index + 1}){item}</h6> </>
           )}
 
@@ -870,7 +885,7 @@ class ProjetDetails extends React.PureComponent {
           <h4 style={{ color: "green" }}>Programmation
           </h4>
           <Col lg={12} ></Col>
-          {data.programmation.map((item, index) =>
+          {data.programmation && data.programmation.map((item, index) =>
             <> <Col lg={12} ></Col><h6> {index + 1}){item}</h6> </>
           )}
 
@@ -930,21 +945,21 @@ class ProjetDetails extends React.PureComponent {
           <h4 style={{ color: "green" }}>  Type     </h4>
  
           <Col lg={12} />
-          {data.photovoltaique.moduleType.map(item=><><h6> {item} </h6>          <Col lg={12} />
+          {data.photovoltaique && data.photovoltaique.moduleType && data.photovoltaique.moduleType.map(item=><><h6> {item} </h6>          <Col lg={12} />
 </>)}
-          <h6>  Surface de module :  {data.photovoltaique.surfaceDuModule}</h6>
+          <h6>  Surface de module :  {data.photovoltaique && data.photovoltaique.surfaceDuModule}</h6>
           <Col lg={12} />
-          <h6>  Nombre de capteurs :  {data.photovoltaique.capeteurNombre}</h6>
+          <h6>  Nombre de capteurs :  {data.photovoltaique && data.photovoltaique.capeteurNombre}</h6>
           <Col lg={12} />
-          <h6>  Orientation  :  {data.photovoltaique.orientation}</h6>
+          <h6>  Orientation  :  {data.photovoltaique && data.photovoltaique.orientation}</h6>
           <Col lg={12} />
-          <h6>  Inclinaison  :  {data.photovoltaique.inclinaison}</h6>
+          <h6>  Inclinaison  :  {data.photovoltaique && data.photovoltaique.inclinaison}</h6>
           <Col lg={12} />
 
           <h4 style={{ color: "green" }}>  Pose     </h4>
 
           <Col lg={12} />
-          {data.photovoltaique.pose.map(item=><><h6> {item} </h6>          <Col lg={12} />
+          {data.photovoltaique && data.photovoltaique.pose && data.photovoltaique.pose.map(item=><><h6> {item} </h6>          <Col lg={12} />
 </>)}
 <Col lg={12} />
           <h6>  Puissance crée par module  :  </h6>
