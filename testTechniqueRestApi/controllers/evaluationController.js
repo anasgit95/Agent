@@ -17,8 +17,9 @@ exports.creatEvaluation = async (req, res) => {
          res.send(listResponse);
   } catch (error) {
     console.log("errors", error.message);
-    res.status(400).end();
-  }
+    return res.status(400).send({
+      message: error.message
+   });  }
 };
  
 
