@@ -17,7 +17,8 @@ app.use(
     exposedHeaders: ["X-Total-Count"],
   })
 );
- 
+app.use('/images', express.static(process.cwd() + '/images'))
+
 app.use(express.json({limit: '50mb'}));
   app.use("/agent", agentRoute);
   app.use("/evaluation", evaluationRoute);
