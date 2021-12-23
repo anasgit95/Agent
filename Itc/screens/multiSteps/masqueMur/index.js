@@ -152,11 +152,6 @@ const MasqueMur: () => Node = ({ setActiveSteps }) => {
                             </TouchableOpacity>
                         )}
 
-
-
-
-
-
 <Camera images={images} setImages={setImages} />
 
 

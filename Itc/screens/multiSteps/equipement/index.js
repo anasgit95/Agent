@@ -153,7 +153,7 @@ const Equipement: () => Node = ({ setActiveSteps }) => {
                 if (value.images)
                 setImages(value.images)
                 await setEclaire(value)
-                // setLoading(false)
+                    // setLoading(false)
 
             }
             else {
