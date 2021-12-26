@@ -1,4 +1,5 @@
 const Evaluation = require("../models/evaluation");
+const Notification = require("../models/notification")
 const Image = require("../models/images");
 const fs = require('fs');
 var atob = require('atob');
@@ -72,7 +73,7 @@ exports.creatEvaluation = async (req, res) => {
               
           }
         }
- 
+ const notification = await Notification.create({Creator:req.body.Creator})
    const listResponse = await Evaluation.create({ ...req.body  });
 
       //  }
@@ -149,4 +150,13 @@ exports.getAllList = async (req, res) => {
   }
 };
 
- 
+exports.getAllListNotification = async (req, res) => {
+  
+  try {
+     const lists  =  await Notification.find({}).populate("Creator").sort({'createdAt': -1});
+     res.send(lists);
+  } catch (e) {
+    console.log(e);
+      res.status(400).end()
+  }
+};
