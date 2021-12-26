@@ -128,6 +128,13 @@ const evaluationSchema = new Schema({
     refroidissement: String,
     eclairage: String,
   }],
+  consomationenergieImages:{
+    images:[{
+      photo:String,
+      name:String,
+      timestamp:String,
+    }]
+   } ,
   photovoltaique:{
     moduleType:[String],
     pose:[String],
@@ -189,6 +196,13 @@ const evaluationSchema = new Schema({
     hauteur: String,
     orienation: String
   }],
+  repartissantImages:{
+    images:[{
+      photo:String,
+      name:String,
+      timestamp:String,
+    }]
+   },
   ouvrantType: [{
     nom: String,
     designation: String,
@@ -199,6 +213,13 @@ const evaluationSchema = new Schema({
     epaisseurLame: String,
     gazDeRemplissage: String,
   }],
+  ouvrantTypeImages:{
+    images:[{
+      photo:String,
+      name:String,
+      timestamp:String,
+    }]
+   },
   ouvrantTypeRelation: [{
 
     longeur: String,
@@ -210,6 +231,13 @@ const evaluationSchema = new Schema({
     orienation: String,
     protection: String
   }],
+  ouvrantTypeRelationImages:{
+    images:[{
+      photo:String,
+      name:String,
+      timestamp:String,
+    }]
+   },
   porte: [{
     Type: String,
     id: String,
@@ -218,6 +246,13 @@ const evaluationSchema = new Schema({
     coefficient: String,
 
   }],
+  porteImages:{
+    images:[{
+      photo:String,
+      name:String,
+      timestamp:String,
+    }]
+   },
   porteDesignation: [{
     longeur: String,
     hauteur: String,
@@ -226,7 +261,13 @@ const evaluationSchema = new Schema({
     ouvrantString: String,
     orienation: String,
   }],
-
+  porteDesignationImages:{
+    images:[{
+      photo:String,
+      name:String,
+      timestamp:String,
+    }]
+   },
   masqueMur: [{
     designation: String,
     masqueProche: String,
@@ -234,7 +275,13 @@ const evaluationSchema = new Schema({
     distanceMoyenne: String,
     hauteurMoyenne: String,
   }],
-
+  masqueMurImages:{
+    images:[{
+      photo:String,
+      name:String,
+      timestamp:String,
+    }]
+   },
   plancherBas: [{
     compositionPlancherBas: String,
     positionPlancherBas: String,
@@ -244,6 +291,13 @@ const evaluationSchema = new Schema({
     EpaisseurIsolant: String,
     ResistanceIsolant: String,
   }],
+  plancherBasImages:{
+    images:[{
+      photo:String,
+      name:String,
+      timestamp:String,
+    }]
+   },
   sousSol: {
     typeSousSol: String,
     surface: String,
@@ -318,7 +372,13 @@ const evaluationSchema = new Schema({
     EpaisseurIsolant: String,
     ResistanceIsolant: String,
   }],
-
+  plancherHautImages:{
+    images:[{
+      photo:String,
+      name:String,
+      timestamp:String,
+    }]
+   },
   context: {
     preciser: String,
     confortAccoutique: String,
