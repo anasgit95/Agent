@@ -25,20 +25,7 @@ import Projets from "../views/Projets"
 
      export default [
 
-  {
-    path: "/admins/ajouter",
-    exact: true,
-
-    layout: DefaultLayout,
-    component: AddAdministrateur
-  },
-  {
-    path: "/admins",
-    exact: true,
-
-    layout: DefaultLayout,
-    component: Administrateur
-  },
+ 
    {
     path: "/client/Modifier/:id",
     exact: true,
@@ -88,13 +75,7 @@ import Projets from "../views/Projets"
     layout: DefaultLayout,
     component: Monteur
   },
-  {
-    exact:true,
-
-    path: "/dashboard",
-    layout: DefaultLayout,
-    component: Home
-  },
+ 
   {
     exact:true,
 

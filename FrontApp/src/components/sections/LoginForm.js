@@ -35,7 +35,7 @@ const LoginForm = ({className, topOuterDivider, bottomOuterDivider, topDivider, 
     axios.post("agent/login",loginData).then(response=>
       {
          localStorage.setItem('token',response.data.Token)
-        window.location.href="/dashboard"
+        window.location.href="/Projets"
       }
 
     )

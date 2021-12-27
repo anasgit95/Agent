@@ -2,12 +2,7 @@
 export default () =>{ 
 
     return [
-     {
-       title: "Tableau de bord",
-       to: "/Dashboard",
-       htmlBefore: '<i class="material-icons">dashboard</i>',
-       htmlAfter: ""
-     },
+    
     //  {
     //    title: "Liste  des adminstrateurs",
     //    htmlBefore: '<i class="material-icons">admin_panel_settings</i>',

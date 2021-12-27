@@ -56,7 +56,7 @@ componentDidMount (){
         Imprimer
       </Button>;
           }}
-          content={() => this.componentRefAttestation}
+          content={() => this.componentRef}
         />
          
             </Row>

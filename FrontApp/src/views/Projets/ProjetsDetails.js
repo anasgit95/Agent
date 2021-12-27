@@ -1,9 +1,8 @@
-import React, { useEffect, useState, useRef } from "react";
-
+import React  from "react";
 
 import { Container, Row, Col, Button } from "shards-react";
 import './style.css'
-
+import UrlImage from "../../utils/Url"
 class ProjetDetails extends React.PureComponent {
   render() {
 
@@ -30,6 +29,7 @@ class ProjetDetails extends React.PureComponent {
             <h6>Téléphone : {data.generaliter.phone} </h6>
             <h6>Email :  {data.generaliter.email} </h6>
             <h6>Adresse : {data.generaliter.adresse} </h6>
+            <h6>Code postal  : {data.generaliter.postalCode} </h6>
 
           </Col>
           {/* <table>
@@ -65,7 +65,7 @@ class ProjetDetails extends React.PureComponent {
             <h6> Extension Effectuée au bâtiment  :{data.context.certificatEco} </h6>
               {data.context.images.map(item=>
               <div> 
-              <img src={"data:image/png;base64,"+item.photo}  style={{height:250,width:250}}/>
+              <img src={UrlImage+item.photo}  style={{height:250,width:250}}/>
               <h6>{item.name}</h6>
               </div>
               )}
@@ -110,7 +110,12 @@ class ProjetDetails extends React.PureComponent {
             <h6> Hauteur {data.dimension.hauteur}</h6>
             <h6> Orientation facade principale  : {data.dimension.orientationPrincipale}</h6>
 
-
+            {data.dimension.images.map(item=>
+              <div> 
+              <img src={UrlImage+item.photo}  style={{height:250,width:250}}/>
+              <h6>{item.name}</h6>
+              </div>
+              )}
 
 
           </Col>
@@ -171,31 +176,33 @@ class ProjetDetails extends React.PureComponent {
             <table style={{ marginTop: 20 }} className="tableClassname">
               <tr>
                 <th>Ouvrant type </th>
-                <th>Nom</th>
-                <th>Designation</th>
-                <th> materiaux</th>
-                <th> Type De Viltrage</th>
-                <th> Type de paroi</th>
-                <th> longeur</th>
-                <th> orientation</th>
-                <th> position</th>
-                <th> resistance Isolation</th>
-                <th> type Isolation</th>
+                 <th>Designation</th>
+                <th> Type de paroi vitrée</th>
 
+                <th> Type de mennuiserie </th>
+                <th> matériaux de menuiserie</th>
+                <th> Type de vitrage</th>
+                <th> épaisseur de 
+lame (Double) </th>
+                <th> Gaz de 
+remplissage</th>
+          
+ 
+ 
               </tr>
               {data.ouvrantType.map(reparti =>
                 <tr>
                   <td> {reparti.nom}</td>
                   <td> {reparti.designation}</td>
+                  <td>{reparti.typeDeParoi}</td>
+                  <td>{reparti.typeDeMenuiserie}</td>
                   <td> {reparti.materiaux} </td>
                   <td> {reparti.TypeDeViltrage}</td>
-                  <td>{reparti.typeDeParoi}</td>
-                  <td>{ }</td>
-                  <td>{ }</td>
-                  <td>{ }</td>
-                  <td>{ }</td>
-                  <td>{ }</td>
-                  <td>{ }</td>
+                  <td> {reparti.epaisseurLame} </td>
+                  <td> {reparti.gazDeRemplissage}</td>
+                  
+                  
+                   
 
                 </tr>
 
@@ -361,7 +368,12 @@ class ProjetDetails extends React.PureComponent {
             <h6> Surface  : {data.sousSol.surface}</h6>
             <h6> Hauteur : {data.sousSol.hauteur}</h6>
 
-
+            {data.sousSol.images.map(item=>
+              <div> 
+              <img src={UrlImage+item.photo}  style={{height:250,width:250}}/>
+              <h6>{item.name}</h6>
+              </div>
+              )}
 
 
           </Col>
@@ -410,7 +422,12 @@ class ProjetDetails extends React.PureComponent {
             <h6> Comble aménagé  : {data.linetique.comble}</h6>
             <h6> Surface plancher bas comble  : {data.linetique.surfaceComble} m²</h6>
             <h6> Hauteur moyenne sous plafond  : {data.linetique.hauteurMoyenne}m²</h6>
-
+            {data.linetique.images.map(item=>
+              <div> 
+              <img src={UrlImage+item.photo}  style={{height:250,width:250}}/>
+              <h6>{item.name}</h6>
+              </div>
+              )}
 
 
 
@@ -521,11 +538,18 @@ class ProjetDetails extends React.PureComponent {
 
 
               </tr>
+
             </tbody>
 
 
 
           </table>
+          {data.emission.images.map(item=>
+              <div> 
+              <img src={UrlImage+item.photo}  style={{height:250,width:250}}/>
+              <h6>{item.name}</h6>
+              </div>
+              )}
           <Col lg={12}>
 
             <h2 style={{ color: "green" }}>  Sytéme d'appoint ({data.emetteur.systemDappoint} )    </h2>
@@ -571,7 +595,12 @@ class ProjetDetails extends React.PureComponent {
           </table>
 
 
-
+          {data.emetteur.images.map(item=>
+              <div> 
+              <img src={UrlImage+item.photo}  style={{height:250,width:250}}/>
+              <h6>{item.name}</h6>
+              </div>
+              )}
 
 
 
@@ -623,7 +652,12 @@ class ProjetDetails extends React.PureComponent {
           </table>
 
 
-
+          {data.reseau.images.map(item=>
+              <div> 
+              <img src={UrlImage+item.photo}  style={{height:250,width:250}}/>
+              <h6>{item.name}</h6>
+              </div>
+              )}
 
 
 
@@ -663,6 +697,12 @@ class ProjetDetails extends React.PureComponent {
 
           </table>
 
+          {data.emetteur.images.map(item=>
+              <div> 
+              <img src={UrlImage+item.photo}  style={{height:250,width:250}}/>
+              <h6>{item.name}</h6>
+              </div>
+              )}
 
           <h6>  Emplacement du ballon :{data.emplacementduballon.emplacementduballon} </h6>
 
@@ -713,7 +753,12 @@ class ProjetDetails extends React.PureComponent {
 
 
 
-
+          {data.ventilation.images.map(item=>
+              <div> 
+              <img src={UrlImage+item.photo}  style={{height:250,width:250}}/>
+              <h6>{item.name}</h6>
+              </div>
+              )}
 
 
 
