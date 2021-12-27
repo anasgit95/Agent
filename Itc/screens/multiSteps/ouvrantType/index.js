@@ -47,6 +47,11 @@ const OuvrantType: () => Node = ({ setActiveSteps }) => {
                 if(value.images)
                 setImages(value.images)
             }
+            const valueonr = JSON.parse(await AsyncStorage.getItem('OuvrantImages'));
+            if (valueonr !== null) {
+               if(valueonr.images)
+               setImages(valueonr.images)
+           }     
             else  await AsyncStorage.setItem(
                 'Ouvrant',
                 JSON.stringify(mur)
@@ -143,7 +148,7 @@ const OuvrantType: () => Node = ({ setActiveSteps }) => {
                         )}
 
 
-{/* <Camera images={images} setImages={setImages} /> */}
+  <Camera images={images} setImages={setImages} />  
 
                     </View>
                 </ScrollView>
@@ -151,6 +156,10 @@ const OuvrantType: () => Node = ({ setActiveSteps }) => {
                 <NextStep onPress={async () => {
 
                     try {
+                        await AsyncStorage.setItem(
+                            'OuvrantImages',
+                            JSON.stringify({images})
+                        );      
                         // mur.images=images
                         await AsyncStorage.setItem(
                             'Ouvrant',

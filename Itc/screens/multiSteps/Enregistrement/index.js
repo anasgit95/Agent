@@ -19,11 +19,14 @@
  import Signature from './sign'
  import { ToastAndroid } from 'react-native';
 
+ import { ActivityIndicator  } from "react-native";
 
  DropDownPicker.setMode("BADGE");
 
  const Validation: () => Node = ({ setActiveSteps }) => {
   const windowHeight = Dimensions.get('window').height;
+  const [loading, setLoading] = useState(false);
+
   const [fullName, setFullName] = useState();
   const [signatureBenefique, setSignateurBenefique] = useState();
   const [signatureInspecteur, setSignatureInspecteur] = useState();
@@ -60,7 +63,7 @@
  const valider= async()=>{
      if(signatureBenefique && signatureInspecteur)
 {    try {
-      
+    setLoading(true)
      
         const generaliter = JSON.parse(await AsyncStorage.getItem('Generalite'));
         const context = JSON.parse(await AsyncStorage.getItem('Context'));
@@ -101,9 +104,25 @@
            const puissance = JSON.parse(await AsyncStorage.getItem('puissance'));
            const consomationenergie = JSON.parse(await AsyncStorage.getItem('consomationenergie'));
            const photovoltaique = JSON.parse(await AsyncStorage.getItem('photovoltaique'));
+        const masqueMurImages = JSON.parse(await AsyncStorage.getItem('MasqueMurImages'));
+        const ouvrantTypeRelationImages = JSON.parse(await AsyncStorage.getItem('OuvrantTypeListImages'));
+        const ouvrantTypeImages = JSON.parse(await AsyncStorage.getItem('OuvrantImages'));
+        const plancherHautImages = JSON.parse(await AsyncStorage.getItem('PlancherHautImages'));
+        const porteImages = JSON.parse(await AsyncStorage.getItem('PorteImages'));
+        const porteDesignationImages = JSON.parse(await AsyncStorage.getItem('PorteDesignationImages'));
 
-           
+        const repartissantImages = JSON.parse(await AsyncStorage.getItem('RepartitionImages'));
+
            axios.post('evaluation', {
+            masqueMurImages,
+            ouvrantTypeRelationImages,
+            ouvrantTypeImages,
+            plancherHautImages,
+            porteImages,
+            porteDesignationImages,
+            repartissantImages,
+
+
             generaliter,
             context,
             architecture,
@@ -153,6 +172,8 @@
 
 
 {  
+    setLoading(false)
+
     ToastAndroid.showWithGravityAndOffset("Votre projet a été bien enregistré",
     ToastAndroid.LONG,
     ToastAndroid.TOP, 0, 400)
@@ -177,8 +198,9 @@
 
 
             ).catch(error =>
+               { setLoading(false)
 
-            console.log(error)
+            console.log(error)}
         )
 
 
@@ -193,14 +215,34 @@ ToastAndroid.LONG,
 ToastAndroid.TOP, 0, 400)
  }
      return (
-         <View style={{
+        loading?
+        <ScrollView
+ 
+                 horizontal={false}
+                 style={{
+                      marginTop:10,
+                      padding:20
+                 }}
+                 contentContainerStyle={{
+                     flexGrow: 1,
+                 }}>
+        <View style={[styles.container, styles.horizontal]}>
+    <ActivityIndicator size="large" />
+    <Text style={{fontWeight:"bold",fontSize:20}}> Veuillez patienter svp</Text>
+   
+  </View>  
+  </ScrollView>
+ : <View style={{
              alignItems: 'center',
              minHeight: windowHeight,
              position: "relative",
              width: "100%",
              flex: 1
          }}>
+            
              <Head title={"Attestation de passage"} setActiveSteps={setActiveSteps} />
+          
+   
              <ScrollView
  
                  horizontal={false}
@@ -254,13 +296,15 @@ ToastAndroid.TOP, 0, 400)
  
  
  const styles = StyleSheet.create({
-     container: {
-         flex: 1,
-         backgroundColor: '#006593',
-         alignItems: 'center',
-         justifyContent: 'center',
  
-     },
+      container: {
+        flex: 1,
+        justifyContent: "center",
+        alignContent:"center",
+        alignItems:"center",
+        paddingTop:"40%"
+      },
+    
      validateButton: {
         backgroundColor: "rgb(0,101,147)",
         borderColor: "rgb(0,101,147)",

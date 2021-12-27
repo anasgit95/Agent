@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 import EditPlancher from './EditPlancher';
 import Head from '../../components/Head'
 import { RadioButton } from 'react-native-paper';
+import Camera from '../pickerImage/camera'
 
 const PlancherHaut: () => Node = ({ setActiveSteps }) => {
     const windowHeight = Dimensions.get('window').height;
@@ -24,6 +25,7 @@ const PlancherHaut: () => Node = ({ setActiveSteps }) => {
 
 
 
+    const [images, setImages] = useState([]);
 
     const [mur, setMur] = useState([
         { Type: "1", id: 1 },
@@ -49,7 +51,11 @@ const PlancherHaut: () => Node = ({ setActiveSteps }) => {
                 'PlancherHaut',
                 JSON.stringify(mur)
             );
-          
+            const valueonr = JSON.parse(await AsyncStorage.getItem('PlancherHautImages'));
+             if (valueonr !== null) {
+                if(valueonr.images)
+                setImages(valueonr.images)
+            }  
         } catch (error) {
             console.log(error)
             // Error retrieving data
@@ -142,6 +148,7 @@ const PlancherHaut: () => Node = ({ setActiveSteps }) => {
                         )}
 
 
+<Camera images={images} setImages={setImages} /> 
 
                     </View>
             
@@ -150,7 +157,10 @@ const PlancherHaut: () => Node = ({ setActiveSteps }) => {
                 <NextStep onPress={async () => {
 
                     try {
-
+                        await AsyncStorage.setItem(
+                            'PlancherHautImages',
+                            JSON.stringify({images})
+                        );  
                         await AsyncStorage.setItem(
                             'activeStep',
                             JSON.stringify(13)

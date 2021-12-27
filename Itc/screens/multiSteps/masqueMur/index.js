@@ -42,6 +42,11 @@ const MasqueMur: () => Node = ({ setActiveSteps }) => {
                 setMur(value)
                 
             }
+            const valueonr = JSON.parse(await AsyncStorage.getItem('MasqueMurImages'));
+            if (valueonr !== null) {
+               if(valueonr.images)
+               setImages(valueonr.images)
+           }    
             else setMur([])
 
         } catch (error) {
@@ -53,9 +58,7 @@ const MasqueMur: () => Node = ({ setActiveSteps }) => {
     useEffect(() => {
 
         fetchData();
-
-
-
+ 
 
     }, []);
     useEffect(() => {
@@ -162,7 +165,10 @@ const MasqueMur: () => Node = ({ setActiveSteps }) => {
 <NextStep onPress={async () => {
  
     try {
-  
+        await AsyncStorage.setItem(
+            'MasqueMurImages',
+            JSON.stringify({images})
+        );      
         await AsyncStorage.setItem(
             'activeStep',
             JSON.stringify(11)

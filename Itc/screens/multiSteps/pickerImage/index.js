@@ -15,6 +15,7 @@ import NextStep from '../../components/NextSteps'
 import { Dimensions } from 'react-native';
 import { AsyncStorage } from 'react-native';
 import Camera from './camera'
+
  DropDownPicker.setMode("BADGE");
 
 const AddImage: () => Node = ({ setActiveSteps }) => {

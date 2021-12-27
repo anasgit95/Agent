@@ -42,7 +42,13 @@ const RepartitionMur: () => Node = ({ setActiveSteps }) => {
                 setMur(value)
                 if(value.images)
                 setImages(value.images)
-            }
+            }           
+             const valueonr = JSON.parse(await AsyncStorage.getItem('RepartitionImages'));
+             if (valueonr !== null) {
+                if(valueonr.images)
+                setImages(valueonr.images)
+            }     
+
         } catch (error) {
             console.log(error)
             // Error retrieving data
@@ -158,7 +164,7 @@ const RepartitionMur: () => Node = ({ setActiveSteps }) => {
 
 
 
-{/* <Camera images={images} setImages={setImages} /> */}
+ <Camera images={images} setImages={setImages} /> 
 
                     </View>
                 </ScrollView>
@@ -167,7 +173,10 @@ const RepartitionMur: () => Node = ({ setActiveSteps }) => {
  
     try {
         // mur.images=images;
-                        
+        await AsyncStorage.setItem(
+            'RepartitionImages',
+            JSON.stringify({images})
+        );      
         await AsyncStorage.setItem(
             'Repartition',
             JSON.stringify(mur)

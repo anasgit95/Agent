@@ -39,10 +39,16 @@ const PorteDesignation: () => Node = ({ setActiveSteps }) => {
         try {
             const value = JSON.parse(await AsyncStorage.getItem('PorteDesignation'));
             if (value !== null) {
-                 setMur(value)
-                 if(value.images)
-                 setImages(value.images)
+                setMur(value)
+                if (value.images)
+                    setImages(value.images)
             }
+            const valueonr = JSON.parse(await AsyncStorage.getItem('PorteDesignationImages'));
+            if (valueonr !== null) {
+               if(valueonr.images)
+               setImages(valueonr.images)
+           }     
+          
         } catch (error) {
             console.log(error)
             // Error retrieving data
@@ -52,10 +58,7 @@ const PorteDesignation: () => Node = ({ setActiveSteps }) => {
     useEffect(() => {
 
         fetchData();
-
-
-
-
+ 
     }, []);
     // useEffect(() => {
 
@@ -78,114 +81,117 @@ const PorteDesignation: () => Node = ({ setActiveSteps }) => {
     // }
     return (
         add ?
-            <AddOuvrantRelation setAdd={setAdd}   setMur={setMur} mur={mur} />
-            :edit?
-            <EditRepartition 
-            index={index}
-            murs={mur}
-            setEdit={setEdit} 
-            mur={murToEdit} 
-            setAdd={setAdd}
-            setMur={setMur} 
-            
-            />
+            <AddOuvrantRelation setAdd={setAdd} setMur={setMur} mur={mur} />
+            : edit ?
+                <EditRepartition
+                    index={index}
+                    murs={mur}
+                    setEdit={setEdit}
+                    mur={murToEdit}
+                    setAdd={setAdd}
+                    setMur={setMur}
 
-            :<View style={{
-                alignItems: 'center',
-                minHeight: windowHeight,
-                minWidth: windowWidth,
-                position: "relative",
-                paddingBottom: 40
-            }}>
-                <View style={{ backgroundColor: "rgb(0,101,147)", textAlign: "center", justifyContent: "center", width: "100%", height: 80, display: "flex", position: "relative" }}>
-                    <Text style={{ textAlign: "center", fontWeight: "bold", fontSize: 20, color: "white" }}>
-                    Porte designation
-                    </Text>
-                    <TouchableOpacity style={{ position: "absolute", right: 20 }} onPress={() => setAdd(true)}>
+                />
 
-                        <AntDesign name="plus" color="white" size={30} />
+                : <View style={{
+                    alignItems: 'center',
+                    minHeight: windowHeight,
+                    minWidth: windowWidth,
+                    position: "relative",
+                    paddingBottom: 40
+                }}>
+                    <View style={{ backgroundColor: "rgb(0,101,147)", textAlign: "center", justifyContent: "center", width: "100%", height: 80, display: "flex", position: "relative" }}>
+                        <Text style={{ textAlign: "center", fontWeight: "bold", fontSize: 20, color: "white" }}>
+                            Porte designation
+                        </Text>
+                        <TouchableOpacity style={{ position: "absolute", right: 20 }} onPress={() => setAdd(true)}>
 
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                    onPress={() => setActiveSteps(prev=>prev-1)}
-                    style={{ position: "absolute", left: 20, bottom: 20 }}>
+                            <AntDesign name="plus" color="white" size={30} />
 
-                    <AntDesign name="arrowleft" color="white" size={30} />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => setActiveSteps(prev => prev - 1)}
+                            style={{ position: "absolute", left: 20, bottom: 20 }}>
 
-                </TouchableOpacity>
-                </View>
+                            <AntDesign name="arrowleft" color="white" size={30} />
 
-
-                <ScrollView
-
-                    horizontal={false}
-                    style={{
-                        flex: 1,
-                        width: "100%"
-                    }}
-                    contentContainerStyle={{
-                        flexGrow: 1,
-                    }}>
+                        </TouchableOpacity>
+                    </View>
 
 
-                    <View
+                    <ScrollView
+
+                        horizontal={false}
                         style={{
-
-                            alignItems: 'center',
-                            justifyContent: 'center',
+                            flex: 1,
                             width: "100%"
+                        }}
+                        contentContainerStyle={{
+                            flexGrow: 1,
                         }}>
 
 
-                        {mur.map((item,index) =>
-                        <TouchableOpacity style={{width:"100%",marginLeft:"20%"}} onPress={
+                        <View
+                            style={{
 
-                            ()=>{
-                                setIndex(index)
-                                setMurToEdit(item)
-                                setEdit(true)
-                            }
-                        }> 
-                            <InputView>
-                                <Text key={item.nomDeMur} style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 5 }}> {item.designationValue}-->{item.laison}</Text>
-                            </InputView>
-                            </TouchableOpacity>
-                        )}
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                width: "100%"
+                            }}>
 
 
+                            {mur.map((item, index) =>
+                                <TouchableOpacity style={{ width: "100%", marginLeft: "20%" }} onPress={
+
+                                    () => {
+                                        setIndex(index)
+                                        setMurToEdit(item)
+                                        setEdit(true)
+                                    }
+                                }>
+                                    <InputView>
+                                        <Text key={item.nomDeMur} style={{ paddingTop: 20, paddingBottom: 20, paddingLeft: 5 }}> {item.designationValue}-->{item.laison}</Text>
+                                    </InputView>
+                                </TouchableOpacity>
+                            )}
 
 
 
 
-<Camera images={images} setImages={setImages} />
+
+
+                            <Camera images={images} setImages={setImages} />
 
 
 
-                    </View>
-                </ScrollView>
+                        </View>
+                    </ScrollView>
 
-<NextStep onPress={async () => {
+                    <NextStep onPress={async () => {
 
-    try {
-         
-        await AsyncStorage.setItem(
-            'PorteDesignation',
-            JSON.stringify(mur)
-        );
-        await AsyncStorage.setItem(
-            'activeStep',
-            JSON.stringify(8)
-        );
-    } catch (error) {
-        console.log("error", error)
-        // Error saving data
-    }
+                        try {
+                            await AsyncStorage.setItem(
+                                'PorteDesignationImages',
+                                JSON.stringify({ images })
+                            );
+                            await AsyncStorage.setItem(
+                                'PorteDesignation',
+                                JSON.stringify(mur)
+                            );
+                            await AsyncStorage.setItem(
+                                'activeStep',
+                                JSON.stringify(8)
+                            );
+                        } catch (error) {
+                            console.log("error", error)
+                            // Error saving data
+                        }
 
-    setActiveSteps(8)
+                        setActiveSteps(8)
 
 
-}} />
-            </View>
+                    }} />
+                </View>
     );
 };
 
