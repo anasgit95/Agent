@@ -154,6 +154,8 @@ exports.getAllListNotification = async (req, res) => {
   
   try {
      const lists  =  await Notification.find({}).populate("Creator").sort({'createdAt': -1});
+    await Notification.updateMany({}, {"$set":{"vu": true}});
+
      res.send(lists);
   } catch (e) {
     console.log(e);
