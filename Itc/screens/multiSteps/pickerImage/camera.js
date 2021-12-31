@@ -9,8 +9,10 @@ import * as ImagePicker from "react-native-image-picker"
 // import ImageResizer from 'react-native-image-resizer';
 import InputView from '../../components/InputView';
 
- 
+import ImageResizer from 'react-native-image-resizer';
+
 import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import RNFS from 'react-native-fs'
 const actionSheetRefs = createRef();
 let options = {
    includeBase64: true,
@@ -75,7 +77,7 @@ const App = ({images,setImages}) => {
                 if (granted === PermissionsAndroid.RESULTS.GRANTED) {
 
 
-                  ImagePicker.launchCamera(options, response => {
+                  ImagePicker.launchCamera(options,async response => {
                     if (response.didCancel) {
                       console.log('User cancelled image picker');
                     } else if (response.error) {
@@ -87,8 +89,28 @@ const App = ({images,setImages}) => {
                       );
                     } else {
                       try {
-                        console.log(response.assets[0])
-                        save(response.assets[0].base64,response.assets[0].timestamp)
+                        const resizedImageUrl = await ImageResizer.createResizedImage(response.assets[0].uri, 400, 400, 'PNG', 80, 0, RNFS.DocumentDirectoryPath);
+                         console.log(resizedImageUrl)
+                        const base64 = await RNFS.readFile(resizedImageUrl.path, 'base64');
+                        console.log()
+                        save(base64,response.assets[0].timestamp)
+                      // ImageResizer.createResizedImage(response.assets[0].uri, 400, 400, 'PNG' , 100, 0, null)
+                      // .then(async responseResizer => {
+                      //    const base64 = await RNFS.readFile(responseResizer, 'base64');
+                      //    console.log(base64)
+                      //   // response.uri is the URI of the new image that can now be displayed, uploaded...
+                      //   // response.path is the path of the new image
+                      //   // response.name is the name of the new image with the extension
+                      //   // response.size is the size of the new image
+                      // })
+                      // .catch(err => {
+                      //   console.log(err)
+
+                      //   // Oops, something went wrong. Check that the filename is correct and
+                      //   // inspect err to get more details.
+                      // });
+
+                        // 
 
                       } catch (error) {
                         console.log(error)
@@ -160,7 +182,7 @@ const App = ({images,setImages}) => {
 
               onPress={() => {
                 try {
-                  ImagePicker.launchImageLibrary(options, response => {
+                  ImagePicker.launchImageLibrary(options,async response => {
                     if (response.didCancel) {
                       console.log('User cancelled image picker');
                     } else if (response.error) {
@@ -171,8 +193,11 @@ const App = ({images,setImages}) => {
                         response.customButton,
                       );
                     } else {
-                      save(response.assets[0].base64,response.assets[0].timestamp)
- 
+                       const resizedImageUrl = await ImageResizer.createResizedImage(response.assets[0].uri, 400, 400, 'PNG', 80, 0, RNFS.DocumentDirectoryPath);
+                      console.log(resizedImageUrl)
+                     const base64 = await RNFS.readFile(resizedImageUrl.path, 'base64');
+                     console.log()
+                     save(base64,response.assets[0].timestamp)
                     }
 
                     // Same code as in above section!
